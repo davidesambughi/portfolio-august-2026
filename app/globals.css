@@ -161,3 +161,32 @@
     @apply font-sans scroll-smooth;
   }
 }
+
+/* Homepage mobile accordion (8c-homepage-mobile-accordion.md) — Base UI's Accordion.Panel is
+   headless: it exposes --accordion-panel-height and data-starting-style/data-ending-style hooks,
+   but ships no CSS of its own, so the open/close height transition has to be authored here (per
+   Base UI's own accordion docs, checked August 2026). Scoped to .accordion-panel, not a bare
+   [data-open] selector, since other Base UI parts (Drawer, dropdown-menu) also use data-open. */
+/* Scoped below `lg` (Tailwind's own breakpoint, 64rem) — at `lg`+ each Panel is forced fully
+   visible regardless of accordion state (see each section's `lg:block lg:[content-visibility:
+   visible]` Panel className), so no height collapse/animation must apply there at all: an
+   unconditional `height: 0` on [data-starting-style] would otherwise zero out the panel even once
+   display/content-visibility are overridden for desktop. */
+@media (max-width: 63.9975rem) {
+  .accordion-panel {
+    /* Must be unconditional, not scoped to [data-open] — Base UI reads getComputedStyle's
+       transition-duration to decide whether to animate at all, at a moment before [data-open] is
+       set, so a scoped duration is invisible to that check and the panel snaps instead of
+       animating. Only the target `height` value below varies by state. */
+    transition-property: height;
+    transition-duration: 300ms;
+    transition-timing-function: ease-in-out;
+  }
+  .accordion-panel[data-starting-style],
+  .accordion-panel[data-ending-style] {
+    height: 0;
+  }
+  .accordion-panel[data-open] {
+    height: var(--accordion-panel-height);
+  }
+}

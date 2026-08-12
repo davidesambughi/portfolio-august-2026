@@ -3,6 +3,7 @@ import { EducationSection } from "@/components/education-section";
 import { ExperienceSection } from "@/components/experience-section";
 import { Footer } from "@/components/footer";
 import { Hero } from "@/components/hero";
+import { MobileAccordionShell } from "@/components/mobile-accordion-shell";
 import { Nav } from "@/components/nav";
 import { ProjectsSection } from "@/components/projects-section";
 import { SkillsSection } from "@/components/skills-section";
@@ -12,12 +13,14 @@ export default function Home() {
     <div className="flex min-h-dvh flex-col bg-background">
       <main className="flex flex-1 flex-col">
         <Hero />
-        <Nav />
-        <ProjectsSection />
-        <EducationSection />
-        <ExperienceSection />
-        <SkillsSection />
-        <AboutSection />
+        <MobileAccordionShell>
+          <Nav />
+          <ProjectsSection />
+          <EducationSection />
+          <ExperienceSection />
+          <SkillsSection />
+          <AboutSection />
+        </MobileAccordionShell>
       </main>
       <Footer />
     </div>

@@ -4,8 +4,13 @@ import { useEffect, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
 
 import { LanguageSwitcher } from "@/components/language-switcher";
+import { useMobileAccordion } from "@/components/mobile-accordion-context";
 import { Link } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
+
+// The five sections collapsible on mobile (8c-homepage-mobile-accordion.md) — "home"/"contacts"
+// are excluded from the accordion and keep their existing scroll-spy-driven behavior below.
+const ACCORDION_ANCHORS = new Set(["projects", "education", "experience", "skills", "about"]);
 
 // Section keys drive both the translated label and the target anchor id. "home" is the Hero
 // section itself — it goes bold via the same scroll-spy observer as every other item, but links
@@ -25,6 +30,9 @@ export function Nav() {
   const [open, setOpen] = useState(false);
   const [activeAnchor, setActiveAnchor] = useState<string | null>(null);
   const navRef = useRef<HTMLElement>(null);
+  // `null` on the Project Detail Page (09e reuses Nav there, but it has no accordion shell) —
+  // the five accordion anchors fall back to plain scroll behavior in that case.
+  const mobileAccordion = useMobileAccordion();
 
   // Publishes Nav's real rendered height as a CSS custom property (--nav-height) on the root
   // element, so Hero (a sibling, not a wrapping ancestor — see hero.tsx) can size itself to
@@ -92,6 +100,28 @@ export function Nav() {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+
+  // Mobile hamburger panel only, for the five accordion anchors: opens the section (never closes
+  // it — closing stays the section's own trigger's job) instead of jumping via a plain hash
+  // anchor, then scrolls to it once its expand transition has had a chance to run (a scroll fired
+  // immediately would target the old, still-collapsed layout). Falls back to plain link behavior
+  // when `mobileAccordion` is null (Nav rendered outside the homepage's accordion shell, i.e. the
+  // Project Detail Page — see 09e).
+  const handleAccordionAnchorClick =
+    (anchor: string) => (event: React.MouseEvent<HTMLAnchorElement>) => {
+      setOpen(false);
+      if (!mobileAccordion) return;
+      event.preventDefault();
+      const { openSections, setOpenSections } = mobileAccordion;
+      if (!openSections.includes(anchor)) {
+        setOpenSections([...openSections, anchor]);
+      }
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          document.getElementById(anchor)?.scrollIntoView({ behavior: "smooth", block: "start" });
+        });
+      });
+    };
 
   return (
     // Same fluid container as Hero (see ui_context.md "Layout — container e larghezza") so the
@@ -166,19 +196,27 @@ export function Nav() {
             id="mobile-nav-panel"
             className="flex flex-col gap-1 px-4 pb-4 md:hidden"
           >
-            {NAV_ITEMS.map(({ key, anchor }) => (
-              <Link
-                key={key}
-                href={key === "home" ? "/" : `/#${anchor}`}
-                onClick={() => setOpen(false)}
-                className={cn(
-                  "rounded-full px-3 py-2 text-sm transition-colors hover:bg-muted",
-                  activeAnchor === anchor ? "font-bold text-heading" : "text-body"
-                )}
-              >
-                {t(key)}
-              </Link>
-            ))}
+            {NAV_ITEMS.map(({ key, anchor }) => {
+              const isAccordionAnchor = ACCORDION_ANCHORS.has(anchor);
+              const isActive = isAccordionAnchor
+                ? (mobileAccordion?.openSections.includes(anchor) ?? false)
+                : activeAnchor === anchor;
+              return (
+                <Link
+                  key={key}
+                  href={key === "home" ? "/" : `/#${anchor}`}
+                  onClick={
+                    isAccordionAnchor ? handleAccordionAnchorClick(anchor) : () => setOpen(false)
+                  }
+                  className={cn(
+                    "rounded-full px-3 py-2 text-sm transition-colors hover:bg-muted",
+                    isActive ? "font-bold text-heading" : "text-body"
+                  )}
+                >
+                  {t(key)}
+                </Link>
+              );
+            })}
           </div>
         )}
       </div>

@@ -1,6 +1,9 @@
 import Image from "next/image";
 import { getTranslations } from "next-intl/server";
+import { Accordion } from "@base-ui/react/accordion";
+import { ChevronDown } from "lucide-react";
 
+const HEADING_CLASS = "text-[clamp(1.5rem,1rem+2vw,2.5rem)] font-bold text-heading";
 const BODY_TEXT_CLASS = "text-[clamp(0.95rem,0.4vw+0.85rem,1.125rem)] leading-relaxed text-body";
 
 // Static, non-interactive: no client component, matches Skills' pattern (see 8a-about-section.md).
@@ -14,15 +17,35 @@ export async function AboutSection() {
   const t = await getTranslations("about");
 
   return (
-    <section
-      id="about"
-      className="mx-auto w-full max-w-[1800px] px-[clamp(1.5rem,4vw,6rem)] py-[clamp(3rem,8vh,6rem)]"
+    // Collapsible on mobile (8c) — see 8c-homepage-mobile-accordion.md. Unlike the other four
+    // collapsible sections, About's desktop heading is nested one level deep (inside the 40% text
+    // column, not full-width above the row), so it can't share a single call site with the mobile
+    // trigger the way AccordionSectionHeading does elsewhere — each half is placed independently:
+    // the trigger sits above the row (visible even while collapsed), the static desktop <h2> stays
+    // exactly where it already was, inside the text column.
+    <Accordion.Item
+      value="about"
+      render={
+        <section
+          id="about"
+          className="mx-auto w-full max-w-[1800px] px-[clamp(1.5rem,4vw,6rem)] py-[clamp(3rem,8vh,6rem)]"
+        />
+      }
     >
+      <Accordion.Header render={<h2 className={`lg:hidden ${HEADING_CLASS}`} />}>
+        <Accordion.Trigger className="group flex w-full items-center justify-between gap-3 text-left transition-colors duration-200 hover:text-heading">
+          <span>{t("heading")}</span>
+          <ChevronDown
+            className="size-5 shrink-0 text-body transition-transform duration-200 group-data-[panel-open]:rotate-180"
+            aria-hidden="true"
+          />
+        </Accordion.Trigger>
+      </Accordion.Header>
+
+      <Accordion.Panel className="accordion-panel overflow-hidden lg:block lg:[content-visibility:visible]">
       <div className="flex flex-col gap-[clamp(2rem,5vw,4rem)] lg:flex-row">
         <div className="lg:w-[40%] lg:shrink-0">
-          <h2 className="text-[clamp(1.5rem,1rem+2vw,2.5rem)] font-bold text-heading">
-            {t("heading")}
-          </h2>
+          <h2 className={`hidden lg:block ${HEADING_CLASS}`}>{t("heading")}</h2>
 
           <div className="mt-[clamp(1.5rem,4vw,2.5rem)] flex flex-col gap-[clamp(1.5rem,4vw,2.5rem)]">
             <div>
@@ -91,6 +114,7 @@ export async function AboutSection() {
           </div>
         </div>
       </div>
-    </section>
+      </Accordion.Panel>
+    </Accordion.Item>
   );
 }

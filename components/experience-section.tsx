@@ -1,5 +1,7 @@
 import { getLocale, getTranslations } from "next-intl/server";
+import { Accordion } from "@base-ui/react/accordion";
 
+import { AccordionSectionHeading } from "@/components/accordion-section-heading";
 import { ExperienceTimeline } from "@/components/experience-timeline";
 import { formatDateRange } from "@/lib/format-date";
 import { getExperience } from "@/lib/content";
@@ -69,15 +71,19 @@ export async function ExperienceSection() {
 
   return (
     // Full-bleed background test (2026-08-12, matching Footer's bg-black/[0.03]) — same
-    // outer-bg/inner-max-w two-layer structure as Projects and footer.tsx.
-    <section id="experience" className="w-full bg-black/[0.03]">
+    // outer-bg/inner-max-w two-layer structure as Projects and footer.tsx. Collapsible on mobile
+    // (8c) — see 8c-homepage-mobile-accordion.md.
+    <Accordion.Item
+      value="experience"
+      render={<section id="experience" className="w-full bg-black/[0.03]" />}
+    >
       <div className="mx-auto w-full max-w-[1800px] px-[clamp(1.5rem,4vw,6rem)] py-[clamp(1.5rem,4vh,3rem)]">
-        <h2 className="text-[clamp(1.5rem,1rem+2vw,2.5rem)] font-bold text-heading">
-          {t("heading")}
-        </h2>
+        <AccordionSectionHeading title={t("heading")} />
 
-        <ExperienceTimeline desktopNodes={desktopNodes} mobileNodes={mobileNodes} />
+        <Accordion.Panel className="accordion-panel overflow-hidden lg:block lg:[content-visibility:visible]">
+          <ExperienceTimeline desktopNodes={desktopNodes} mobileNodes={mobileNodes} />
+        </Accordion.Panel>
       </div>
-    </section>
+    </Accordion.Item>
   );
 }

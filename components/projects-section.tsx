@@ -1,6 +1,8 @@
 import Image from "next/image";
 import { getLocale, getTranslations } from "next-intl/server";
+import { Accordion } from "@base-ui/react/accordion";
 
+import { AccordionSectionHeading } from "@/components/accordion-section-heading";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Link } from "@/i18n/navigation";
@@ -28,28 +30,35 @@ export async function ProjectsSection() {
   return (
     // Full-bleed background test (2026-08-12, matching Footer's bg-black/[0.03]) — outer <section>
     // carries the edge-to-edge bg, inner div keeps the usual max-w-[1800px] content container.
-    // Same two-layer structure as footer.tsx.
-    <section id="projects" className="w-full bg-black/[0.03]">
+    // Same two-layer structure as footer.tsx. Collapsible on mobile (8c) — see
+    // 8c-homepage-mobile-accordion.md.
+    <Accordion.Item
+      value="projects"
+      render={<section id="projects" className="w-full bg-black/[0.03]" />}
+    >
       <div className="mx-auto w-full max-w-[1800px] px-[clamp(1.5rem,4vw,6rem)] pt-[clamp(3rem,8vh,6rem)] pb-[clamp(1.5rem,4vh,3rem)]">
         <div className="mx-auto max-w-2xl text-center">
-          <h2 className="text-[clamp(1.5rem,1rem+2vw,2.5rem)] font-bold text-heading">
-            {t("heading")}
-          </h2>
-          <p className="mt-3 text-[clamp(0.95rem,0.4vw+0.85rem,1.125rem)] text-body">
-            {t("subheading")}
-          </p>
+          <AccordionSectionHeading title={t("heading")} />
         </div>
 
-        <div className="mt-[clamp(2rem,5vh,3.5rem)] grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {projects.map((project) => (
-            <ProjectCard key={project.slug} project={project} />
-          ))}
-          {Array.from({ length: fillerCount }).map((_, index) => (
-            <ComingSoonCard key={index} label={t("comingSoon")} />
-          ))}
-        </div>
+        <Accordion.Panel className="accordion-panel overflow-hidden lg:block lg:[content-visibility:visible]">
+          <div className="mx-auto max-w-2xl text-center">
+            <p className="mt-3 text-[clamp(0.95rem,0.4vw+0.85rem,1.125rem)] text-body">
+              {t("subheading")}
+            </p>
+          </div>
+
+          <div className="mt-[clamp(2rem,5vh,3.5rem)] grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {projects.map((project) => (
+              <ProjectCard key={project.slug} project={project} />
+            ))}
+            {Array.from({ length: fillerCount }).map((_, index) => (
+              <ComingSoonCard key={index} label={t("comingSoon")} />
+            ))}
+          </div>
+        </Accordion.Panel>
       </div>
-    </section>
+    </Accordion.Item>
   );
 }
 
