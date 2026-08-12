@@ -31,7 +31,7 @@ export function CertificatesList({ certificates }: { certificates: Certificate[]
             <button
               type="button"
               onClick={() => setOpenId(certificate.id)}
-              className="flex w-full cursor-zoom-in items-center gap-[clamp(0.5rem,1.5vw,0.75rem)] rounded-lg transition-transform duration-200 hover:scale-[1.02] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50"
+              className="flex w-full min-w-0 cursor-zoom-in items-center gap-[clamp(0.5rem,1.5vw,0.75rem)] rounded-lg transition-transform duration-200 hover:scale-[1.02] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50"
               aria-label={certificate.label}
             >
               <Image
@@ -41,7 +41,15 @@ export function CertificatesList({ certificates }: { certificates: Certificate[]
                 height={48}
                 className="h-[clamp(1.75rem,4vw,2.5rem)] w-auto shrink-0 rounded-md object-contain"
               />
-              <span className="whitespace-nowrap text-sm font-medium text-body">
+              {/* truncate (not whitespace-nowrap alone): long labels (e.g. the UML certificate's
+                  full title) were forcing this flex item past its container's width on narrow
+                  mobile viewports — since no ancestor clips overflow, that pushed the whole
+                  document wider than the real device width, which is what caused the mobile-only
+                  horizontal scroll/white-gutter bug (and, per MDN, can also throw off
+                  position: sticky elsewhere on the page). min-w-0 above lets this flex item
+                  actually shrink; truncate then ellipsizes instead of forcing width. Full text
+                  stays available via aria-label and by opening the lightbox. */}
+              <span className="truncate text-sm font-medium text-body">
                 {certificate.label}
               </span>
             </button>
