@@ -1,0 +1,72 @@
+{
+  "nav": {
+    "home": "Home",
+    "projects": "Progetti",
+    "education": "Formazione",
+    "experience": "Esperienza",
+    "techStack": "Skills",
+    "about": "Chi sono",
+    "contacts": "Contatti",
+    "menuToggle": "Apri/chiudi menu",
+    "languageLabel": "Cambia lingua"
+  },
+  "hero": {
+    "badge": "AI Native",
+    "name": "Davide Sambughi",
+    "role": "Full Stack Developer",
+    "body": "Attraverso una metodologia Specification-Driven,<br></br>integro le fasi del Software Development Life Cycle con l'orchestrazione di agentic AI per sviluppare software in modo sistematico e preciso."
+  },
+  "projects": {
+    "heading": "Progetti",
+    "subheading": "Una selezione di cose che ho costruito, altre in arrivo.",
+    "comingSoon": "In arrivo"
+  },
+  "education": {
+    "heading": "Formazione",
+    "subheading": "Il mio percorso accademico e le certificazioni.",
+    "present": "Presente"
+  },
+  "experience": {
+    "heading": "Esperienza",
+    "present": "Presente",
+    "futureTitle": "Futuro",
+    "futureSubtitle": "Cosa succederà"
+  },
+  "skills": {
+    "heading": "Skills",
+    "technologiesLabel": "Tecnologie",
+    "approachLabel": "Approccio",
+    "certificatesLabel": "Certificazioni"
+  },
+  "about": {
+    "heading": "Chi sono",
+    "photoAlt": "Collage di foto personali: viaggi, surf, il Cammino di Santiago e lavoro",
+    "section1": {
+      "title": "L'architettura dietro le mie scelte",
+      "body": "Il mio percorso non è stato lineare, e oggi considero questa la mia risorsa più preziosa. Ho costruito la mia esperienza vivendo in contesti radicalmente diversi — dall'Australia all'Asia a diverse realtà europee — affrontando settori che vanno dall'amministrazione all'ospitalità, fino allo sviluppo software. Questo approccio \"sul campo\" mi ha permesso di sviluppare una naturale attitudine proattiva, una solida responsabilità verso gli obiettivi e la capacità di integrarmi con successo in team multiculturali."
+    },
+    "section2": {
+      "title": "Oltre il codice: curiosità e strategia",
+      "body": "Ho trovato nella programmazione la mia passione più grande, perché incarna perfettamente la mia forma mentis. Amo ricercare, testare nuove tecnologie e approcciare ogni progetto come una sfida che unisce divertimento e rigore professionale.",
+      "leadIn": "Quando non sono davanti al terminale, cerco sfide che richiedono la stessa disciplina:",
+      "bullet1": "Il Trekking, la Corsa e il Nuoto: mi insegnano la pazienza, l'impegno e il rispetto per i tempi necessari a raggiungere un obiettivo.",
+      "bullet2": "La natura, gli scacchi e la musica rappresentano il mio rifugio offline: momenti di pura decompressione per ricaricare la mente e allontanarmi dal mondo digitale."
+    },
+    "section3": {
+      "title": "Il mio approccio",
+      "body": "Non vedo la scrittura di software come un semplice compito lavorativo, ma come un processo continuo di apprendimento. Che si tratti di definire una logica complessa o di ottimizzare un'interfaccia, porto con me lo stesso sguardo curioso di quando esploro un posto nuovo o studio una partita a scacchi. Sono qui per costruire soluzioni che funzionano, con la concretezza di chi sa cosa significa \"fare\" e la passione di chi non smetterebbe mai di imparare."
+    }
+  },
+  "contacts": {
+    "followMe": "Seguimi"
+  },
+  "projectDetail": {
+    "viewOnGithub": "Vedi su GitHub",
+    "subheadline": "Costruito con un workflow spec-driven, dall'architettura al deploy."
+  },
+  "toc": {
+    "inThisGuide": "In questa guida",
+    "backToTop": "Torna su",
+    "close": "Chiudi"
+  }
+}

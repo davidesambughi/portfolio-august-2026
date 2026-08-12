@@ -1,0 +1,84 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - banner [ref=e3]:
+      - heading "RemoteNIF" [level=1] [ref=e4]
+      - paragraph [ref=e5]: Next.js · Supabase · Drizzle ORM · Stripe · Resend · Next-Intl · Zod · Groq · Claude Code · Spec-Driven Development · SEO & GEO opt.
+    - generic [ref=e6]:
+      - generic [ref=e7]:
+        - img "RemoteNIF" [ref=e9]
+        - paragraph [ref=e10]: RemoteNIF è un'applicazione web full-stack, ottimizzata SEO/GEO (search e generative engine optimization) disponibile in 4 lingue (Inglese, Spagnolo, Francese e Tedesco).
+      - generic [ref=e11]:
+        - paragraph [ref=e12]: Il NIF (Número de Identificação Fiscal) è l'equivalente portoghese del codice fiscale italiano. È un codice rilasciato dall'Autorità Tributaria portoghese (Autoridade Tributária e Aduaneira, nota come Finanças), che identifica univocamente persone fisiche e giuridiche. È necessario per iniziare un'attività lavorativa, aprire un conto corrente bancario, acquistare o affittare un immobile, e rappresenta di fatto il primo scoglio burocratico per qualsiasi percorso di trasferimento o investimento in Portogallo.
+        - paragraph [ref=e13]: Per i non residenti, ottenerlo richiede di delegare il processo a un rappresentante legale tramite una Procura, e sebbene la procedura possa essere completata interamente da remoto, le soluzioni presenti sul mercato risultano spesso caratterizzate da frammentazione nelle comunicazioni, opacità nei costi e assenza di tracciamento in tempo reale della pratica.
+        - generic [ref=e15]:
+          - generic [ref=e22]:
+            - text: Ruoli —
+            - paragraph [ref=e23]: Testo segnaposto — tre ruoli con breve descrizione ciascuno, da sostituire con il contenuto reale.
+          - generic [ref=e29]:
+            - text: Stati macchina —
+            - paragraph [ref=e30]: Testo segnaposto — stati macchina finita per ordine e stati documento (disaccoppiato), da sostituire con il contenuto reale.
+          - generic [ref=e37]:
+            - text: 3 dashboard —
+            - paragraph [ref=e38]: Testo segnaposto — breve elenco delle 3 dashboard, da sostituire con il contenuto reale.
+        - generic [ref=e39]:
+          - generic [ref=e40]:
+            - generic [ref=e41]:
+              - img "Dashboard cliente su desktop (screenshot segnaposto)" [ref=e43]
+              - img "Dashboard amministratore su mobile (screenshot segnaposto)" [ref=e45]
+            - img "Dashboard operatore su desktop (screenshot segnaposto)" [ref=e48]
+            - paragraph [ref=e49]: Le dashboard cliente, amministratore e operatore (screenshot segnaposto).
+          - generic [ref=e50]:
+            - heading "Il percorso utente in 10 passaggi" [level=2] [ref=e51]
+            - list [ref=e52]:
+              - listitem [ref=e53]:
+                - strong [ref=e54]: Visita marketing
+                - text: ": L'utente accede alla homepage pubblica ed esplora il servizio."
+              - listitem [ref=e55]:
+                - strong [ref=e56]: Selezione tier
+                - text: ": Sceglie una delle tre fasce di prezzo in base all'urgenza della pratica."
+              - listitem [ref=e57]:
+                - strong [ref=e58]: Creazione account
+                - text: ": Registra le credenziali (email e password). Il sistema invia un'email di verifica tramite Resend; il click sul link è obbligatorio prima del pagamento per garantire che l'email di recapito sia attiva e valida."
+              - listitem [ref=e59]:
+                - strong [ref=e60]: Checkout e Pagamento
+                - text: ": Il cliente viene reindirizzato alla sessione ospitata di Stripe Checkout. Completata la transazione, Stripe notifica il server asincronamente; l'ordine viene creato in stato documents_pending e il client torna alla dashboard."
+              - listitem [ref=e61]:
+                - strong [ref=e62]: Generazione Procura
+                - text: ": Il cliente inserisce i dati personali (nome, indirizzo estero) e scarica la Procura generata automaticamente in formato PDF."
+              - listitem [ref=e63]:
+                - strong [ref=e64]: Firma e Upload
+                - text: ": Il cliente firma la Procura stampata o digitalmente e carica nella dashboard i tre documenti richiesti: passaporto, prova di residenza all'estero e la Procura firmata."
+              - listitem [ref=e65]:
+                - strong [ref=e66]: Analisi AI Preliminare
+                - text: ": Per ogni file caricato, il backend invia un prompt e il file a Groq (Llama 4 Scout) per estrarre dati e verificare la leggibilità del documento. L'analisi restituisce tre esiti possibili: Clear (documento approvato dall'AI), Flagged (il file ha problemi di leggibilità o congruenza dati), o Error (escalation automatica ad admin)."
+              - listitem [ref=e67]:
+                - strong [ref=e68]: Approvazione Admin
+                - text: ": L'amministratore controlla i file validati dall'AI e preme \"Approva\". L'ordine passa nello stato documents_approved, attivando il timer SLA per i piani Express e inserendo l'ordine nella coda dell'operatore."
+              - listitem [ref=e69]:
+                - strong [ref=e70]: Sottomissione Operatore
+                - text: ": L'operatore scarica il pacchetto ZIP contenente tutta la documentazione, la sottomette a e-balcão (il portale di Finanças portoghese) e contrassegna la pratica come submitted."
+              - listitem [ref=e71]:
+                - strong [ref=e72]: Consegna NIF
+                - text: ": Una volta emesso il certificato NIF, l'amministratore inserisce il codice a 9 cifre e carica il PDF finale. Il sistema invia un'email automatica di notifica, imposta l'ordine a delivered e mostra in modo permanente il NIF sulla dashboard del cliente."
+        - generic [ref=e73]:
+          - img "Diagramma di flusso dell'happy path (segnaposto)" [ref=e75]
+          - paragraph [ref=e76]: Diagramma di flusso dell'happy path — segnaposto, da sostituire con il diagramma reale.
+        - generic [ref=e77]:
+          - generic [ref=e78]:
+            - heading "Il Processo" [level=2] [ref=e79]
+            - paragraph [ref=e80]:
+              - strong [ref=e81]: "Obiettivo:"
+              - text: applicare le classiche fasi del SDLC e integrare nello sviluppo l'intelligenza artificiale in maniera ingegneristica e sistematica, attraverso lo spec-driven development e il context engineering.
+            - paragraph [ref=e82]:
+              - strong [ref=e83]: "Risultato:"
+              - text: il sistema context/ — una directory localizzata alla radice del progetto contenente 10 documenti in formato Markdown. Questo sistema rappresenta la "memoria a lungo termine" e la fonte della verità dell'applicazione, letta obbligatoriamente dall'agente all'inizio di ogni sessione.
+          - generic [ref=e84]:
+            - img "La cartella context/ alla radice del progetto e i file Markdown al suo interno (screenshot segnaposto)" [ref=e86]
+            - paragraph [ref=e87]: La cartella context/ e i suoi file (screenshot segnaposto).
+        - generic [ref=e88]:
+          - img "Diagramma del processo di sviluppo (segnaposto)" [ref=e90]
+          - paragraph [ref=e91]: Diagramma del processo di sviluppo — segnaposto, da sostituire con il diagramma reale.
+    - link "Torna alla homepage" [ref=e93] [cursor=pointer]:
+      - /url: /it
+  - button "Open Next.js Dev Tools" [ref=e99] [cursor=pointer]
+  - alert [ref=e103]

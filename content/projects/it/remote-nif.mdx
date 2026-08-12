@@ -1,0 +1,163 @@
+---
+title: "RemoteNIF"
+summary: "RemoteNIF è un'applicazione web full-stack, ottimizzata SEO/GEO (search e generative engine optimization) disponibile in 4 lingue (Inglese, Spagnolo, Francese e Tedesco)."
+badgeLabel: "Apr - 2026"
+techStack: ["Next.js", "Supabase", "Drizzle ORM", "Stripe", "Resend", "next-intl", "Zod", "Groq"]
+subtitleTags: ["Next.js", "Supabase", "Drizzle ORM", "Stripe", "Resend", "Next-Intl", "Zod", "Groq", "Claude Code", "SEO & GEO opt."]
+coverImage: "/images/hero-pc-image.png"
+accentColor: "blue"
+githubUrl: "https://github.com/davidesambughi/remoteNif-Context-Driven-Development"
+---
+
+Il NIF (Número de Identificação Fiscal) è l'equivalente portoghese del codice fiscale italiano. È un codice rilasciato dall'Autorità Tributaria portoghese (Autoridade Tributária e Aduaneira, nota come Finanças), che identifica univocamente persone fisiche e giuridiche. È necessario per iniziare un'attività lavorativa, aprire un conto corrente bancario, acquistare o affittare un immobile, e rappresenta di fatto il primo scoglio burocratico per qualsiasi percorso di trasferimento o investimento in Portogallo.
+
+Per i non residenti, ottenerlo richiede di delegare il processo a un rappresentante legale tramite una Procura, e sebbene la procedura possa essere completata interamente da remoto, le soluzioni presenti sul mercato risultano spesso caratterizzate da frammentazione nelle comunicazioni, opacità nei costi e assenza di tracciamento in tempo reale della pratica.
+
+**RemoteNif** digitalizza l'ottenimento del NIF portoghese per i non residenti.
+
+<TechTags />
+
+<Callout>
+<CalloutItem icon="users" label="Ruoli">
+User richiede il servizio, paga e carica i documenti; Admin verifica i documenti (dopo pre-analisi AI) e inoltra la pratica; Operatore (rappresentante fiscale portoghese) gestisce l'invio a Finanças.
+</CalloutItem>
+<CalloutItem icon="workflow" label="Stati macchina">
+documents_pending → documents_under_review → documents_approved → submitted → delivered — ogni documento ha un ciclo di vita proprio, disaccoppiato dallo stato dell'ordine.
+</CalloutItem>
+<CalloutItem icon="globe" label="EN · ES · FR · DE">
+Piattaforma multilingua per coprire i principali mercati di provenienza dei richiedenti NIF.
+</CalloutItem>
+</Callout>
+
+<div className="mt-[clamp(2.5rem,5vw,4rem)] text-left">
+
+<h2 id="end-to-end-flow">Il flusso end-to-end</h2>
+
+1. **Visita marketing**: L'utente accede alla homepage pubblica ed esplora il servizio.
+2. **Selezione tier**: Sceglie una delle tre fasce di prezzo in base all'urgenza della pratica.
+3. **Creazione account**: Registra le credenziali (email e password). Il sistema invia un'email di verifica tramite Resend; il click sul link è obbligatorio prima del pagamento per garantire che l'email di recapito sia attiva e valida.
+4. **Checkout e Pagamento**: Il cliente viene reindirizzato alla sessione ospitata di Stripe Checkout. Completata la transazione, Stripe notifica il server asincronamente; l'ordine viene creato in stato documents_pending e il client torna alla dashboard.
+5. **Generazione Procura**: Il cliente inserisce i dati personali (nome, indirizzo estero) e scarica la Procura generata automaticamente in formato PDF.
+6. **Firma e Upload**: Il cliente firma la Procura stampata o digitalmente e carica nella dashboard i tre documenti richiesti: passaporto, prova di residenza all'estero e la Procura firmata.
+7. **Analisi AI Preliminare**: Per ogni file caricato, il backend invia un prompt e il file a Groq (Llama 4 Scout) per estrarre dati e verificare la leggibilità del documento. L'analisi restituisce tre esiti possibili: Clear (documento approvato dall'AI), Flagged (il file ha problemi di leggibilità o congruenza dati), o Error (escalation automatica ad admin).
+8. **Approvazione Admin**: L'amministratore controlla i file validati dall'AI e preme "Approva". L'ordine passa nello stato documents_approved, attivando il timer SLA per i piani Express e inserendo l'ordine nella coda dell'operatore.
+9. **Sottomissione Operatore**: L'operatore scarica il pacchetto ZIP contenente tutta la documentazione, la sottomette a e-balcão (il portale di Finanças portoghese) e contrassegna la pratica come submitted.
+10. **Consegna NIF**: Una volta emesso il certificato NIF, l'amministratore inserisce il codice a 9 cifre e carica il PDF finale. Il sistema invia un'email automatica di notifica, imposta l'ordine a delivered e mostra in modo permanente il NIF sulla dashboard del cliente.
+
+</div>
+
+<SectionImage
+src="/images/END-TO-END.png"
+alt="Diagramma di flusso end-to-end dell'ordine per ruolo, con gli stati del documento a parte"
+caption="Flusso end-to-end dell'ordine per ruolo (Cliente, AI, Admin, Operatore); a parte, gli stati del documento — disaccoppiati dallo stato dell'ordine."
+aspectClassName="aspect-[3348/2080]"
+widthClassName="w-full lg:w-[75%] mx-auto mt-[clamp(2.5rem,5vw,4rem)]"
+lightbox={true}
+/>
+
+<div className="mt-[clamp(2.5rem,5vw,4rem)]">
+
+<SectionImage
+src="/images/architettura-inglese-remotenif.png"
+alt="Diagramma dell'architettura di RemoteNIF: browser client, Next.js App Router runtime (proxy, Server Components, Server Actions, Route Handlers, layer lib/ di business logic), infrastruttura Supabase Cloud e servizi esterni"
+aspectClassName="aspect-[1540/1371]"
+widthClassName="mb-[clamp(1rem,2vw,1.5rem)] lg:float-left lg:mr-[clamp(1.5rem,3vw,2.5rem)] lg:w-[36%]"
+lightbox={true}
+frame={false}
+/>
+
+<h2 id="architecture" className="text-left">Architettura</h2>
+
+RemoteNIF è costruito su un'architettura full-stack a 5 layer, interamente su Next.js 16 (App Router), senza un backend separato.
+
+**Proxy** — Ogni richiesta del browser passa prima da `proxy.ts`: verifica la sessione JWT di Supabase, la rinnova chiamando Supabase Auth a ogni richiesta (refresh token) e gestisce il routing multilingua (4 lingue). È l'unico punto di ingresso per la navigazione — per questo dialoga direttamente con Supabase Auth, non si limita a leggere un cookie.
+
+**Server Components** — Leggono i dati direttamente dal database tramite Drizzle ORM e restituiscono HTML già renderizzato lato server. Nessuna chiamata client per il fetch dei dati.
+
+**Server Actions** — Gestiscono tutte le mutazioni: upload documenti, pagamenti, impostazioni utente. Invocate direttamente dai componenti React, senza passare da endpoint API pubblici — meno superficie d'attacco.
+
+**Route Handlers** — Riservati esclusivamente a eventi da sistemi esterni: webhook di Stripe e cron job. Non gestiscono mai richieste dirette dal browser (con un'unica eccezione documentata: il download ZIP, che richiede uno stream binario che le Server Actions non possono restituire).
+
+**Layer `lib/`** — Il centro architetturale: business logic condivisa (query database, invio email, review AI, generazione PDF) richiamata sia dalle Server Actions sia dai Route Handlers. Server Components e Server Actions non contengono mai logica di business diretta: delegano tutto qui.
+
+A completare il sistema, tre servizi esterni con ruoli distinti: **Supabase** (autenticazione JWT, database PostgreSQL, storage file — tre servizi separati, non un blocco unico), **Stripe** per i pagamenti, **Resend** per le email transazionali, **Groq** (Llama 4 Scout) per la verifica automatica dei documenti caricati.
+
+Due meccanismi meritano una menzione a parte perché escono dal flusso standard: l'**upload documenti** avviene con collegamento diretto a Supabase Storage tramite signed URL — il file non transita mai per il server Next.js, evitando di saturarne la memoria; il **webhook Stripe** è invece un flusso invertito, in cui è Stripe a notificare attivamente l'esito del pagamento, con firma HMAC verificata lato server per garantirne l'autenticità.
+
+</div>
+
+<div className="clear-both flex flex-col lg:flex-row lg:items-stretch gap-[clamp(1.5rem,3vw,2.5rem)] mt-[clamp(2.5rem,5vw,4rem)]">
+
+<div className="w-full lg:w-[46%]">
+
+<h2 id="the-process" className="text-left">Il Processo</h2>
+
+**Obiettivo:** applicare le classiche fasi del SDLC e integrare nello sviluppo l'intelligenza artificiale in maniera ingegneristica e sistematica, attraverso lo spec-driven development e il context engineering.
+
+**Risultato:** il sistema context/ — una directory localizzata alla radice del progetto contenente 10 documenti in formato Markdown. Questo sistema rappresenta la "memoria a lungo termine" e la fonte della verità dell'applicazione, letta obbligatoriamente dall'agente all'inizio di ogni sessione.
+
+</div>
+
+<SectionImage
+src="/images/cartella-context-remotenif.png"
+alt="La cartella context/ alla radice del progetto e i file Markdown al suo interno"
+caption="La cartella context/ e i suoi file."
+aspectClassName="aspect-[16/9]"
+widthClassName="lg:w-[38%]"
+lightbox={true}
+fillHeight={true}
+frame={false}
+/>
+
+</div>
+
+<div className="w-full text-left mt-[clamp(2.5rem,5vw,4rem)] [&_li>strong:first-child]:text-accent-teal">
+
+**Il workflow, passo per passo**
+
+1. **Lettura del contesto**: l'agente **legge i file di contesto** nell'ordine definito in AGENTS.md.
+2. **Scrittura della specifica**: **utilizzando un template (00-template.md), l'agente redige la specifica della feature** (es. feature-specs/04-auth.md). La specifica include una sintesi dell'outcome in una frase, i vincoli tecnologici, i passi di implementazione numerati, i limiti di scope e gli elementi esclusi, e infine i criteri di verifica (Check When Done).
+3. **Implementazione**: **l'agente scrive il codice attenendosi rigorosamente alla specifica**, senza allargare lo scope della feature.
+4. **Test**: viene eseguita la **suite di test locale** per validare la correttezza del modulo scritto.
+5. **Aggiornamento del Progress Tracker**: l'agente scrive nel tracker il risultato della sessione (test superati, file modificati).
+6. **Branch e CI/CD**: le modifiche vengono **pubblicate su GitHub su un branch dedicato, attivando i test automatici** della pipeline prima del merge nel branch main.
+7. **Chiusura della sessione**: lo stato viene consolidato e reso disponibile per il ciclo successivo.
+
+</div>
+
+<FlowDiagram
+src="/images/remotenif-processo-inglese-soloicone.png"
+alt="Diagramma del processo di sviluppo: Context, Specifications, Code, Test, Tracking, CI/CD, Closure"
+caption="Il processo di sviluppo in 7 fasi: Context, Specifications, Code, Test, Tracking, CI/CD, Closure."
+aspectClassName="aspect-[1871/307]"
+widthClassName="w-full lg:w-[70%]"
+/>
+
+<h2 id="stripe-case-study" className="text-left">Stripe – Case Study</h2>
+
+<div className="flex flex-col lg:flex-row lg:items-start gap-[clamp(1.5rem,3vw,2.5rem)] mt-[clamp(1rem,2vw,1.5rem)]">
+
+<div className="w-full lg:w-[32%]">
+
+**Due canali paralleli.** Al pagamento, Stripe esegue due canali paralleli e indipendenti: reindirizza il browser alla dashboard e invia un webhook al server — senza garanzia sull'ordine di arrivo. Il webhook è l'unica conferma autentica, verificata via firma HMAC e protetta da doppio controllo di idempotenza (applicativo + vincolo UNIQUE a database) contro ordini duplicati. Nel frattempo un client component interroga il server ogni 2.5s finché l'ordine non appare, evitando una dashboard vuota.
+
+<LegendBox>
+**Legenda**<br />
+**par** — blocchi paralleli, indipendenti<br />
+**loop** — si ripete (poll ogni 2.5s)<br />
+**alt** — scelta tra due rami (if/else)
+</LegendBox>
+
+</div>
+
+<SectionImage
+src="/images/stripe-mermaid-inglese2.png"
+alt="Diagramma di flusso dell'integrazione Stripe (versione inglese, in attesa della traduzione italiana)"
+caption="Fig. 5 — Flusso Stripe Checkout: redirect browser e webhook su canali paralleli, sincronizzati da un polling lato client."
+aspectClassName="aspect-[19/10]"
+widthClassName="lg:flex-1"
+lightbox={true}
+frame={false}
+/>
+
+</div>

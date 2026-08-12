@@ -1,0 +1,72 @@
+{
+  "nav": {
+    "home": "Home",
+    "projects": "Projects",
+    "education": "Education",
+    "experience": "Experience",
+    "techStack": "Skills",
+    "about": "About",
+    "contacts": "Contacts",
+    "menuToggle": "Toggle menu",
+    "languageLabel": "Change language"
+  },
+  "hero": {
+    "badge": "AI Native",
+    "name": "Davide Sambughi",
+    "role": "Full Stack Developer",
+    "body": "Through a Specification-Driven methodology,<br></br>I combine the Software Development Life Cycle with Agentic AI orchestration to build software through a systematic and precise engineering process."
+  },
+  "projects": {
+    "heading": "Projects",
+    "subheading": "A selection of things I've built, with more on the way.",
+    "comingSoon": "Coming soon"
+  },
+  "education": {
+    "heading": "Education",
+    "subheading": "My academic background and certifications.",
+    "present": "Present"
+  },
+  "experience": {
+    "heading": "Experience",
+    "present": "Present",
+    "futureTitle": "Future",
+    "futureSubtitle": "What's next"
+  },
+  "skills": {
+    "heading": "Skills",
+    "technologiesLabel": "Technologies",
+    "approachLabel": "Approach",
+    "certificatesLabel": "Certificates"
+  },
+  "about": {
+    "heading": "About Me",
+    "photoAlt": "Collage of personal photos: travel, surfing, hiking the Camino de Santiago, and working",
+    "section1": {
+      "title": "The Architecture Behind My Choices",
+      "body": "My path hasn't been a linear one, and today I consider that to be my most valuable asset. I've built my experience by living in radically different environments — from Australia to Asia and various parts of Europe — and working across fields ranging from administration and hospitality to software development. This hands-on approach has helped me develop a naturally proactive mindset, a strong sense of responsibility towards my goals, and the ability to successfully integrate into multicultural teams."
+    },
+    "section2": {
+      "title": "Beyond Code: Curiosity and Strategy",
+      "body": "I've found my greatest passion in programming because it perfectly reflects the way I think. I enjoy researching, experimenting with new technologies, and approaching every project as a challenge that combines enjoyment with professional rigor.",
+      "leadIn": "When I'm not in front of a terminal, I look for challenges that require the same discipline:",
+      "bullet1": "Hiking, running, and swimming: they teach me patience, commitment, and respect for the time it takes to achieve a goal.",
+      "bullet2": "Nature, chess, and music are my offline refuge: moments of pure decompression that help me recharge my mind and step away from the digital world."
+    },
+    "section3": {
+      "title": "My Approach",
+      "body": "I don't see software development as simply a job, but as a continuous learning process. Whether I'm designing complex logic or optimizing an interface, I bring the same curious mindset I have when exploring a new place or studying a game of chess. I'm here to build solutions that work, with the pragmatism of someone who knows what it means to get things done and the passion of someone who never wants to stop learning."
+    }
+  },
+  "contacts": {
+    "followMe": "Follow Me"
+  },
+  "projectDetail": {
+    "viewOnGithub": "View on GitHub",
+    "subheadline": "Built with a spec-driven workflow, from architecture to deploy."
+  },
+  "toc": {
+    "inThisGuide": "In this guide",
+    "backToTop": "Back to top",
+    "close": "Close"
+  }
+}

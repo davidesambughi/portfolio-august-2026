@@ -1,0 +1,163 @@
+---
+title: "RemoteNIF"
+summary: "RemoteNIF is a full-stack web application, optimized for SEO/GEO (search and generative engine optimization), available in 4 languages (English, Spanish, French and German)."
+badgeLabel: "Apr - 2026"
+techStack: ["Next.js", "Supabase", "Drizzle ORM", "Stripe", "Resend", "next-intl", "Zod", "Groq"]
+subtitleTags: ["Next.js", "Supabase", "Drizzle ORM", "Stripe", "Resend", "Next-Intl", "Zod", "Groq", "Claude Code", "SEO & GEO opt."]
+coverImage: "/images/hero-pc-image.png"
+accentColor: "blue"
+githubUrl: "https://github.com/davidesambughi/remoteNif-Context-Driven-Development"
+---
+
+The NIF (Número de Identificação Fiscal) is the Portuguese equivalent of the Italian tax code. It's a number issued by the Portuguese Tax Authority (Autoridade Tributária e Aduaneira, known as Finanças), that uniquely identifies individuals and legal entities. It's required to start working, open a bank account, buy or rent property, and is effectively the first bureaucratic hurdle for any relocation or investment path in Portugal.
+
+For non-residents, obtaining it requires delegating the process to a legal representative via a power of attorney, and although the procedure can be completed entirely remotely, the solutions currently on the market are often characterized by fragmented communication, unclear costs, and no real-time tracking of the request.
+
+**RemoteNif** digitizes obtaining the Portuguese NIF for non-residents.
+
+<TechTags />
+
+<Callout>
+<CalloutItem icon="users" label="Roles">
+User requests the service, pays, and uploads documents; Admin reviews documents (after AI pre-analysis) and forwards the case; Operator (Portuguese tax representative) handles submission to Finanças.
+</CalloutItem>
+<CalloutItem icon="workflow" label="Order state machine">
+documents_pending → documents_under_review → documents_approved → submitted → delivered — each document has its own lifecycle, decoupled from the order status.
+</CalloutItem>
+<CalloutItem icon="globe" label="EN · ES · FR · DE">
+Multilingual platform covering the main markets NIF applicants come from.
+</CalloutItem>
+</Callout>
+
+<div className="mt-[clamp(2.5rem,5vw,4rem)] text-left">
+
+<h2 id="end-to-end-flow">The end-to-end flow</h2>
+
+1. **Marketing visit**: The user lands on the public homepage and explores the service.
+2. **Tier selection**: They choose one of the three pricing tiers based on how urgent their case is.
+3. **Account creation**: They register their credentials (email and password). The system sends a verification email via Resend; clicking the link is mandatory before payment, to make sure the delivery email address is active and valid.
+4. **Checkout & Payment**: The customer is redirected to a hosted Stripe Checkout session. Once the transaction completes, Stripe notifies the server asynchronously; the order is created in the documents_pending state and the client returns to the dashboard.
+5. **Power of Attorney generation**: The customer enters their personal details (name, foreign address) and downloads the automatically generated Power of Attorney as a PDF.
+6. **Signature & Upload**: The customer signs the Power of Attorney (printed or digitally) and uploads the three required documents to the dashboard: passport, proof of residence abroad, and the signed Power of Attorney.
+7. **Preliminary AI analysis**: For each uploaded file, the backend sends a prompt and the file to Groq (Llama 4 Scout) to extract data and check the document's legibility. The analysis returns one of three outcomes: Clear (approved by the AI), Flagged (the file has legibility or data-consistency issues), or Error (automatic escalation to an admin).
+8. **Admin approval**: The admin reviews the AI-validated files and clicks "Approve". The order moves to the documents_approved state, starting the SLA timer for Express plans and adding the order to the operator's queue.
+9. **Operator submission**: The operator downloads the ZIP package containing all the documentation, submits it to e-balcão (the Portuguese Finanças portal), and marks the case as submitted.
+10. **NIF delivery**: Once the NIF certificate is issued, the admin enters the 9-digit code and uploads the final PDF. The system sends an automatic notification email, sets the order to delivered, and permanently displays the NIF on the customer's dashboard.
+
+</div>
+
+<SectionImage
+src="/images/END-TO-END.png"
+alt="End-to-end order flow diagram by role, with document states shown separately"
+caption="End-to-end order flow by role (Customer, AI, Admin, Operator); on the side, document states — decoupled from order status."
+aspectClassName="aspect-[3348/2080]"
+widthClassName="w-full lg:w-[75%] mx-auto mt-[clamp(2.5rem,5vw,4rem)]"
+lightbox={true}
+/>
+
+<div className="mt-[clamp(2.5rem,5vw,4rem)]">
+
+<SectionImage
+src="/images/architettura-inglese-remotenif.png"
+alt="RemoteNIF architecture diagram: browser client, Next.js App Router runtime (proxy, Server Components, Server Actions, Route Handlers, lib/ business logic layer), Supabase Cloud infrastructure, and external services"
+aspectClassName="aspect-[1540/1371]"
+widthClassName="mb-[clamp(1rem,2vw,1.5rem)] lg:float-left lg:mr-[clamp(1.5rem,3vw,2.5rem)] lg:w-[36%]"
+lightbox={true}
+frame={false}
+/>
+
+<h2 id="architecture" className="text-left">Architecture</h2>
+
+RemoteNIF is built on a full-stack, 5-layer architecture, entirely on Next.js 16 (App Router), with no separate backend.
+
+**Proxy** — Every browser request first passes through `proxy.ts`: it verifies the Supabase JWT session, renews it by calling Supabase Auth on every request (refresh token), and handles multilingual routing (4 languages). It's the single entry point for navigation — which is why it talks directly to Supabase Auth, rather than just reading a cookie.
+
+**Server Components** — Read data directly from the database via Drizzle ORM and return HTML already rendered server-side. No client-side data-fetching calls.
+
+**Server Actions** — Handle all mutations: document uploads, payments, user settings. Invoked directly from React components, without going through public API endpoints — a smaller attack surface.
+
+**Route Handlers** — Reserved exclusively for events from external systems: Stripe webhooks and cron jobs. They never handle direct browser requests (with one documented exception: the ZIP download, which requires a binary stream that Server Actions can't return).
+
+**`lib/` layer** — The architectural center: shared business logic (database queries, sending emails, AI review, PDF generation) called by both Server Actions and Route Handlers. Server Components and Server Actions never contain business logic directly — they delegate all of it here.
+
+Rounding out the system, three external services with distinct roles: **Supabase** (JWT authentication, PostgreSQL database, file storage — three separate services, not a single block), **Stripe** for payments, **Resend** for transactional emails, **Groq** (Llama 4 Scout) for automatic verification of uploaded documents.
+
+Two mechanisms deserve a separate mention because they step outside the standard flow: **document upload** connects directly to Supabase Storage via a signed URL — the file never passes through the Next.js server, avoiding memory saturation; the **Stripe webhook** is instead an inverted flow, where Stripe actively notifies the outcome of the payment, with an HMAC signature verified server-side to guarantee its authenticity.
+
+</div>
+
+<div className="clear-both flex flex-col lg:flex-row lg:items-stretch gap-[clamp(1.5rem,3vw,2.5rem)] mt-[clamp(2.5rem,5vw,4rem)]">
+
+<div className="w-full lg:w-[46%]">
+
+<h2 id="the-process" className="text-left">The Process</h2>
+
+**Objective:** apply the classic phases of the SDLC and integrate artificial intelligence into development in an engineered, systematic way, through spec-driven development and context engineering.
+
+**Result:** the context/ system — a directory located at the project's root containing 10 Markdown documents. This system represents the application's "long-term memory" and source of truth, read mandatorily by the agent at the start of every session.
+
+</div>
+
+<SectionImage
+src="/images/cartella-context-remotenif.png"
+alt="The context/ folder at the project root and the Markdown files inside it"
+caption="The context/ folder and its files."
+aspectClassName="aspect-[16/9]"
+widthClassName="lg:w-[38%]"
+lightbox={true}
+fillHeight={true}
+frame={false}
+/>
+
+</div>
+
+<div className="w-full text-left mt-[clamp(2.5rem,5vw,4rem)] [&_li>strong:first-child]:text-accent-teal">
+
+**The workflow, step by step**
+
+1. **Context Reading**: The agent **reads the context files** in the order defined in AGENTS.md.
+2. **Spec. Writing**: **Using a template (00-template.md), the agent drafts the feature specification** (e.g., feature-specs/04-auth.md). The specification includes a one-sentence outcome summary, technological constraints, numbered implementation steps, scope limits and excluded elements, and finally, verification criteria (Check When Done).
+3. **Implementation**: **The agent writes the code strictly adhering to the specification**, without expanding the scope of the feature.
+4. **Testing**: The **local test suite** is executed to validate the correctness of the written module.
+5. **Progress Tracker Update**: The agent writes the session result (passed tests, modified files) to the tracker.
+6. **Branch and CI/CD**: Changes are **pushed to GitHub on a dedicated branch, triggering automatic tests** in the pipeline before merging into the main branch.
+7. **Session Closing**: The state is consolidated and made available for the next cycle.
+
+</div>
+
+<FlowDiagram
+src="/images/remotenif-processo-inglese-soloicone.png"
+alt="Development process diagram: Context, Specifications, Code, Test, Tracking, CI/CD, Closure"
+caption="The 7-stage development process: Context, Specifications, Code, Test, Tracking, CI/CD, Closure."
+aspectClassName="aspect-[1871/307]"
+widthClassName="w-full lg:w-[70%]"
+/>
+
+<h2 id="stripe-case-study" className="text-left">Stripe – Case Study</h2>
+
+<div className="flex flex-col lg:flex-row lg:items-start gap-[clamp(1.5rem,3vw,2.5rem)] mt-[clamp(1rem,2vw,1.5rem)]">
+
+<div className="w-full lg:w-[32%]">
+
+**Two parallel channels.** On payment, Stripe fires two parallel, independent channels: it redirects the browser to the dashboard and sends a webhook to the server — with no guaranteed order of arrival. The webhook is the only authentic confirmation, verified via HMAC signature and protected by a double idempotency check (application-level + database UNIQUE constraint) against duplicate orders. Meanwhile, a client component polls the server every 2.5s until the order appears, avoiding an empty dashboard.
+
+<LegendBox>
+**Legend**<br />
+**par** — parallel, independent blocks<br />
+**loop** — repeats (poll every 2.5s)<br />
+**alt** — branch between two paths (if/else)
+</LegendBox>
+
+</div>
+
+<SectionImage
+src="/images/stripe-mermaid-inglese2.png"
+alt="Stripe integration flow diagram"
+caption="Fig. 5 — Stripe Checkout flow: browser redirect and webhook on parallel channels, synced via client-side polling."
+aspectClassName="aspect-[19/10]"
+widthClassName="lg:flex-1"
+lightbox={true}
+frame={false}
+/>
+
+</div>
