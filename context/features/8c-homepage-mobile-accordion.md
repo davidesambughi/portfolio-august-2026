@@ -11,11 +11,13 @@ On mobile (below the `lg` breakpoint), collapse Projects/Education/Experience/Sk
 ## Architecture, rules and constraints
 
 **Scope of "collapsible"**: Projects, Education, Experience, Skills, About only.
+
 - **Hero**: excluded — always visible, never collapsible (explicit user decision).
 - **Contacts/Footer**: excluded — stays always visible on mobile, unchanged. It has no `<h2>` heading (unit 8b: "questo è un footer", only a "Follow Me" row), so it has no natural tap-target for a trigger, and the user confirmed it should not gain one just for this feature.
 - **Project Detail Page TOC (09g)**: separate system, not touched by this unit.
 
 **Two decisions resolved with the user for this spec** (both were blocking, per `progress_tracker.md` Open Questions):
+
 1. **Multi-apertura indipendente** — not an exclusive/Wikipedia-style accordion. Any number of the five sections can be open at once; opening one does not close another.
 2. **Stato iniziale: tutte chiuse.** The user was shown the tension with the PRD goal ("recruiter capisce il profilo in <1 minuto") and confirmed closed-by-default anyway. Not re-litigated here.
 
@@ -24,6 +26,7 @@ On mobile (below the `lg` breakpoint), collapse Projects/Education/Experience/Sk
 **Desktop must be unaffected.** At `lg` and above: no trigger, no chevron, no collapse/expand behavior, sections always fully rendered exactly as today. This must hold both visually and in the DOM/behavior (existing Nav scroll-spy for desktop untouched).
 
 **No JS-based breakpoint detection.** Per this project's established convention (CSS-driven responsive behavior, no `matchMedia`/`window.innerWidth` checks used anywhere else in the codebase), the mobile/desktop split for the accordion must be achieved with CSS, not a runtime viewport check:
+
 - The five sections' `<Accordion.Panel>` must render with `keepMounted` (so its content stays in the DOM even while logically "closed" on mobile, instead of unmounting) and a `lg:!block` (or equivalent) override class, so that whatever hidden/closed styling Base UI applies below `lg` is forced back to visible at `lg`+, regardless of the accordion's `value` state. Verify against the installed `@base-ui/react` Accordion docs/source before implementing exactly which attribute/style Base UI uses for the closed state (`hidden` attribute vs. inline height), per `AGENT.md`'s doc-check rule — this primitive hasn't been used for animated height before (09g used Drawer, a different sub-part).
 - Each section's heading renders **twice** in the markup, toggled by CSS, matching the exact precedent already used for Experience's desktop-timeline-vs-mobile-list split ("both always render server-side, toggled via `hidden lg:grid` / `lg:hidden` CSS, not conditionally mounted" — unit 07): a plain static `<h2>` (today's exact markup/classes) shown `hidden lg:block`, and an interactive `<Accordion.Trigger>` wrapping the same heading text + a chevron icon, shown `lg:hidden`. The body content itself is **not** duplicated — only the heading/trigger differs by breakpoint.
 
@@ -39,6 +42,7 @@ On mobile (below the `lg` breakpoint), collapse Projects/Education/Experience/Sk
 **Nav is also reused, unwrapped, on the Project Detail Page** (`app/[locale]/project/[slug]/page.tsx`, per unit 09e) — that page has no accordion shell. The Context hook must not throw when used there; it returns `null` outside a `MobileAccordionShell`, and `Nav` falls back to plain link behavior for the five accordion anchors in that case (same as today — `/#anchor`, closes the panel, no accordion state touched).
 
 **Nav integration** (`components/nav.tsx`):
+
 - **Desktop link row** (`hidden md:flex`, plus the top-level `NAV_ITEMS.map` used there): **zero changes**. Same `<Link href="/#anchor">`, same `activeAnchor` scroll-spy bolding, same `IntersectionObserver` effect — untouched.
 - **Mobile hamburger panel** (`#mobile-nav-panel`): for the five accordion items only, replace the current bare anchor click with: ensure the section's id is included in `openSections` (if not already — nav always **opens**, never toggles a section closed; closing stays the section's own trigger's job), close the hamburger panel (existing `setOpen(false)`, unchanged), then scroll the section into view once its expand transition has had a chance to run (the click must not scroll against the old, collapsed layout). For "home" and "contacts" — excluded from the accordion — the mobile panel keeps its exact current behavior (plain anchor link, `setOpen(false)`, no accordion involvement).
 - **Mobile active-item bolding**: the existing `activeAnchor` (IntersectionObserver-driven) value keeps being computed exactly as today, for every item — it's still correct and needed for "home"/"contacts". It is simply **not read** for the five accordion items in the mobile panel's rendering; those instead bold when `openSections.includes(anchor)`. This is a narrower, lower-risk change than replacing the scroll-spy mechanism outright (an idea raised before this spec was written but not adopted): the observer must keep running unconditionally anyway, since desktop still needs it untouched, so it costs nothing to also leave it computing (and simply ignoring) values for mobile's five collapsible items.

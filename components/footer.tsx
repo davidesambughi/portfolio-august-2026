@@ -36,7 +36,7 @@ export async function Footer() {
   return (
     <footer
       id="contacts"
-      className="border-t border-border bg-black/[0.03] backdrop-blur-sm"
+      className="border-t border-border bg-black/[0.06] backdrop-blur-sm"
     >
       <div className="mx-auto flex w-full max-w-[1800px] flex-wrap items-center justify-between gap-[clamp(1.5rem,4vw,2.5rem)] px-[clamp(1.5rem,4vw,6rem)] py-[clamp(2rem,6vh,4rem)]">
         <p className="text-[clamp(1rem,0.5vw+0.9rem,1.25rem)] text-heading">

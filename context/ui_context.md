@@ -48,9 +48,11 @@ Ogni elemento interattivo deve dare un feedback leggero e coerente. Transizione 
 | Card progetti | Leggero zoom (scale)                 |
 | Timeline Experience | **Eccezione** (2026-08-12): hover tinto sul colore del pallino di ogni voce (opacità bassa, tarata per colore — giallo richiede molta più opacità di blu/verde/rosso per restare visibile), non grigio neutro come il resto del sito. Sostituito a `group-hover:bg-muted`, diventato invisibile dopo il cambio sfondo sezione (vedi sotto). Deviazione deliberata, confermata con l'utente — non un pattern da riusare altrove senza chiederlo. |
 
-## Sfondi sezione (2026-08-12)
+## Sfondi sezione (2026-08-12, esteso 2026-08-12)
 
-Projects, Experience e Footer usano `bg-black/[0.03]` a piena larghezza (edge-to-edge, non contenuto nel `max-w`) — struttura a due livelli: `<section>` esterna piena larghezza con il colore, `<div>` interna con il solito `max-w-[1800px]` per il contenuto (stesso pattern di `footer.tsx`). Education, Skills, About restano bianchi. Puramente un test visivo confermato dall'utente, non ancora esteso ad altre sezioni.
+Projects, Experience e About usano `bg-black/[0.03]` a piena larghezza (edge-to-edge, non contenuto nel `max-w`) — struttura a due livelli: `<section>` esterna piena larghezza con il colore, `<div>` interna con il solito `max-w-[1800px]` per il contenuto (stesso pattern di `footer.tsx`). Education e Skills restano bianchi. Puramente un test visivo confermato dall'utente, non ancora esteso ad altre sezioni.
+
+Il **Footer** usa `bg-black/[0.06]` — leggermente più scuro delle sezioni di contenuto, non `/[0.03]` (2026-08-12) — perché è sempre l'ultimo elemento della pagina e quindi sempre adiacente a qualunque sezione lo preceda; essendo l'ultima ad avere sfondo tinto era About, stesso valore, senza alcun confine visivo percepibile tra le due. Un footer più scuro risolve il problema indipendentemente da quale sezione stia sopra (non dipende dall'alternanza), leggibile anche come convenzione comune (footer leggermente più "pesante" del contenuto).
 
 ## Layout — container globale (sistema, vale per tutte le sezioni)
 

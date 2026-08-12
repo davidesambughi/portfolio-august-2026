@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
-import { ExternalLink, X } from "lucide-react";
+import { ChevronDown, ExternalLink, X } from "lucide-react";
 
 import { formatDateRange } from "@/lib/format-date";
 import { cn } from "@/lib/utils";
@@ -89,13 +89,25 @@ export function EducationList({ education }: { education: Education[] }) {
               >
                 <span
                   className={cn(
-                    "block transition-all duration-200",
+                    "flex items-center gap-2 transition-all duration-200",
                     isSelected
                       ? "text-[clamp(1.5rem,1.1rem+1.5vw,2.25rem)] leading-snug font-bold text-heading"
                       : "text-sm font-normal text-subheading"
                   )}
                 >
-                  {entry.institution} — {entry.degree[locale]}
+                  <span>
+                    {entry.institution} — {entry.degree[locale]}
+                  </span>
+                  {/* Expand affordance (8d) — hover alone doesn't communicate "clickable" on
+                      touch, so every entry always shows its chevron; only the selected one
+                      rotates, mirroring the accordion chevron pattern from 8c. */}
+                  <ChevronDown
+                    className={cn(
+                      "size-4 shrink-0 text-body transition-transform duration-200",
+                      isSelected && "rotate-180"
+                    )}
+                    aria-hidden="true"
+                  />
                 </span>
 
                 {isSelected && (

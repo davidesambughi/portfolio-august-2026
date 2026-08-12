@@ -67,13 +67,18 @@ export async function SkillsSection() {
       render={
         <section
           id="skills"
-          className="mx-auto w-full max-w-[1800px] px-[clamp(1.5rem,4vw,6rem)] pt-[clamp(1.5rem,4vh,3rem)] pb-[clamp(3rem,8vh,6rem)]"
+          className="mx-auto w-full max-w-[1800px] px-[clamp(1.5rem,4vw,6rem)] pt-[clamp(1.5rem,4vh,3rem)]"
         />
       }
     >
       <AccordionSectionHeading title={t("heading")} className="text-center" />
 
-      <Accordion.Panel className="accordion-panel overflow-hidden lg:block lg:[content-visibility:visible]">
+      {/* The extra Skills↔About gap (larger than every other section's spacing, deliberately
+          kept per 09h) lives on the Panel's own `pb-`, not the outer <section>'s — so it collapses
+          to 0 along with the rest of the panel when closed on mobile (8d fix, 2026-08-12): before
+          this, the padding sat on the section root and stayed visible even while the panel was
+          collapsed, making Skills' closed accordion row visibly taller than every other section's. */}
+      <Accordion.Panel className="accordion-panel overflow-hidden pb-[clamp(3rem,8vh,6rem)] lg:block lg:overflow-visible lg:[content-visibility:visible]">
         <div className="mt-[clamp(2rem,5vh,3.5rem)] flex flex-col gap-[clamp(2rem,5vw,4rem)] lg:flex-row">
           <div className="lg:flex-1">
             <p className="text-[clamp(0.8rem,0.3vw+0.75rem,0.9rem)] text-body">

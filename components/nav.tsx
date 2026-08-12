@@ -123,6 +123,15 @@ export function Nav() {
       });
     };
 
+  // "Home" links to "/" (Hero is already the top of the page), but since this is a single-page
+  // site the homepage route never actually changes when already on it — Next.js sees no route
+  // change and skips any navigation/scroll, so the Link alone silently did nothing. Force the
+  // scroll explicitly instead of relying on route-change scroll restoration.
+  const handleHomeClick = () => {
+    setOpen(false);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   return (
     // Same fluid container as Hero (see ui_context.md "Layout — container e larghezza") so the
     // nav's left/right edges line up with the rest of the page instead of floating centered with
@@ -137,12 +146,17 @@ export function Nav() {
       <div
         className={`mx-auto w-full max-w-4xl border border-black/15 bg-background shadow-md ${open ? "rounded-[28px]" : "rounded-full"}`}
       >
-        <div className="flex items-center px-4 py-1.5 md:py-2">
-          {/* Desktop-only left spacer, mirrors the right cluster's `md:flex-1` so the nav links
-              stay visually centered regardless of the language switcher's width — a plain
-              `md:justify-center` on the row would get pulled off-center once an always-visible
-              right cluster (language switcher, not just the mobile-only hamburger) sits there. */}
-          <div className="hidden md:block md:flex-1" aria-hidden="true" />
+        <div className="flex items-center px-4 py-1.5 md:justify-between md:py-2">
+          {/* Desktop-only left spacer: an empty third flex item, matched with `justify-between`
+              below. Previously this and the right cluster were both `flex-1` with `justify-end`
+              on the right one — that made both sides *grow* equally, but since the right cluster
+              already contained real content (the language switcher) pinned flush to the edge, the
+              grown space landed *between the links and the switcher* instead of on both true outer
+              edges, so the links ended up visibly off-center (more blank space on the left).
+              `justify-between` with three items (this empty spacer, the links, the cluster)
+              distributes free space into the two *gaps* — before the links and after them — which
+              are then equal by construction, regardless of the switcher's width. */}
+          <div className="hidden md:block" aria-hidden="true" />
 
           {/* Fluid gap (2026-08-12 fix), not a fixed `md:gap-8 xl:gap-12` tier: at that fixed 48px
               gap, Italian's longer labels (Formazione, Esperienza, Contatti vs. Education,
@@ -156,6 +170,9 @@ export function Nav() {
               <Link
                 key={key}
                 href={key === "home" ? "/" : `/#${anchor}`}
+                // Same fix as the mobile panel: clicking "Home" while already on "/" is not a
+                // route change, so Next.js does nothing on its own — force the scroll explicitly.
+                onClick={key === "home" ? () => window.scrollTo({ top: 0, behavior: "smooth" }) : undefined}
                 className={cn(
                   "rounded-full px-3 py-1 text-sm whitespace-nowrap transition-colors hover:bg-muted",
                   activeAnchor === anchor ? "font-bold text-heading" : "text-body"
@@ -167,16 +184,13 @@ export function Nav() {
           </div>
 
           {/* Right cluster: language switcher is always visible (desktop + mobile), the hamburger
-              only on mobile — same fixed-to-the-edge treatment for both, per user request
-              (2026-08-12). `md:shrink-0` (2026-08-12 fix): without it, Italian's longer link
-              labels (Formazione, Esperienza, Contatti vs. Education, Experience, Contacts) widen
-              the centered links group enough, at some desktop widths, that the equally-shared
-              `flex-1` on this cluster got squeezed toward zero — eating the padding gap around the
-              language switcher so it sat flush against the pill's border (English's shorter labels
-              never hit that squeeze). Pinning this cluster to never shrink below its own natural
-              width protects its spacing regardless of link label length in either language; the
-              left spacer (purely decorative, nothing to protect) still absorbs the squeeze first. */}
-          <div className="ml-auto flex shrink-0 items-center gap-1 md:flex-1 md:justify-end">
+              only on mobile — flush to the edge on both, per user request (2026-08-12). `shrink-0`
+              protects its width from ever being squeezed by Italian's longer link labels. `ml-auto`
+              is mobile-only positioning (pushes the cluster right when the spacer/links are
+              hidden); `md:ml-0` hands positioning over to the row's `justify-between` at desktop,
+              since an auto margin would otherwise swallow all the `justify-between` free space
+              itself instead of splitting it into the two gaps around the links. */}
+          <div className="ml-auto flex shrink-0 items-center gap-1 md:ml-0">
             <LanguageSwitcher />
             <button
               type="button"
@@ -198,16 +212,21 @@ export function Nav() {
           >
             {NAV_ITEMS.map(({ key, anchor }) => {
               const isAccordionAnchor = ACCORDION_ANCHORS.has(anchor);
-              const isActive = isAccordionAnchor
-                ? (mobileAccordion?.openSections.includes(anchor) ?? false)
-                : activeAnchor === anchor;
+              // Bold always follows scroll position (activeAnchor), for every item — including
+              // the five accordion anchors. Previously these five bolded on `openSections`
+              // instead, which meant opening every section at once bolded the entire menu with
+              // no way to tell which one the user was actually looking at.
+              const isActive = activeAnchor === anchor;
+              const onClick = key === "home"
+                ? handleHomeClick
+                : isAccordionAnchor
+                  ? handleAccordionAnchorClick(anchor)
+                  : () => setOpen(false);
               return (
                 <Link
                   key={key}
                   href={key === "home" ? "/" : `/#${anchor}`}
-                  onClick={
-                    isAccordionAnchor ? handleAccordionAnchorClick(anchor) : () => setOpen(false)
-                  }
+                  onClick={onClick}
                   className={cn(
                     "rounded-full px-3 py-2 text-sm transition-colors hover:bg-muted",
                     isActive ? "font-bold text-heading" : "text-body"

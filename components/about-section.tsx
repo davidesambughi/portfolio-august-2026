@@ -25,13 +25,9 @@ export async function AboutSection() {
     // exactly where it already was, inside the text column.
     <Accordion.Item
       value="about"
-      render={
-        <section
-          id="about"
-          className="mx-auto w-full max-w-[1800px] px-[clamp(1.5rem,4vw,6rem)] py-[clamp(3rem,8vh,6rem)]"
-        />
-      }
+      render={<section id="about" className="w-full bg-black/[0.03]" />}
     >
+      <div className="mx-auto w-full max-w-[1800px] px-[clamp(1.5rem,4vw,6rem)] py-[clamp(3rem,8vh,6rem)]">
       <Accordion.Header render={<h2 className={`lg:hidden ${HEADING_CLASS}`} />}>
         <Accordion.Trigger className="group flex w-full items-center justify-between gap-3 text-left transition-colors duration-200 hover:text-heading">
           <span>{t("heading")}</span>
@@ -42,7 +38,7 @@ export async function AboutSection() {
         </Accordion.Trigger>
       </Accordion.Header>
 
-      <Accordion.Panel className="accordion-panel overflow-hidden lg:block lg:[content-visibility:visible]">
+      <Accordion.Panel className="accordion-panel overflow-hidden lg:block lg:overflow-visible lg:[content-visibility:visible]">
       <div className="flex flex-col gap-[clamp(2rem,5vw,4rem)] lg:flex-row">
         <div className="lg:w-[40%] lg:shrink-0">
           <h2 className={`hidden lg:block ${HEADING_CLASS}`}>{t("heading")}</h2>
@@ -115,6 +111,7 @@ export async function AboutSection() {
         </div>
       </div>
       </Accordion.Panel>
+      </div>
     </Accordion.Item>
   );
 }

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { ChevronDown } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 
@@ -92,7 +93,20 @@ export function ExperienceTimeline({
                 node.hoverBgClass
               )}
             >
-              <span className="font-bold text-heading">{node.title}</span>
+              <span className="flex items-center gap-1.5 font-bold text-heading">
+                {node.title}
+                {/* Expand affordance (8d) — every real node always shows its chevron, only
+                    this node's own `isExpanded` rotates it, mirroring 8c's accordion chevron. */}
+                {!node.isFuture && (
+                  <ChevronDown
+                    className={cn(
+                      "size-4 shrink-0 text-body transition-transform duration-200",
+                      isExpanded && "rotate-180"
+                    )}
+                    aria-hidden="true"
+                  />
+                )}
+              </span>
               {node.subtitle && <span className="text-sm text-body">{node.subtitle}</span>}
               {node.dateRange && <span className="text-sm text-body">{node.dateRange}</span>}
               {isExpanded && node.description && (
@@ -161,7 +175,19 @@ export function ExperienceTimeline({
                 node.hoverBgClass
               )}
             >
-              <span className="font-bold text-heading">{node.title}</span>
+              <span className="flex items-center gap-1.5 font-bold text-heading">
+                {node.title}
+                {/* Expand affordance (8d) — same chevron as the desktop timeline above. */}
+                {!node.isFuture && (
+                  <ChevronDown
+                    className={cn(
+                      "size-4 shrink-0 text-body transition-transform duration-200",
+                      isExpanded && "rotate-180"
+                    )}
+                    aria-hidden="true"
+                  />
+                )}
+              </span>
               {node.subtitle && <span className="text-sm text-body">{node.subtitle}</span>}
               {node.dateRange && <span className="text-sm text-body">{node.dateRange}</span>}
               {isExpanded && node.description && (
