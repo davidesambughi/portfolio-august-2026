@@ -39,3 +39,12 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Claude Code / Playwright MCP working files
+.playwright-mcp/
+.claude/scheduled_tasks.lock
+
+# Stray screenshots in root
+bottom2-nav-mobile-open.png
+bottom2-nav-mobile.png
+Screenshot*.png
