@@ -23,26 +23,15 @@ export async function Hero() {
   // next section's heading peek in above the fold. An earlier fix wrapped Hero+Nav together in a
   // min-h-dvh div — that broke Nav's `sticky` (its containing block became that ~1-viewport-tall
   // wrapper instead of the full-page `<main>`, so it un-stuck after ~1 viewport of scroll). Fixed
-  // properly instead with `min-h-[calc(100svh-var(--nav-height,5.5rem))]`: Hero alone guarantees
+  // properly instead with `min-h-[calc(100dvh-var(--nav-height,5.5rem))]`: Hero alone guarantees
   // "one viewport minus Nav's real height", Nav stays a plain sibling of Hero in `<main>` (full-page
   // sticky range preserved), and `--nav-height` is Nav's real measured height (see nav.tsx's
   // ResizeObserver), not a guess — the `5.5rem` fallback only applies for the brief instant before
   // that JS measurement runs (or if JS is unavailable).
-  // `svh` not `dvh` (2026-08-12 fix): `dvh` tracks the mobile browser's toolbar live during
-  // scroll, so Hero's height (and everything laid out after it, including the sticky Nav right
-  // below) kept reflowing mid-scroll as the toolbar animated. On real Android Chrome that
-  // reflow, next to a `position: sticky` element, is a documented trigger for the sticky layer
-  // desyncing from its correct position until a new layout event (e.g. a scroll reversal) forces
-  // a resync — reported as the Nav appearing to scroll away going down, reattaching on the way
-  // back up. `svh` (small viewport height, toolbar assumed visible) never changes during scroll,
-  // so Hero's height — and the layout around Nav — stays stable through the toolbar animation.
-  // Trade-off: once the toolbar hides mid-scroll, Hero no longer grows to fill the newly revealed
-  // strip (a small cosmetic gap can appear below Hero in that moment) — accepted in exchange for
-  // removing the resize that was disturbing the sticky Nav.
   return (
     <section
       id="hero"
-      className="mx-auto flex w-full max-w-[1800px] flex-col justify-center px-[clamp(1.5rem,4vw,6rem)] py-[clamp(2rem,6vh,6rem)] min-h-[calc(100svh-var(--nav-height,5.5rem))]"
+      className="mx-auto flex w-full max-w-[1800px] flex-col justify-center px-[clamp(1.5rem,4vw,6rem)] py-[clamp(2rem,6vh,6rem)] min-h-[calc(100dvh-var(--nav-height,5.5rem))]"
     >
       {/* Two columns only from `lg` up: below that there isn't reliably enough room for both a
           readable text column and a real image column side by side — stay stacked (mobile and
