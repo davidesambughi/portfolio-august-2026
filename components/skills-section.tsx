@@ -73,8 +73,8 @@ export async function SkillsSection() {
     >
       <AccordionSectionHeading
         title={t("heading")}
-        className="text-center"
         barColorClass="bg-accent-green"
+        barAlign="start"
       />
 
       {/* The extra Skills↔About gap (larger than every other section's spacing, deliberately

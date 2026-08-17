@@ -107,6 +107,26 @@ Nessuna nuova dipendenza.
 - Non toccare `projects-section.tsx` per il badge data (punto 6 della richiesta utente) — già implementato, vedi Architecture.
 ---
 
+## Post-implementation bug fixes (2026-08-17)
+
+Due bug reali nella accent bar, trovati dall'utente dopo il deploy (non in fase di implementazione):
+
+1. **Barra invisibile su mobile per tutte le sezioni tranne About.** `components/accordion-section-heading.tsx`: la variante mobile della barra aveva solo la classe `lg:hidden`, senza `block` esplicito — uno `<span>` è `display: inline` di default, quindi `w-[52px]`/`h-[5px]` venivano ignorati (un elemento inline non applica width/height). La variante di About funzionava perché scritta a mano con `block` incluso. Fix: entrambe le varianti (desktop `hidden lg:block`, mobile `block lg:hidden`) ora includono sempre `block` esplicito.
+2. **Barra disallineata dal testo su mobile dopo il fix #1.** Una volta visibile, la barra delle sezioni centrate su desktop (Projects/Education/Skills, `barAlign="center"`) ereditava `mx-auto` anche su mobile — ma la riga `Accordion.Trigger` su mobile è sempre un layout "testo a sinistra — chevron a destra" (pattern preesistente, 8c), quindi la barra centrata non allineava più col testo ora a sinistra. Fix: `barAlign` si applica solo alla variante desktop; la variante mobile non usa mai `mx-auto`, resta sempre a sinistra (`desktopBarClass` vs `mobileBarClass`, classi separate invece di una funzione condivisa).
+
+Verificati via `getComputedStyle` in browser (limite noto: `resize_window` non ridimensiona davvero il viewport in questo ambiente — verifica fatta forzando le classi responsive via JS e ispezionando `display`/`width`/`height`/`marginLeft`/`marginRight`, non uno screenshot reale a viewport stretto).
+
+## Follow-up — allineamento a sinistra su desktop (2026-08-17, stessa sessione)
+
+Richiesta esplicita dell'utente, **solo versione PC** (non Hero, già a sinistra; non mobile, dove l'header è già sempre a sinistra da prima di 13a): spostare heading + barra a sinistra su desktop per Projects, Education, Skills (Experience e About erano già a sinistra, nessuna modifica). Confermato con l'utente che anche il sottotitolo di Projects/Education si sposta a sinistra insieme all'heading (non solo heading+barra) — per coerenza visiva, stesso trattamento già usato in Experience/About.
+
+- `components/projects-section.tsx`: wrapper heading `mx-auto max-w-2xl text-center` → `max-w-2xl`; `AccordionSectionHeading` riceve `barAlign="start"`; wrapper sottotitolo `mx-auto max-w-2xl text-center` → `mx-auto max-w-2xl text-center lg:mx-0 lg:text-left` (mobile invariato, resta centrato; solo `lg:` cambia).
+- `components/education-section.tsx`: stessa identica modifica (wrapper heading, `barAlign="start"`, wrapper sottotitolo con `lg:mx-0 lg:text-left`).
+- `components/skills-section.tsx`: rimosso `className="text-center"` da `AccordionSectionHeading`, aggiunto `barAlign="start"` (nessun sottotitolo in questa sezione).
+- Verificato `npm run build` pulito. Non riverificato con screenshot browser reale in questa sessione (l'utente ha chiuso il giro di verifica prima dello screenshot) — il meccanismo (`lg:` responsive utilities) è lo stesso già usato e verificato ovunque nel sito, rischio basso.
+
+---
+
 ## Check When Done
 
 - Hero: due CTA visibili sotto il body text, colori/hover corretti, link funzionanti verso `#projects`/`#contacts`, EN e IT.
