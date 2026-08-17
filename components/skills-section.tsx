@@ -71,7 +71,11 @@ export async function SkillsSection() {
         />
       }
     >
-      <AccordionSectionHeading title={t("heading")} className="text-center" />
+      <AccordionSectionHeading
+        title={t("heading")}
+        className="text-center"
+        barColorClass="bg-accent-green"
+      />
 
       {/* The extra Skills↔About gap (larger than every other section's spacing, deliberately
           kept per 09h) lives on the Panel's own `pb-`, not the outer <section>'s — so it collapses
@@ -112,7 +116,7 @@ export async function SkillsSection() {
               {methodologies.map((methodology, index) => (
                 <li
                   key={methodology.label.en}
-                  className={`rounded-full ${APPROACH_CLASSES[index % APPROACH_CLASSES.length]} px-[clamp(1rem,2vw,1.5rem)] py-[clamp(0.625rem,1.5vw,0.875rem)] font-bold text-on-accent`}
+                  className={`rounded-full ${APPROACH_CLASSES[index % APPROACH_CLASSES.length]} px-[clamp(1rem,2vw,1.5rem)] py-[clamp(0.625rem,1.5vw,0.875rem)] font-bold text-on-accent shadow-[0_6px_16px_rgba(0,0,0,.10)]`}
                 >
                   {methodology.label[locale as "en" | "it"]}
                 </li>

@@ -144,7 +144,7 @@ export function Nav() {
           container grows taller than it is wide, so the theme's pill radius (9999px) would
           clip it into an oval instead of a rounded rectangle — use an explicit radius then. */}
       <div
-        className={`mx-auto w-full max-w-4xl border border-black/15 bg-background shadow-md ${open ? "rounded-[28px]" : "rounded-full"}`}
+        className={`mx-auto w-full max-w-4xl border border-black/15 bg-white/[0.92] shadow-[0_6px_20px_rgba(0,0,0,.10)] backdrop-blur-md ${open ? "rounded-[28px]" : "rounded-full"}`}
       >
         <div className="flex items-center px-4 py-1.5 md:justify-between md:py-2">
           {/* Desktop-only left spacer: an empty third flex item, matched with `justify-between`

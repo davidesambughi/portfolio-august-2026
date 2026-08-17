@@ -48,6 +48,23 @@ Ogni elemento interattivo deve dare un feedback leggero e coerente. Transizione 
 | Card progetti | Leggero zoom (scale)                 |
 | Timeline Experience | **Eccezione** (2026-08-12): hover tinto sul colore del pallino di ogni voce (opacità bassa, tarata per colore — giallo richiede molta più opacità di blu/verde/rosso per restare visibile), non grigio neutro come il resto del sito. Sostituito a `group-hover:bg-muted`, diventato invisibile dopo il cambio sfondo sezione (vedi sotto). Deviazione deliberata, confermata con l'utente — non un pattern da riusare altrove senza chiederlo. |
 
+## Elevazione (ombre) e accent bar — 2026-08-17, unit 13a
+
+Introdotti per risolvere la percezione di "sito piatto" (assenza di rilievo/gerarchia tra elementi e sfondo). Valori shadow in `rgba` arbitrary-value (non la scala default Tailwind), forniti letteralmente dall'utente — nessun nuovo token `--shadow-*`.
+
+**Ombre:**
+- Card Progetti: intera card (non solo l'immagine) su superficie `bg-white`, `border-[rgba(0,0,0,.07)]`, `shadow-[0_10px_30px_rgba(0,0,0,.08)]`; hover `-translate-y-1` + `shadow-[0_18px_44px_rgba(0,0,0,.12)]` (sostituisce il precedente `hover:scale-[1.02]`). "Coming soon" resta piatta, invariata.
+- Formazione: pannello logo (solo quando è presente un logo, non nel fallback a tinta piena) è card bianca con bordo + `shadow-[0_10px_30px_rgba(0,0,0,.07)]`; voce selezionata ha `bg-white` + `shadow-[0_10px_28px_rgba(0,0,0,.09)]` + bordo sinistro 4px (era 3px).
+- Nav pill: `bg-white/[0.92]` + `backdrop-blur-md` + `shadow-[0_6px_20px_rgba(0,0,0,.10)]` (era `bg-background shadow-md`).
+- Timeline Experience: i grandi pallini sulla linea condivisa hanno un anello bianco `shadow-[0_0_0_4px_rgba(255,255,255,.9)]` per staccarsi dalla linea dotted.
+- Pillole Approach (Skills): `shadow-[0_6px_16px_rgba(0,0,0,.10)]`.
+- Collage About: `shadow-[0_14px_40px_rgba(0,0,0,.14)]` (nota: in una sessione precedente l'ombra era stata rimossa da qui su richiesta dell'utente — reintrodotta esplicitamente in questa unit come parte del pass di gerarchia/profondità coordinato, non una svista).
+- Restano piatti: "Coming soon", Skills (icone), Certificates, Footer/Contacts.
+
+**Accent bar sotto heading di sezione:** barra `52×5px`, `rounded-full`, `mt-[14px]`, via prop opzionale `barColorClass`/`barAlign` su `components/accordion-section-heading.tsx` (replicata manualmente in `about-section.tsx`, che ha un markup heading proprio). Mapping colore↔sezione: Projects `accent-blue` (centrato), Education `accent-red` (centrato), Experience `accent-purple` (sinistra, stesso colore della timeline), Skills `accent-green` (centrato), About `oklch(0.8655 0.1595 96)` — lo stesso giallo scuro arbitrary della pillola Agile/SDLC (sinistra).
+
+**Hero CTA (2026-08-17):** due link a pillola sotto il body text — primaria "Progetti"/"View projects" (`bg-accent-blue`, `text-on-accent`) verso `#projects`, secondaria "Contattami"/"Get in touch" (bordo, `text-heading`) verso `#contacts`. Valori px fissi (non `clamp()`), eccezione deliberata per elementi di chrome piccoli — vedi `13a-visual-hierarchy-depth.md`.
+
 ## Sfondi sezione (2026-08-12, esteso 2026-08-12)
 
 Projects, Experience e About usano `bg-black/[0.03]` a piena larghezza (edge-to-edge, non contenuto nel `max-w`) — struttura a due livelli: `<section>` esterna piena larghezza con il colore, `<div>` interna con il solito `max-w-[1800px]` per il contenuto (stesso pattern di `footer.tsx`). Education e Skills restano bianchi. Puramente un test visivo confermato dall'utente, non ancora esteso ad altre sezioni.

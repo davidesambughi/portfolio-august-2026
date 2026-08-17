@@ -72,7 +72,10 @@ export function ExperienceTimeline({
               key={node.id}
               className={cn(colClass, "row-start-2 flex w-2.5 justify-self-start")}
             >
-              <span className="size-4 shrink-0 rounded-full bg-accent-purple" aria-hidden="true" />
+              <span
+                className="size-4 shrink-0 rounded-full bg-accent-purple shadow-[0_0_0_4px_rgba(255,255,255,.9)]"
+                aria-hidden="true"
+              />
             </div>
           );
         })}

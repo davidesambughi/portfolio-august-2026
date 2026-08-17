@@ -40,7 +40,9 @@ export function EducationList({ education }: { education: Education[] }) {
       <div
         className={cn(
           "flex w-full max-w-md items-center justify-center rounded-[28px] p-6 text-center sm:p-8 lg:w-[30%] lg:shrink-0",
-          selected?.logoUrl ? "bg-transparent" : "bg-accent-blue"
+          selected?.logoUrl
+            ? "border border-[rgba(0,0,0,.07)] bg-white shadow-[0_10px_30px_rgba(0,0,0,.07)]"
+            : "bg-accent-blue"
         )}
       >
         {selected?.logoUrl ? (
@@ -83,8 +85,10 @@ export function EducationList({ education }: { education: Education[] }) {
                 onClick={() => setSelectedId(entry.id)}
                 aria-pressed={isSelected}
                 className={cn(
-                  "-mr-2 block w-full cursor-pointer rounded-r-lg border-l-[3px] py-2 pr-2 pl-6 text-left transition-colors duration-200 hover:bg-muted focus-visible:bg-muted focus-visible:outline-none",
-                  isSelected ? selectedBorderClass : "border-border"
+                  "-mr-2 block w-full cursor-pointer rounded-r-lg py-2 pr-2 pl-6 text-left transition-all duration-200 hover:bg-muted focus-visible:bg-muted focus-visible:outline-none",
+                  isSelected
+                    ? cn("border-l-4 bg-white shadow-[0_10px_28px_rgba(0,0,0,.09)]", selectedBorderClass)
+                    : "border-l-[3px] border-border"
                 )}
               >
                 <span

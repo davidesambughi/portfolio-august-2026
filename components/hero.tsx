@@ -55,6 +55,21 @@ export async function Hero() {
           <p className="max-w-md text-[clamp(0.95rem,0.4vw+0.85rem,1.125rem)] leading-relaxed text-body">
             {t.rich("body", { br: () => <br /> })}
           </p>
+
+          <div className="flex flex-wrap items-center gap-3">
+            <a
+              href="#projects"
+              className="rounded-full bg-accent-blue px-[26px] py-[12px] text-[15px] font-bold text-on-accent transition-[filter] duration-200 hover:brightness-[0.94]"
+            >
+              {t("ctaProjects")}
+            </a>
+            <a
+              href="#contacts"
+              className="rounded-full border-[1.5px] border-black/20 px-[26px] py-[12px] text-[15px] font-bold text-heading transition-colors duration-200 hover:bg-muted"
+            >
+              {t("ctaContact")}
+            </a>
+          </div>
         </div>
 
         {/* Single composite visual — replaces the earlier 3-block overlapping collage (SDLC

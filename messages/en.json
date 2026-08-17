@@ -14,7 +14,9 @@
     "badge": "AI Native",
     "name": "Davide Sambughi",
     "role": "Full Stack Developer",
-    "body": "Through a Specification-Driven methodology,<br></br>I combine the Software Development Life Cycle with Agentic AI orchestration to build software through a systematic and precise engineering process."
+    "body": "Through a Specification-Driven methodology,<br></br>I combine the Software Development Life Cycle with Agentic AI orchestration to build software through a systematic and precise engineering process.",
+    "ctaProjects": "View projects",
+    "ctaContact": "Get in touch"
   },
   "projects": {
     "heading": "Projects",

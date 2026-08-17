@@ -21,7 +21,7 @@ export async function EducationSection() {
       }
     >
       <div className="mx-auto max-w-2xl text-center">
-        <AccordionSectionHeading title={t("heading")} />
+        <AccordionSectionHeading title={t("heading")} barColorClass="bg-accent-red" />
       </div>
 
       <Accordion.Panel className="accordion-panel overflow-hidden lg:block lg:overflow-visible lg:[content-visibility:visible]">

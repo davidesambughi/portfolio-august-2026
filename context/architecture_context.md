@@ -30,11 +30,11 @@ Server Component di default; `'use client'` solo dove serve interattività reale
 
 ## Content Model
 
-| Tipo                            | Dove                | Formato                                                                                             |
-| ------------------------------- | ------------------- | --------------------------------------------------------------------------------------------------- |
-| Stringhe UI (nav, label)        | `messages/`         | 1 file per lingua, gestito da next-intl                                                             |
-| Case study progetti (long-form) | `content/projects/` | 1 file `.mdx` per lingua per progetto — raccomandazione ufficiale next-intl per contenuto lungo     |
-| Experience / Education          | `content/data/`     | 1 file, 1 voce per item, campi testuali tradotti `{en, it}`, resto dei dati unico (no duplicazione) |
+| Tipo                            | Dove                     | Formato                                                                                                               |
+| ------------------------------- | ------------------------ | --------------------------------------------------------------------------------------------------------------------- |
+| Stringhe UI (nav, label)        | `messages/`              | 1 file per lingua, gestito da next-intl                                                                               |
+| Case study progetti (long-form) | `content/projects/`      | 1 file `.mdx` per lingua per progetto — raccomandazione ufficiale next-intl per contenuto lungo                       |
+| Experience / Education          | `content/data/`          | 1 file, 1 voce per item, campi testuali tradotti `{en, it}`, resto dei dati unico (no duplicazione)                   |
 | Skills (tech + metodologie)     | `content/data/skills.ts` | 1 file, due array esportati: `technologies` (id, label, iconSlug → Simple Icons) e `methodologies` (label `{en, it}`) |
 
 ## Deploy

@@ -37,11 +37,22 @@ export async function AboutSection() {
           />
         </Accordion.Trigger>
       </Accordion.Header>
+      {/* Accent bar (13a) — same colored-bar-under-heading pattern as AccordionSectionHeading,
+          replicated manually here since About uses its own dedicated heading markup instead of
+          the shared component (heading is nested inside the 40% text column, not full-width). */}
+      <span
+        className="mt-[14px] block h-[5px] w-[52px] rounded-full bg-[oklch(0.8655_0.1595_96)] lg:hidden"
+        aria-hidden="true"
+      />
 
       <Accordion.Panel className="accordion-panel overflow-hidden lg:block lg:overflow-visible lg:[content-visibility:visible]">
       <div className="flex flex-col gap-[clamp(2rem,5vw,4rem)] lg:flex-row">
         <div className="lg:w-[40%] lg:shrink-0">
           <h2 className={`hidden lg:block ${HEADING_CLASS}`}>{t("heading")}</h2>
+          <span
+            className="mt-[14px] hidden h-[5px] w-[52px] rounded-full bg-[oklch(0.8655_0.1595_96)] lg:block"
+            aria-hidden="true"
+          />
 
           <div className="mt-[clamp(1.5rem,4vw,2.5rem)] flex flex-col gap-[clamp(1.5rem,4vw,2.5rem)]">
             <div>
@@ -99,7 +110,7 @@ export async function AboutSection() {
             image doesn't tuck under it; approximate, revisit after a visual pass. Mobile/tablet
             (below `lg`) keeps the original static stacked image, unaffected. */}
         <div className="w-full lg:sticky lg:top-[clamp(4.5rem,9vh,6rem)] lg:w-auto lg:flex-1 lg:self-start">
-          <div className="relative aspect-[16/9] w-full overflow-hidden rounded-[20px]">
+          <div className="relative aspect-[16/9] w-full overflow-hidden rounded-[20px] shadow-[0_14px_40px_rgba(0,0,0,.14)]">
             <Image
               src="/images/collage-about.png"
               alt={t("photoAlt")}

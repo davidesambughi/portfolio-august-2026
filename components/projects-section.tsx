@@ -38,7 +38,7 @@ export async function ProjectsSection() {
     >
       <div className="mx-auto w-full max-w-[1800px] px-[clamp(1.5rem,4vw,6rem)] pt-[clamp(3rem,8vh,6rem)] pb-[clamp(1.5rem,4vh,3rem)]">
         <div className="mx-auto max-w-2xl text-center">
-          <AccordionSectionHeading title={t("heading")} />
+          <AccordionSectionHeading title={t("heading")} barColorClass="bg-accent-blue" />
         </div>
 
         <Accordion.Panel className="accordion-panel overflow-hidden lg:block lg:overflow-visible lg:[content-visibility:visible]">
@@ -68,8 +68,8 @@ function ProjectCard({ project }: { project: ProjectMeta }) {
     // the image box. Badge, title, description sit in free space below it — no card frame, no
     // card background — and are horizontally centered, not left-aligned. Card's own
     // rounded/ring/bg are cancelled here (twMerge resolves the conflicting utility groups).
-    <Card className="h-full items-center gap-4 overflow-visible rounded-none border-0 bg-transparent p-0 text-center ring-0">
-      <div className="relative aspect-[16/10] w-full overflow-hidden rounded-[28px] border border-black/10 bg-muted">
+    <Card className="h-full items-center gap-4 rounded-[28px] border border-[rgba(0,0,0,.07)] bg-white p-[14px_14px_26px] text-center shadow-[0_10px_30px_rgba(0,0,0,.08)] ring-0 transition-[transform,box-shadow] duration-200 group-hover:-translate-y-1 group-hover:shadow-[0_18px_44px_rgba(0,0,0,.12)]">
+      <div className="relative aspect-[16/10] w-full overflow-hidden rounded-[20px] bg-muted">
         <Image
           src={project.coverImage}
           alt={project.title}
@@ -82,7 +82,7 @@ function ProjectCard({ project }: { project: ProjectMeta }) {
           content width instead of filling the row (it only stretches when a card-action
           column is present), so it sat off-center to the left and squeezed the title into
           wrapping. An explicit 1fr column always fills the available width. */}
-      <CardHeader className="grid-cols-1 items-center justify-items-center px-5">
+      <CardHeader className="grid-cols-1 items-center justify-items-center">
         <Badge className={ACCENT_BADGE_CLASSES[project.accentColor]}>
           {project.badgeLabel}
         </Badge>
@@ -90,7 +90,7 @@ function ProjectCard({ project }: { project: ProjectMeta }) {
           {project.title}
         </CardTitle>
       </CardHeader>
-      <CardContent className="flex flex-col items-center gap-3 px-5">
+      <CardContent className="flex flex-col items-center gap-3">
         <p className="text-sm text-body">{project.summary}</p>
         <div className="flex flex-wrap justify-center gap-1.5">
           {project.techStack.map((tech) => (
@@ -103,7 +103,7 @@ function ProjectCard({ project }: { project: ProjectMeta }) {
     </Card>
   );
 
-  const className = "group block transition-transform duration-200 hover:scale-[1.02]";
+  const className = "group block";
 
   // `liveUrl` set (MVP case, e.g. a project without a case-study page yet): the whole card
   // opens the live site in a new tab instead of the internal `/project/[slug]` detail page.

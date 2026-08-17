@@ -17,13 +17,27 @@ const HEADING_CLASS = "text-[clamp(1.5rem,1rem+2vw,2.5rem)] font-bold text-headi
 export function AccordionSectionHeading({
   title,
   className,
+  barColorClass,
+  barAlign = "center",
 }: {
   title: string;
   className?: string;
+  /** Optional decorative accent bar rendered below the heading (13a). Omitted entirely when not passed. */
+  barColorClass?: string;
+  barAlign?: "center" | "start";
 }) {
+  const barClass = (visibility: "hidden lg:block" | "lg:hidden") =>
+    cn(
+      visibility,
+      "mt-[14px] h-[5px] w-[52px] rounded-full",
+      barColorClass,
+      barAlign === "center" && "mx-auto"
+    );
+
   return (
     <>
       <h2 className={cn("hidden lg:block", HEADING_CLASS, className)}>{title}</h2>
+      {barColorClass && <span className={barClass("hidden lg:block")} aria-hidden="true" />}
       <Accordion.Header render={<h2 className={cn("lg:hidden", HEADING_CLASS, className)} />}>
         <Accordion.Trigger className="group flex w-full items-center justify-between gap-3 text-left transition-colors duration-200 hover:text-heading">
           <span>{title}</span>
@@ -33,6 +47,7 @@ export function AccordionSectionHeading({
           />
         </Accordion.Trigger>
       </Accordion.Header>
+      {barColorClass && <span className={barClass("lg:hidden")} aria-hidden="true" />}
     </>
   );
 }
