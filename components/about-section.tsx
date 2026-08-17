@@ -3,6 +3,9 @@ import { getTranslations } from "next-intl/server";
 import { Accordion } from "@base-ui/react/accordion";
 import { ChevronDown } from "lucide-react";
 
+import { AboutAccentBar } from "@/components/about-accent-bar";
+import { ScrollReveal } from "@/components/scroll-reveal";
+
 const HEADING_CLASS = "text-[clamp(1.5rem,1rem+2vw,2.5rem)] font-bold text-heading";
 const BODY_TEXT_CLASS = "text-[clamp(0.95rem,0.4vw+0.85rem,1.125rem)] leading-relaxed text-body";
 
@@ -28,6 +31,7 @@ export async function AboutSection() {
       render={<section id="about" className="w-full bg-black/[0.03]" />}
     >
       <div className="mx-auto w-full max-w-[1800px] px-[clamp(1.5rem,4vw,6rem)] py-[clamp(3rem,8vh,6rem)]">
+      <ScrollReveal>
       <Accordion.Header render={<h2 className={`lg:hidden ${HEADING_CLASS}`} />}>
         <Accordion.Trigger className="group flex w-full items-center justify-between gap-3 text-left transition-colors duration-200 hover:text-heading">
           <span>{t("heading")}</span>
@@ -39,20 +43,22 @@ export async function AboutSection() {
       </Accordion.Header>
       {/* Accent bar (13a) — same colored-bar-under-heading pattern as AccordionSectionHeading,
           replicated manually here since About uses its own dedicated heading markup instead of
-          the shared component (heading is nested inside the 40% text column, not full-width). */}
-      <span
-        className="mt-[14px] block h-[5px] w-[52px] rounded-full bg-[oklch(0.8655_0.1595_96)] lg:hidden"
-        aria-hidden="true"
-      />
+          the shared component (heading is nested inside the 40% text column, not full-width).
+          Grows 0 -> 52px (13b) via AboutAccentBar — see that file for why it's a separate client
+          component instead of calling useReveal directly here (this file is a Server Component). */}
+      <AboutAccentBar className="lg:hidden" />
+      </ScrollReveal>
 
       <Accordion.Panel className="accordion-panel overflow-hidden lg:block lg:overflow-visible lg:[content-visibility:visible]">
       <div className="flex flex-col gap-[clamp(2rem,5vw,4rem)] lg:flex-row">
-        <div className="lg:w-[40%] lg:shrink-0">
+        {/* Wrapped in ScrollReveal, not the row itself (13b) — this column is a *sibling* of the
+            image column below, never an ancestor of its `lg:sticky` element, so animating it with
+            `transform` is safe. Wrapping the shared row instead would put a transformed ancestor
+            above the sticky image and silently break `position: sticky` (a transform on any
+            ancestor changes its containing block). */}
+        <ScrollReveal as="div" className="lg:w-[40%] lg:shrink-0">
           <h2 className={`hidden lg:block ${HEADING_CLASS}`}>{t("heading")}</h2>
-          <span
-            className="mt-[14px] hidden h-[5px] w-[52px] rounded-full bg-[oklch(0.8655_0.1595_96)] lg:block"
-            aria-hidden="true"
-          />
+          <AboutAccentBar className="hidden lg:block" />
 
           <div className="mt-[clamp(1.5rem,4vw,2.5rem)] flex flex-col gap-[clamp(1.5rem,4vw,2.5rem)]">
             <div>
@@ -91,7 +97,7 @@ export async function AboutSection() {
               </p>
             </div>
           </div>
-        </div>
+        </ScrollReveal>
 
         {/* Single real photo collage (public/images/collage-about.png, 1920x1080) replacing the
             3-box placeholder mosaic. Text/image split matched to Hero's 40:60 (lg:w-[40%] text +
@@ -110,7 +116,10 @@ export async function AboutSection() {
             image doesn't tuck under it; approximate, revisit after a visual pass. Mobile/tablet
             (below `lg`) keeps the original static stacked image, unaffected. */}
         <div className="w-full lg:sticky lg:top-[clamp(4.5rem,9vh,6rem)] lg:w-auto lg:flex-1 lg:self-start">
-          <div className="relative aspect-[16/9] w-full overflow-hidden rounded-[20px] shadow-[0_14px_40px_rgba(0,0,0,.14)]">
+          {/* Reveal wraps this inner box, not the `lg:sticky` div above — that div must stay
+              untransformed (13b, see the text-column comment above for why). This box is a
+              *child* of the sticky element, not an ancestor, so a transform here is safe. */}
+          <ScrollReveal as="div" className="relative aspect-[16/9] w-full overflow-hidden rounded-[20px] shadow-[0_14px_40px_rgba(0,0,0,.14)]">
             <Image
               src="/images/collage-about.png"
               alt={t("photoAlt")}
@@ -118,7 +127,7 @@ export async function AboutSection() {
               className="object-cover"
               sizes="(min-width: 1024px) 60vw, 100vw"
             />
-          </div>
+          </ScrollReveal>
         </div>
       </div>
       </Accordion.Panel>

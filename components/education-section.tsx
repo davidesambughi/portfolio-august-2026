@@ -3,6 +3,7 @@ import { Accordion } from "@base-ui/react/accordion";
 
 import { AccordionSectionHeading } from "@/components/accordion-section-heading";
 import { EducationList } from "@/components/education-list";
+import { ScrollReveal } from "@/components/scroll-reveal";
 import { getEducation } from "@/lib/content";
 
 export async function EducationSection() {
@@ -20,18 +21,20 @@ export async function EducationSection() {
         />
       }
     >
-      <div className="max-w-2xl">
+      <ScrollReveal className="max-w-2xl">
         <AccordionSectionHeading title={t("heading")} barColorClass="bg-accent-red" barAlign="start" />
-      </div>
+      </ScrollReveal>
 
       <Accordion.Panel className="accordion-panel overflow-hidden lg:block lg:overflow-visible lg:[content-visibility:visible]">
-        <div className="mx-auto max-w-2xl text-center lg:mx-0 lg:text-left">
-          <p className="mt-3 text-[clamp(0.95rem,0.4vw+0.85rem,1.125rem)] text-body">
-            {t("subheading")}
-          </p>
-        </div>
+        <ScrollReveal>
+          <div className="mx-auto max-w-2xl text-center lg:mx-0 lg:text-left">
+            <p className="mt-3 text-[clamp(0.95rem,0.4vw+0.85rem,1.125rem)] text-body">
+              {t("subheading")}
+            </p>
+          </div>
 
-        <EducationList education={education} />
+          <EducationList education={education} />
+        </ScrollReveal>
       </Accordion.Panel>
     </Accordion.Item>
   );

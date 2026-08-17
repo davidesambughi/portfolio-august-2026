@@ -3,7 +3,14 @@
 import { useState } from "react";
 import { ChevronDown } from "lucide-react";
 
+import { ScrollReveal } from "@/components/scroll-reveal";
 import { cn } from "@/lib/utils";
+
+// Stagger delay for node entrance (13b), same 80ms/240ms-cap rule as Projects' cards. Desktop and
+// mobile each compute their own 0-based sequence (the two lists have different node orders).
+const STAGGER_STEP_MS = 80;
+const STAGGER_CAP_MS = 240;
+const staggerDelay = (index: number) => Math.min(index * STAGGER_STEP_MS, STAGGER_CAP_MS);
 
 export type TimelineNode = {
   id: string;
@@ -68,15 +75,17 @@ export function ExperienceTimeline({
           const colClass = COL_START[index % COL_START.length];
 
           return (
-            <div
+            <ScrollReveal
               key={node.id}
+              variant="scale"
+              delayMs={staggerDelay(index)}
               className={cn(colClass, "row-start-2 flex w-2.5 justify-self-start")}
             >
               <span
                 className="size-4 shrink-0 rounded-full bg-accent-purple shadow-[0_0_0_4px_rgba(255,255,255,.9)]"
                 aria-hidden="true"
               />
-            </div>
+            </ScrollReveal>
           );
         })}
         {desktopNodes.map((node, index) => {
@@ -140,21 +149,23 @@ export function ExperienceTimeline({
           );
 
           return isAbove ? (
-            <div
+            <ScrollReveal
               key={node.id}
+              delayMs={staggerDelay(index)}
               className={cn(colClass, "row-start-1 flex flex-col items-start justify-end gap-2")}
             >
               {label}
               {connector}
-            </div>
+            </ScrollReveal>
           ) : (
-            <div
+            <ScrollReveal
               key={node.id}
+              delayMs={staggerDelay(index)}
               className={cn(colClass, "row-start-3 flex flex-col items-start justify-start gap-2")}
             >
               {connector}
               {label}
-            </div>
+            </ScrollReveal>
           );
         })}
       </div>
@@ -200,7 +211,7 @@ export function ExperienceTimeline({
           );
 
           return (
-            <li key={node.id} className="flex gap-3">
+            <ScrollReveal key={node.id} as="li" delayMs={staggerDelay(index)} className="flex gap-3">
               <div className="flex w-2.5 shrink-0 flex-col items-center">
                 <span
                   className={cn("mt-1.5 size-2.5 shrink-0 rounded-full", node.dotColorClass)}
@@ -220,7 +231,7 @@ export function ExperienceTimeline({
                   {text}
                 </button>
               )}
-            </li>
+            </ScrollReveal>
           );
         })}
       </ul>

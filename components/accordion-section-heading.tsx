@@ -4,6 +4,7 @@ import { Accordion } from "@base-ui/react/accordion";
 import { ChevronDown } from "lucide-react";
 
 import { cn } from "@/lib/utils";
+import { useReveal } from "@/components/use-reveal";
 
 const HEADING_CLASS = "text-[clamp(1.5rem,1rem+2vw,2.5rem)] font-bold text-heading";
 
@@ -30,24 +31,42 @@ export function AccordionSectionHeading({
   // `<span>` is `display: inline` by default, which silently ignores `w-`/`h-` (the bug this fixed,
   // 2026-08-17: the mobile variant only had "lg:hidden" with no "block", so the bar rendered with
   // zero size on every section except About, whose bar was written by hand with "block" included).
-  const baseBar = "mt-[14px] h-[5px] w-[52px] rounded-full";
+  // Width animates 0 -> 52px (13b) instead of a fixed w-[52px] — each variant has its own
+  // useReveal (own IntersectionObserver), since only one of the two is ever laid out at a given
+  // breakpoint (the other is `display:none` and never intersects). `transitionDelay: 500ms` is
+  // what makes the bar grow *after* the section/heading's own 500ms entrance finishes, not
+  // simultaneously with it — a fixed delay rather than a signal passed down from the section's own
+  // ScrollReveal, to avoid prop-drilling through every call site (13b-motion-microinteractions.md).
+  const baseBar =
+    "mt-[14px] h-[5px] rounded-full transition-[width] duration-500 motion-reduce:transition-none motion-reduce:w-[52px]";
   // Desktop bar respects `barAlign` (centered under a centered heading, or left under a
   // left-aligned one). Mobile's `Accordion.Trigger` row is always a left-aligned "text — chevron"
   // layout regardless of the desktop heading's own alignment (pre-existing pattern, 8c) — so the
   // mobile bar must always sit left too, never centered via `mx-auto`, or it visually detaches from
   // the now-left-aligned trigger text above it (bug reported 2026-08-17, same session as the fix above).
+  const [desktopBarRef, desktopBarRevealed] = useReveal<HTMLSpanElement>();
+  const [mobileBarRef, mobileBarRevealed] = useReveal<HTMLSpanElement>();
   const desktopBarClass = cn(
     "hidden lg:block",
     baseBar,
+    desktopBarRevealed ? "w-[52px]" : "w-0",
     barColorClass,
     barAlign === "center" && "mx-auto"
   );
-  const mobileBarClass = cn("block lg:hidden", baseBar, barColorClass);
+  const mobileBarClass = cn(
+    "block lg:hidden",
+    baseBar,
+    mobileBarRevealed ? "w-[52px]" : "w-0",
+    barColorClass
+  );
+  const barDelayStyle = { transitionDelay: "500ms" };
 
   return (
     <>
       <h2 className={cn("hidden lg:block", HEADING_CLASS, className)}>{title}</h2>
-      {barColorClass && <span className={desktopBarClass} aria-hidden="true" />}
+      {barColorClass && (
+        <span ref={desktopBarRef} className={desktopBarClass} style={barDelayStyle} aria-hidden="true" />
+      )}
       <Accordion.Header render={<h2 className={cn("lg:hidden", HEADING_CLASS, className)} />}>
         <Accordion.Trigger className="group flex w-full items-center justify-between gap-3 text-left transition-colors duration-200 hover:text-heading">
           <span>{title}</span>
@@ -57,7 +76,9 @@ export function AccordionSectionHeading({
           />
         </Accordion.Trigger>
       </Accordion.Header>
-      {barColorClass && <span className={mobileBarClass} aria-hidden="true" />}
+      {barColorClass && (
+        <span ref={mobileBarRef} className={mobileBarClass} style={barDelayStyle} aria-hidden="true" />
+      )}
     </>
   );
 }

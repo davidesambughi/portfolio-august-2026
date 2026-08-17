@@ -3,11 +3,18 @@ import { getLocale, getTranslations } from "next-intl/server";
 import { Accordion } from "@base-ui/react/accordion";
 
 import { AccordionSectionHeading } from "@/components/accordion-section-heading";
+import { ScrollReveal } from "@/components/scroll-reveal";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Link } from "@/i18n/navigation";
 import { getProjects } from "@/lib/content";
 import type { AccentColor, ProjectMeta } from "@/types/project";
+
+// Stagger delay for card entrance (13b): 80ms per card, capped at 240ms so a future, larger grid
+// doesn't keep growing the delay linearly.
+const STAGGER_STEP_MS = 80;
+const STAGGER_CAP_MS = 240;
+const staggerDelay = (index: number) => Math.min(index * STAGGER_STEP_MS, STAGGER_CAP_MS);
 
 // Literal class strings per accent color — Tailwind's JIT scanner only picks up classes it can
 // see as-written in source, a template-interpolated `bg-accent-${color}` would get purged from
@@ -37,9 +44,9 @@ export async function ProjectsSection() {
       render={<section id="projects" className="w-full bg-black/[0.03]" />}
     >
       <div className="mx-auto w-full max-w-[1800px] px-[clamp(1.5rem,4vw,6rem)] pt-[clamp(3rem,8vh,6rem)] pb-[clamp(1.5rem,4vh,3rem)]">
-        <div className="max-w-2xl">
+        <ScrollReveal className="max-w-2xl">
           <AccordionSectionHeading title={t("heading")} barColorClass="bg-accent-blue" barAlign="start" />
-        </div>
+        </ScrollReveal>
 
         <Accordion.Panel className="accordion-panel overflow-hidden lg:block lg:overflow-visible lg:[content-visibility:visible]">
           <div className="mx-auto max-w-2xl text-center lg:mx-0 lg:text-left">
@@ -49,11 +56,15 @@ export async function ProjectsSection() {
           </div>
 
           <div className="mt-[clamp(2rem,5vh,3.5rem)] grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {projects.map((project) => (
-              <ProjectCard key={project.slug} project={project} />
+            {projects.map((project, index) => (
+              <ScrollReveal key={project.slug} delayMs={staggerDelay(index)}>
+                <ProjectCard project={project} />
+              </ScrollReveal>
             ))}
             {Array.from({ length: fillerCount }).map((_, index) => (
-              <ComingSoonCard key={index} label={t("comingSoon")} />
+              <ScrollReveal key={index} delayMs={staggerDelay(projects.length + index)}>
+                <ComingSoonCard label={t("comingSoon")} />
+              </ScrollReveal>
             ))}
           </div>
         </Accordion.Panel>
@@ -75,7 +86,7 @@ function ProjectCard({ project }: { project: ProjectMeta }) {
           alt={project.title}
           fill
           sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-          className="object-cover"
+          className="object-cover transition-transform duration-200 group-hover:scale-[1.03] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
         />
       </div>
       {/* grid-cols-1 explicit: without it, CardHeader's implicit single column shrinks to

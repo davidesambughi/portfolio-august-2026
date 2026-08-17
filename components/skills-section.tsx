@@ -21,6 +21,7 @@ import {
 import { getTechnologies, getMethodologies, getCertificates } from "@/lib/content";
 import { AccordionSectionHeading } from "@/components/accordion-section-heading";
 import { CertificatesList } from "@/components/certificates-list";
+import { ScrollReveal } from "@/components/scroll-reveal";
 
 // Named imports (not a dynamic lookup) so the bundler tree-shakes unused brand icons.
 const ICONS_BY_SLUG: Record<string, SimpleIcon> = {
@@ -71,11 +72,13 @@ export async function SkillsSection() {
         />
       }
     >
-      <AccordionSectionHeading
-        title={t("heading")}
-        barColorClass="bg-accent-green"
-        barAlign="start"
-      />
+      <ScrollReveal>
+        <AccordionSectionHeading
+          title={t("heading")}
+          barColorClass="bg-accent-green"
+          barAlign="start"
+        />
+      </ScrollReveal>
 
       {/* The extra Skills↔About gap (larger than every other section's spacing, deliberately
           kept per 09h) lives on the Panel's own `pb-`, not the outer <section>'s — so it collapses
@@ -83,6 +86,7 @@ export async function SkillsSection() {
           this, the padding sat on the section root and stayed visible even while the panel was
           collapsed, making Skills' closed accordion row visibly taller than every other section's. */}
       <Accordion.Panel className="accordion-panel overflow-hidden pb-[clamp(3rem,8vh,6rem)] lg:block lg:overflow-visible lg:[content-visibility:visible]">
+        <ScrollReveal>
         <div className="mt-[clamp(2rem,5vh,3.5rem)] flex flex-col gap-[clamp(2rem,5vw,4rem)] lg:flex-row">
           <div className="lg:flex-1">
             <p className="text-[clamp(0.8rem,0.3vw+0.75rem,0.9rem)] text-body">
@@ -138,6 +142,7 @@ export async function SkillsSection() {
           </p>
           <CertificatesList certificates={certificates} />
         </div>
+        </ScrollReveal>
       </Accordion.Panel>
     </Accordion.Item>
   );

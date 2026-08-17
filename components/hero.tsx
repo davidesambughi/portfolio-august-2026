@@ -57,15 +57,19 @@ export async function Hero() {
           </p>
 
           <div className="flex flex-wrap items-center gap-3">
+            {/* Hover: 1px lift + shadow (13b), on top of the existing brightness dip. Click: snaps
+                back to resting position/no shadow (active:), giving a "press" feel before it lifts
+                back on release. motion-reduce: strips only the transform (translate), the color
+                effects (brightness/bg-muted) aren't motion and stay. */}
             <a
               href="#projects"
-              className="rounded-full bg-accent-blue px-[26px] py-[12px] text-[15px] font-bold text-on-accent transition-[filter] duration-200 hover:brightness-[0.94]"
+              className="rounded-full bg-accent-blue px-[26px] py-[12px] text-[15px] font-bold text-on-accent transition-[transform,box-shadow,filter] duration-200 hover:-translate-y-[1px] hover:shadow-[0_6px_16px_rgba(0,0,0,.14)] hover:brightness-[0.94] active:translate-y-0 active:shadow-none motion-reduce:hover:translate-y-0"
             >
               {t("ctaProjects")}
             </a>
             <a
               href="#contacts"
-              className="rounded-full border-[1.5px] border-black/20 px-[26px] py-[12px] text-[15px] font-bold text-heading transition-colors duration-200 hover:bg-muted"
+              className="rounded-full border-[1.5px] border-black/20 px-[26px] py-[12px] text-[15px] font-bold text-heading transition-[transform,box-shadow,color] duration-200 hover:-translate-y-[1px] hover:shadow-[0_6px_16px_rgba(0,0,0,.14)] hover:bg-muted active:translate-y-0 active:shadow-none motion-reduce:hover:translate-y-0"
             >
               {t("ctaContact")}
             </a>

@@ -3,6 +3,7 @@ import { Accordion } from "@base-ui/react/accordion";
 
 import { AccordionSectionHeading } from "@/components/accordion-section-heading";
 import { ExperienceTimeline } from "@/components/experience-timeline";
+import { ScrollReveal } from "@/components/scroll-reveal";
 import { formatDateRange } from "@/lib/format-date";
 import { getExperience } from "@/lib/content";
 import type { TimelineNode } from "@/components/experience-timeline";
@@ -78,7 +79,9 @@ export async function ExperienceSection() {
       render={<section id="experience" className="w-full bg-black/[0.03]" />}
     >
       <div className="mx-auto w-full max-w-[1800px] px-[clamp(1.5rem,4vw,6rem)] py-[clamp(1.5rem,4vh,3rem)]">
-        <AccordionSectionHeading title={t("heading")} barColorClass="bg-accent-purple" barAlign="start" />
+        <ScrollReveal>
+          <AccordionSectionHeading title={t("heading")} barColorClass="bg-accent-purple" barAlign="start" />
+        </ScrollReveal>
 
         <Accordion.Panel className="accordion-panel overflow-hidden lg:block lg:overflow-visible lg:[content-visibility:visible]">
           <ExperienceTimeline desktopNodes={desktopNodes} mobileNodes={mobileNodes} />
