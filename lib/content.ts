@@ -5,6 +5,8 @@ import { experience } from "@/content/data/experience";
 import { education } from "@/content/data/education";
 import { technologies, methodologies, certificates } from "@/content/data/skills";
 import { contactLinks } from "@/content/data/contacts";
+import { projectFrontmatterSchema } from "@/lib/project-schema";
+import { routing } from "@/i18n/routing";
 import type { Experience } from "@/types/experience";
 import type { Education } from "@/types/education";
 import type { Project, ProjectMeta } from "@/types/project";
@@ -57,20 +59,53 @@ export function getContactLinks(): ContactLink[] {
   return contactLinks;
 }
 
-/** Slugs are enumerated from the English folder; every locale must have a matching file. */
+function slugsInLocale(locale: string): Set<string> {
+  const dir = path.join(PROJECTS_DIR, locale);
+  return new Set(
+    fs
+      .readdirSync(dir)
+      .filter((file) => file.endsWith(".mdx"))
+      .map((file) => file.replace(/\.mdx$/, ""))
+  );
+}
+
+/**
+ * Slugs are enumerated from the English folder, but every locale in `routing.locales`
+ * must have a matching file — a slug present in one locale and missing in another
+ * would otherwise 404 silently on the missing side (`getProjectBySlug` returns `null`).
+ */
 export function getProjectSlugs(): string[] {
-  const enDir = path.join(PROJECTS_DIR, "en");
-  return fs
-    .readdirSync(enDir)
-    .filter((file) => file.endsWith(".mdx"))
-    .map((file) => file.replace(/\.mdx$/, ""));
+  const byLocale = new Map(routing.locales.map((locale) => [locale, slugsInLocale(locale)]));
+  const allSlugs = new Set(Array.from(byLocale.values()).flatMap((slugs) => [...slugs]));
+
+  for (const slug of allSlugs) {
+    const missingIn = routing.locales.filter((locale) => !byLocale.get(locale)!.has(slug));
+    if (missingIn.length > 0) {
+      throw new Error(
+        `Project "${slug}" is missing its MDX file for locale(s): ${missingIn.join(", ")}. ` +
+          `Every project must have a content/projects/{locale}/${slug}.mdx file for each of: ${routing.locales.join(", ")}.`
+      );
+    }
+  }
+
+  return [...byLocale.get(routing.defaultLocale)!];
+}
+
+function parseProjectFrontmatter(data: unknown, locale: string, slug: string): Omit<ProjectMeta, "slug"> {
+  const result = projectFrontmatterSchema.safeParse(data);
+  if (!result.success) {
+    throw new Error(
+      `Invalid frontmatter in content/projects/${locale}/${slug}.mdx: ${result.error.message}`
+    );
+  }
+  return result.data;
 }
 
 export function getProjects(locale: string): ProjectMeta[] {
   return getProjectSlugs().map((slug) => {
     const filePath = path.join(PROJECTS_DIR, locale, `${slug}.mdx`);
     const { data } = matter(fs.readFileSync(filePath, "utf8"));
-    return { ...(data as Omit<ProjectMeta, "slug">), slug };
+    return { ...parseProjectFrontmatter(data, locale, slug), slug };
   });
 }
 
@@ -79,5 +114,5 @@ export function getProjectBySlug(locale: string, slug: string): Project | null {
   if (!fs.existsSync(filePath)) return null;
 
   const { data, content } = matter(fs.readFileSync(filePath, "utf8"));
-  return { ...(data as Omit<ProjectMeta, "slug">), slug, content };
+  return { ...parseProjectFrontmatter(data, locale, slug), slug, content };
 }
