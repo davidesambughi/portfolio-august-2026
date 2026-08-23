@@ -12,6 +12,10 @@ export type ProjectMeta = {
   /** Full tech + methodology line shown under the title on the detail page (unit 09b) — separate from techStack, which stays tech-only for homepage badges. */
   subtitleTags: string[];
   coverImage: string;
+  /** CSS `aspect-ratio` value (e.g. "1920 / 998") for the homepage card's image box, matching
+   * the source file's real dimensions so `object-cover` shows it uncropped — same technique as
+   * Hero's collage (unit 04). Defaults to 16 / 10 when absent. */
+  coverAspect?: string;
   githubUrl?: string;
   /** When set, the homepage card links straight here (external, new tab) instead of to the internal `/project/[slug]` detail page — MVP treatment for projects without a case-study page yet. */
   liveUrl?: string;

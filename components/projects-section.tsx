@@ -80,7 +80,14 @@ function ProjectCard({ project }: { project: ProjectMeta }) {
     // card background — and are horizontally centered, not left-aligned. Card's own
     // rounded/ring/bg are cancelled here (twMerge resolves the conflicting utility groups).
     <Card className="h-full items-center gap-4 rounded-[28px] border border-[rgba(0,0,0,.07)] bg-white p-[14px_14px_26px] text-center shadow-[0_10px_30px_rgba(0,0,0,.08)] ring-0 transition-[transform,box-shadow] duration-200 group-hover:-translate-y-1 group-hover:shadow-[0_18px_44px_rgba(0,0,0,.12)]">
-      <div className="relative aspect-[16/10] w-full overflow-hidden rounded-[20px] bg-muted">
+      {/* aspectRatio as inline style, not a Tailwind class: `coverAspect` is per-project data, and
+          a template-interpolated `aspect-[${...}]` class would get purged by Tailwind's JIT
+          scanner (same reasoning as ACCENT_BADGE_CLASSES above). Defaults to 16/10 when a
+          project has no real screenshot yet. */}
+      <div
+        className="relative w-full overflow-hidden rounded-[20px] bg-muted"
+        style={{ aspectRatio: project.coverAspect ?? "16 / 10" }}
+      >
         <Image
           src={project.coverImage}
           alt={project.title}
