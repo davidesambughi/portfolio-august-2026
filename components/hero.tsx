@@ -44,7 +44,7 @@ export async function Hero() {
             `lg:flex-1`) per user-specified 40:60 text:image split — a share of the row rather
             than a fixed pixel value, so the ratio holds at every two-column width. */}
         <div className="flex flex-col items-center gap-[clamp(1rem,2vh,1.25rem)] text-center lg:w-[40%] lg:shrink-0 lg:items-start lg:text-left">
-          <h1 className="text-[clamp(1.875rem,1rem+3vw,3.75rem)] font-bold leading-tight text-heading">
+          <h1 className="text-[clamp(1.875rem,1rem+3vw,3.25rem)] font-bold leading-tight text-heading">
             {t("name")}
             <br />
             <span className="text-accent-teal">{t("badge")}</span>
