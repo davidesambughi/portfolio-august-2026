@@ -28,7 +28,7 @@ export async function AboutSection() {
     // exactly where it already was, inside the text column.
     <Accordion.Item
       value="about"
-      render={<section id="about" className="w-full bg-black/[0.03]" />}
+      render={<section id="about" className="w-full bg-accent-yellow-dark/[0.04]" />}
     >
       <div className="mx-auto w-full max-w-[1800px] px-[clamp(1.5rem,4vw,6rem)] py-[clamp(3rem,8vh,6rem)]">
       <ScrollReveal>

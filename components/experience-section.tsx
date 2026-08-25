@@ -76,7 +76,7 @@ export async function ExperienceSection() {
     // (8c) — see 8c-homepage-mobile-accordion.md.
     <Accordion.Item
       value="experience"
-      render={<section id="experience" className="w-full bg-black/[0.03]" />}
+      render={<section id="experience" className="w-full bg-accent-purple/[0.04]" />}
     >
       <div className="mx-auto w-full max-w-[1800px] px-[clamp(1.5rem,4vw,6rem)] py-[clamp(1.5rem,4vh,3rem)]">
         <ScrollReveal>

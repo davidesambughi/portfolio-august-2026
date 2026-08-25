@@ -57,6 +57,7 @@
   --color-accent-purple: var(--accent-purple);
   --color-accent-teal: var(--accent-teal);
   --color-accent-orange: var(--accent-orange);
+  --color-accent-yellow-dark: var(--accent-yellow-dark);
   --color-heading: var(--heading);
   --color-subheading: var(--subheading);
   --color-body: var(--body-text);
@@ -110,6 +111,10 @@
   /* Added for the Stripe LegendBox background — eyeballed while iterating live with the user,
      confirmed. */
   --accent-orange: oklch(0.75 0.16 50);
+  /* Promoted from a one-off arbitrary value (was hardcoded in 3 places: Approach pill in
+     skills-section.tsx, About's accent bar, now also About's section background) to a real
+     token — user-provided oklch, darker than --accent-yellow so it stays visible on white. */
+  --accent-yellow-dark: oklch(0.8655 0.1595 96);
   --heading: oklch(0 0 0);
   --subheading: oklch(0.4892 0.0051 17.33);
   --body-text: oklch(0.4892 0.0051 17.33);

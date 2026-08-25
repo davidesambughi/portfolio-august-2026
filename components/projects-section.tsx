@@ -41,7 +41,7 @@ export async function ProjectsSection() {
     // 8c-homepage-mobile-accordion.md.
     <Accordion.Item
       value="projects"
-      render={<section id="projects" className="w-full bg-black/[0.03]" />}
+      render={<section id="projects" className="w-full bg-accent-blue/[0.06]" />}
     >
       <div className="mx-auto w-full max-w-[1800px] px-[clamp(1.5rem,4vw,6rem)] pt-[clamp(3rem,8vh,6rem)] pb-[clamp(1.5rem,4vh,3rem)]">
         <ScrollReveal className="max-w-2xl">

@@ -43,10 +43,10 @@ const ICONS_BY_SLUG: Record<string, SimpleIcon> = {
 
 // Cycled by declared position (blue, yellow, red, green), matching the pattern already
 // used for Experience's marker dots and Projects' year badge.
-// Yellow is a one-off darker shade (user-provided oklch), not the shared --color-accent-yellow token.
+// Yellow uses --accent-yellow-dark (darker shade), not the shared --color-accent-yellow token.
 const APPROACH_CLASSES = [
   "bg-accent-blue",
-  "bg-[oklch(0.8655_0.1595_96)]",
+  "bg-accent-yellow-dark",
   "bg-accent-red",
   "bg-accent-green",
 ] as const;

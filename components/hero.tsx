@@ -92,6 +92,7 @@ export async function Hero() {
             fill
             sizes="(min-width: 1024px) 60vw, 90vw"
             className="object-contain"
+            loading="eager"
           />
         </div>
       </div>

@@ -13,6 +13,7 @@ Uso decorativo/alternato, non semantico — non associare significato (stato, ca
 - `--color-accent-purple`: `oklch(0.5 0.24 300)` (aggiunto unit 07, per la linea/pallini della timeline Experience — nessun valore esatto dal mockup, stimato a occhio)
 - `--color-accent-teal`: `oklch(0.6149 0.1057 180.86)` (aggiunto unit 09e, valore esatto fornito dall'utente — colora solo i label in grassetto della lista "7 fasi del workflow" nella Project Detail Page, non i bold del resto del sito)
 - `--color-accent-orange`: `oklch(0.75 0.16 50)` (aggiunto unit 09e, stimato a occhio iterando dal vivo col utente — sfondo del `LegendBox` Stripe, sempre a bassa opacità)
+- `--color-accent-yellow-dark`: `oklch(0.8655 0.1595 96)` (promosso a token in unit "Section Tints" — prima valore arbitrary ripetuto in 2 punti, ora anche nello sfondo di About: pillola Approach "Agile/SDLC" in `skills-section.tsx`, accent bar di About in `about-accent-bar.tsx`, sfondo sezione About)
 - `--color-heading`: `oklch(0 0 0)` (nero puro, bold)
 - `--color-subheading`: `oklch(0.4892 0.0051 17.33)` (bold)
 - `--color-body`: `oklch(0.4892 0.0051 17.33)` (regular)
@@ -80,9 +81,15 @@ Mapping colore↔sezione (invariato): Projects `accent-blue`, Education `accent-
 
 **Hero CTA (2026-08-17):** due link a pillola sotto il body text — primaria "Progetti"/"View projects" (`bg-accent-blue`, `text-on-accent`) verso `#projects`, secondaria "Contattami"/"Get in touch" (bordo, `text-heading`) verso `#contacts`. Valori px fissi (non `clamp()`), eccezione deliberata per elementi di chrome piccoli — vedi `13a-visual-hierarchy-depth.md`.
 
-## Sfondi sezione (2026-08-12, esteso 2026-08-12)
+## Sfondi sezione (2026-08-12, esteso 2026-08-12; tinte per-sezione aggiunte 2026-08-25)
 
-Projects, Experience e About usano `bg-black/[0.03]` a piena larghezza (edge-to-edge, non contenuto nel `max-w`) — struttura a due livelli: `<section>` esterna piena larghezza con il colore, `<div>` interna con il solito `max-w-[1800px]` per il contenuto (stesso pattern di `footer.tsx`). Education e Skills restano bianchi. Puramente un test visivo confermato dall'utente, non ancora esteso ad altre sezioni.
+Projects, Experience e About hanno sfondo a piena larghezza (edge-to-edge, non contenuto nel `max-w`) — struttura a due livelli: `<section>` esterna piena larghezza con il colore, `<div>` interna con il solito `max-w-[1800px]` per il contenuto (stesso pattern di `footer.tsx`). Education e Skills restano bianchi.
+
+Il flat `bg-black/[0.03]` iniziale è stato sostituito con una tinta molto delicata del colore accent di ciascuna sezione (stesso colore della sua accent bar), tramite l'opacity modifier Tailwind sui token esistenti — nessun colore inline, nessun nuovo token dedicato a parte `--color-accent-yellow-dark` (già promosso a token, vedi sopra, non creato solo per questo). Valori scelti dal vivo nel pannello DevTools prima di essere applicati nel codice:
+
+- Projects: `bg-accent-blue/[0.06]`
+- Experience: `bg-accent-purple/[0.04]`
+- About: `bg-accent-yellow-dark/[0.04]`
 
 Il **Footer** usa `bg-black/[0.06]` — leggermente più scuro delle sezioni di contenuto, non `/[0.03]` (2026-08-12) — perché è sempre l'ultimo elemento della pagina e quindi sempre adiacente a qualunque sezione lo preceda; essendo l'ultima ad avere sfondo tinto era About, stesso valore, senza alcun confine visivo percepibile tra le due. Un footer più scuro risolve il problema indipendentemente da quale sezione stia sopra (non dipende dall'alternanza), leggibile anche come convenzione comune (footer leggermente più "pesante" del contenuto).
 

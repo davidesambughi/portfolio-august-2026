@@ -13,7 +13,7 @@ export function AboutAccentBar({ className }: { className?: string }) {
     <span
       ref={ref}
       className={cn(
-        "mt-[14px] block h-[5px] rounded-full bg-[oklch(0.8655_0.1595_96)] transition-[width] duration-500 motion-reduce:transition-none motion-reduce:w-[52px]",
+        "mt-[14px] block h-[5px] rounded-full bg-accent-yellow-dark transition-[width] duration-500 motion-reduce:transition-none motion-reduce:w-[52px]",
         revealed ? "w-[52px]" : "w-0",
         className
       )}
