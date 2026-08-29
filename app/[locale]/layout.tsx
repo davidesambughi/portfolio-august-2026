@@ -4,6 +4,7 @@ import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import { Google_Sans_Flex } from "next/font/google";
 import { notFound } from "next/navigation";
+import { Analytics } from "@vercel/analytics/next";
 import { routing } from "@/i18n/routing";
 import "../globals.css";
 
@@ -56,6 +57,9 @@ export default async function LocaleLayout({
         <NextIntlClientProvider messages={messages}>
           {children}
         </NextIntlClientProvider>
+        {/* Vercel Web Analytics — route-aware wrapper around the tracking script;
+            no-ops locally and only sends data from deployed environments. */}
+        <Analytics />
       </body>
     </html>
   );
