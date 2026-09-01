@@ -236,6 +236,9 @@ Aperto per il prossimo giro (2026-08-11):
 
 ## Session Notes
 
+- **Education dates fix (2026-09-01)**: Education section now shows years only (no months) — `formatDateRange` in `lib/format-date.ts` got an optional `yearOnly` flag, passed `true` only from `components/education-list.tsx` (Experience unchanged). ITS Marche now renders "2024 – 2026". Corrected the PTE Academic C1 English cert dates: `startDate` "2024" → "2022" (`content/data/education.ts`), now "2022 – 2024". `npm run build` clean.
+
+
 - Unit 01: `typescript-eslint` does not yet support TypeScript 7.0 (crashes on lint). Per user decision, downgraded to TypeScript ~5.9.x instead of the originally planned 7.0.2 in `architecture_context.md`. Revisit when typescript-eslint ships TS7 support (tracked: https://github.com/typescript-eslint/typescript-eslint/issues/10940).
 - Unit 01: `ui_context.md` color token names updated (`--color-text-*` → `--color-*`) to avoid doubled Tailwind utility classes (`text-text-heading` → `text-heading`), confirmed with user.
 - Unit 02: `next/root-params` does not work in Route Handlers or Server Actions (per next-intl's own docs) — not an issue for this static site today, but flag if a Route Handler/Server Action needing locale is ever added later.

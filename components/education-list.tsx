@@ -119,7 +119,8 @@ export function EducationList({ education }: { education: Education[] }) {
                     <span className="text-sm text-body">
                       {[
                         entry.location,
-                        formatDateRange(entry.startDate, entry.endDate, t("present"), locale),
+                        // Education shows only years (no months), per user request
+                        formatDateRange(entry.startDate, entry.endDate, t("present"), locale, true),
                       ]
                         .filter(Boolean)
                         .join(" · ")}

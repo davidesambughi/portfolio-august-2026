@@ -28,7 +28,7 @@ export const education: Education[] = [
       it: "Certificazione di Inglese C1",
     },
     location: "Perth, Australia",
-    startDate: "2024",
+    startDate: "2022",
     endDate: "2024",
   },
   {
