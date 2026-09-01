@@ -236,7 +236,11 @@ Aperto per il prossimo giro (2026-08-11):
 
 ## Session Notes
 
-- **Education dates fix (2026-09-01)**: Education section now shows years only (no months) — `formatDateRange` in `lib/format-date.ts` got an optional `yearOnly` flag, passed `true` only from `components/education-list.tsx` (Experience unchanged). ITS Marche now renders "2024 – 2026". Corrected the PTE Academic C1 English cert dates: `startDate` "2024" → "2022" (`content/data/education.ts`), now "2022 – 2024". `npm run build` clean.
+- **Content fixes (2026-09-01)**, all committed+pushed to `main`, builds clean:
+  - **Education dates**: section now shows years only (no months) — `formatDateRange` in `lib/format-date.ts` got an optional `yearOnly` flag, passed `true` only from `components/education-list.tsx` (Experience unchanged). ITS Marche now renders "2024 – 2026". Corrected PTE Academic C1 cert dates: `startDate` "2024" → "2022" (`content/data/education.ts`), now "2022 – 2024".
+  - **`remote-nif` "The Process" heading** renamed (both locales): "The Process"/"Il Processo" → "AI-assisted spec-driven development" / "Lo sviluppo spec-driven assistito da AI". Anchor id `the-process` unchanged. Note: the TOC (`components/toc.tsx`) derives its labels from `<h2>` text, so this TOC entry is now longer — not yet reviewed rendered in the narrow desktop tab.
+  - **`remote-nif` Stripe case study** paragraph: the polling sentence now also mentions the loading spinner shown in place of the empty dashboard ("…showing a loading spinner instead of an empty dashboard").
+  - **impeccable design hook**: persisted a narrow `ignore-value side-tab "*"` scoped to `components/education-list.tsx` (`.impeccable/config.json`) — the selected-entry left accent bar is the user-confirmed unit-06 mockup design, not an AI tell.
 
 
 - Unit 01: `typescript-eslint` does not yet support TypeScript 7.0 (crashes on lint). Per user decision, downgraded to TypeScript ~5.9.x instead of the originally planned 7.0.2 in `architecture_context.md`. Revisit when typescript-eslint ships TS7 support (tracked: https://github.com/typescript-eslint/typescript-eslint/issues/10940).
