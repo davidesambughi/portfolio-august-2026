@@ -139,7 +139,7 @@ widthClassName="w-full lg:w-[70%]"
 
 <div className="w-full lg:w-[32%]">
 
-**Two parallel channels.** On payment, Stripe fires two parallel, independent channels: it redirects the browser to the dashboard and sends a webhook to the server — with no guaranteed order of arrival. The webhook is the only authentic confirmation, verified via HMAC signature and protected by a double idempotency check (application-level + database UNIQUE constraint) against duplicate orders. Meanwhile, a client component polls the server every 2.5s until the order appears, avoiding an empty dashboard.
+**Two parallel channels.** On payment, Stripe fires two parallel, independent channels: it redirects the browser to the dashboard and sends a webhook to the server — with no guaranteed order of arrival. The webhook is the only authentic confirmation, verified via HMAC signature and protected by a double idempotency check (application-level + database UNIQUE constraint) against duplicate orders. Meanwhile, a client component polls the server every 2.5s until the order appears, showing a loading spinner instead of an empty dashboard.
 
 <LegendBox>
 **Legend**<br />
