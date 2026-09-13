@@ -34,9 +34,11 @@ Naming aggiornato in unit 01 per evitare classi Tailwind doppie (text-text-headi
 
 ## Radius
 
-Tutto fortemente arrotondato, pill-style: nav, badge, bottoni, card progetti. Nessuna eccezione — coerenza totale su questo asse.
+Tutto fortemente arrotondato, pill-style: nav, badge, bottoni, card progetti. Nessuna eccezione — coerenza totale su questo asse, **per tutte le sezioni costruite prima di unit 16**.
 
 Implementato come `--radius: 9999px` (non una percentuale — su elementi rettangolari una percentuale clippa a ellisse, non a pillola). Un radius superiore alla metà di altezza/larghezza dell'elemento clippa automaticamente a pillola perfetta su qualsiasi dimensione.
+
+**Eccezione pianificata (2026-09-13, dal design handoff di unit 16, non ancora implementata oltre Hero)**: i capitoli scrollytelling futuri (Progetti 03, Skills 05, Chi sono 06) useranno radius discreti presi da `claude-design-handoff/README.md` — 12px badge, 14px immagini progetti, 16px colonna collage — non pillola. Il capitolo Hero (unit 16) non ha ancora introdotto nessuno di questi elementi (solo CTA a pillola, coerenti con la regola esistente), quindi questa eccezione è ancora solo documentata, da verificare/applicare quando quei capitoli verranno costruiti. Trappola nota da tenere a mente quando succederà: `--radius: 9999px` fa sì che ogni classe `rounded-*` (`rounded-lg`, `rounded-2xl`, ecc.) renda comunque a pillola piena — i radius discreti vanno scritti come arbitrary value espliciti al punto di chiamata (`rounded-[12px]`, `rounded-[14px]`, `rounded-[16px]`), stesso pattern già usato per il pannello mobile del Nav e il collage About (vedi Session Notes unit 04/8a).
 
 ## Interazioni (feedback utente)
 
@@ -53,6 +55,8 @@ Ogni elemento interattivo deve dare un feedback leggero e coerente. Transizione 
 ## Motion (2026-08-17, unit 13b)
 
 Nessuna libreria esterna (niente `framer-motion`/`motion`) — `IntersectionObserver` nativo + transizioni CSS Tailwind, stesso pattern già in uso per lo scroll-spy di `nav.tsx`/`toc.tsx`. Logica condivisa in `components/use-reveal.ts` (hook `useReveal`, un solo `IntersectionObserver` per elemento, trigger one-shot all'80% del viewport, `unobserve` dopo il primo `isIntersecting`) e `components/scroll-reveal.tsx` (wrapper `<ScrollReveal>` che applica fade+slide-up o scale-in).
+
+**Eccezione (2026-09-13, unit 16)**: questa regola resta valida per tutte le sezioni già costruite con `useReveal` (elencate sopra). La nuova homepage scrollytelling (`components/scrollytelling/`, a partire dal capitolo Hero) usa invece il pacchetto `motion` (import da `motion/react`, non `framer-motion`) — motivo: serve un valore continuo agganciato allo scroll (`p` 0→1 per capitolo, via `useScroll`/`useTransform`), non un reveal one-shot all'80% del viewport, che è il caso d'uso per cui `useReveal` è stato progettato. Vedi `architecture_context.md` ("Deciso") e `context/features/16-scrollytelling-hero.md` per il dettaglio.
 
 - **Scroll reveal**: ogni sezione homepage (Projects/Education/Experience/Skills/About — Hero escluso, già visibile al load) entra con fade (`opacity-0→100`) + slide-up (`translate-y-6→0`) in 500ms, quando raggiunge l'80% del viewport (`rootMargin: "0px 0px -20% 0px"`). Applicato all'heading di ogni sezione sempre; al corpo (subheading/liste/griglie) dove non c'è già uno stagger dedicato per-item (Education, Skills, About).
 - **Stagger**: card Progetti e nodi Timeline Experience (desktop e mobile, entrambi i pallini grandi inclusi) entrano in sequenza — `80ms × indice`, cap a `240ms`. I pallini grandi della timeline desktop usano `variant="scale"` (`scale-0→100`) invece di fade+slide.
@@ -93,6 +97,8 @@ Il flat `bg-black/[0.03]` iniziale è stato sostituito con una tinta molto delic
 
 Il **Footer** usa `bg-black/[0.06]` — leggermente più scuro delle sezioni di contenuto, non `/[0.03]` (2026-08-12) — perché è sempre l'ultimo elemento della pagina e quindi sempre adiacente a qualunque sezione lo preceda; essendo l'ultima ad avere sfondo tinto era About, stesso valore, senza alcun confine visivo percepibile tra le due. Un footer più scuro risolve il problema indipendentemente da quale sezione stia sopra (non dipende dall'alternanza), leggibile anche come convenzione comune (footer leggermente più "pesante" del contenuto).
 
+**Sostituzione in corso (2026-09-13, unit 16, parziale)**: nella nuova homepage scrollytelling, questo sistema di tinte leggere alternate viene sostituito, capitolo per capitolo, dai capitoli scuri/chiari alternati della direzione B del design handoff (fondo pieno `oklch(0 0 0)` o `oklch(1 0 0)`, non una tinta al 4-6%). **Stato reale ad oggi**: solo Hero è stato convertito (ora `<section data-dossier-dark>` su fondo nero pieno, fuori dal sistema di tinte sopra). Projects/Education/Experience/Skills/About **non sono ancora stati convertiti** — restano sul vecchio sistema di tinte descritto sopra, per esplicita decisione di scope di unit 16 (mismatch visivo temporaneo atteso, un capitolo alla volta nelle unit successive). Conseguenza da tenere presente quando si convertirà un capitolo scuro: le ombre `rgba(0,0,0,…)` definite in unit 13a sono pensate per superfici chiare e risultano invisibili su fondo nero pieno — da rivedere (es. ombre chiare/glow, non nere) quando un capitolo con quegli elementi (card, pannelli) diventa un capitolo scuro.
+
 ## Layout — container globale (sistema, vale per tutte le sezioni)
 
 Niente container stretto e centrato in stile "colonna di testo" (es. `max-w-3xl` su tutta la sezione). Riferimento: workspace.google.com/products/slides — colonna di testo a larghezza fissa/leggibile, contenuto visivo che si espande per riempire lo spazio residuo.
@@ -105,6 +111,14 @@ Pattern per sezioni full-width — il container esterno vale per tutte le sezion
 - Il nav (header) usa lo stesso container fluido esterno di Hero (stesso `max-w-[1800px]` e stesso padding fluido), così i suoi bordi sinistro/destro si allineano al resto della pagina invece di restare centrato con margini propri scollegati. La pillola interna ha un suo `max-w` più contenuto (`max-w-4xl`), centrata dentro il container esterno — corretto dopo feedback utente (prima versione: nav su `max-w-3xl` indipendente, sembrava scollegata dalla Hero sui monitor larghi).
 
 **Regola generale:** per qualunque meccanismo responsive, verifica sempre online la doc ufficiale Tailwind corrente (agosto 2026) prima di implementare (vedi AGENTS.md) e testa su un range di larghezze, non solo sui breakpoint standard — un valore intermedio non testato è dove nascondono i bug (caso reale: unit 04, laptop 1366×768).
+
+## Scrollytelling — invariante "one markup, CSS-only presentation split" (2026-09-13, unit 16)
+
+Ogni capitolo scrollytelling e la chrome condivisa (`components/scrollytelling/`) si scrivono **una volta sola** nel DOM — un `<h1>`, un paragrafo, una sola istanza di ogni componente interattivo (es. un solo `<LanguageSwitcher />`), mai un albero "versione desktop" e uno "versione mobile" separati. Tutte le differenze fra la resa desktop/motion-safe (pinnata, animata) e quella statica (`<820px` OPPURE `prefers-reduced-motion: reduce`) si esprimono in CSS — varianti Tailwind impilate `min-[820px]:motion-safe:...` — non renderizzando due alberi. Motivo: HTML pulito e gerarchicamente corretto, priorità esplicita del proprietario; evita anche bug di doppia interattività (due switcher live nel DOM, uno solo nascosto via CSS, entrambi comunque raggiungibili da tastiera).
+
+L'unica decisione che il CSS non può prendere da solo è **se agganciare `useScroll`/gli effetti numerici guidati dallo scroll** (trasformazioni immagine, reveal parola-per-parola, color-switching della chrome) — quelli restano gated in JS: `const active = mounted && !reduceMotion && isDesktop`. Il motivo per cui questo specifico gate resta JS (non CSS): `useReducedMotion()` legge `matchMedia` in modo sincrono già al primo render client, quindi non è sicuro fidarsene prima che `mounted` sia vero, pena mismatch di idratazione — vedi `context/features/16-scrollytelling-hero.md` per il dettaglio completo (mount/reduced-motion gate).
+
+Vale per tutti e sette i capitoli previsti (finora implementato solo per Hero + chrome). **Da verificare, non da assumere, su Progetti (03)**: pannelli assoluti sovrapposti su desktop vs. card impilate su mobile potrebbero mettere sotto stress l'approccio single-markup — controllare quando si costruisce quel capitolo, non dare per scontato che regga.
 
 ## Accessibilità & Responsive
 
