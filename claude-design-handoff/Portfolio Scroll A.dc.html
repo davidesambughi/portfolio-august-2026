@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;700;800&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: oklch(1 0 0); color: oklch(0.4892 0.0051 17.33); font-family: Geist, "Helvetica Neue", Helvetica, sans-serif; overflow-x: hidden; }
+  a { color: oklch(0.6149 0.1057 180.86); text-decoration: none; }
+  a:hover { color: oklch(0.7331 0.1414 253.23); }
+  ::selection { background: oklch(0.8655 0.1595 96); color: oklch(0 0 0); }
+</style>
+</helmet>
+<div style="width:100%">
+
+<nav style="position:fixed;left:0;top:0;width:100%;z-index:60;display:flex;justify-content:space-between;align-items:center;padding:18px clamp(20px,4vw,56px);mix-blend-mode:normal;pointer-events:none">
+  <span style="font-size:14px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:oklch(0 0 0)">Davide Sambughi</span>
+  <span data-narrow-hide="1" style="font-size:12px;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;color:oklch(0.6149 0.1057 180.86)">AI Native · Full Stack</span>
+</nav>
+
+<aside data-rail="1" style="position:fixed;left:clamp(16px,2.5vw,34px);top:50%;transform:translateY(-50%);z-index:55;display:flex;flex-direction:column;gap:18px">
+  <div data-rail-item="0" style="display:flex;align-items:center;gap:10px"><span style="width:22px;height:1px;background:oklch(0.85 0 0);display:block;transition:width .3s,background .3s"></span><span style="font-size:10px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:oklch(0.52 0 0);transition:color .3s">01 Intro</span></div>
+  <div data-rail-item="1" style="display:flex;align-items:center;gap:10px"><span style="width:22px;height:1px;background:oklch(0.85 0 0);display:block;transition:width .3s,background .3s"></span><span style="font-size:10px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:oklch(0.52 0 0);transition:color .3s">02 Metodo</span></div>
+  <div data-rail-item="2" style="display:flex;align-items:center;gap:10px"><span style="width:22px;height:1px;background:oklch(0.85 0 0);display:block;transition:width .3s,background .3s"></span><span style="font-size:10px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:oklch(0.52 0 0);transition:color .3s">03 Progetti</span></div>
+  <div data-rail-item="3" style="display:flex;align-items:center;gap:10px"><span style="width:22px;height:1px;background:oklch(0.85 0 0);display:block;transition:width .3s,background .3s"></span><span style="font-size:10px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:oklch(0.52 0 0);transition:color .3s">04 Esperienza</span></div>
+  <div data-rail-item="4" style="display:flex;align-items:center;gap:10px"><span style="width:22px;height:1px;background:oklch(0.85 0 0);display:block;transition:width .3s,background .3s"></span><span style="font-size:10px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:oklch(0.52 0 0);transition:color .3s">05 Skills</span></div>
+  <div data-rail-item="5" style="display:flex;align-items:center;gap:10px"><span style="width:22px;height:1px;background:oklch(0.85 0 0);display:block;transition:width .3s,background .3s"></span><span style="font-size:10px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:oklch(0.52 0 0);transition:color .3s">06 Chi sono</span></div>
+  <div data-rail-item="6" style="display:flex;align-items:center;gap:10px"><span style="width:22px;height:1px;background:oklch(0.85 0 0);display:block;transition:width .3s,background .3s"></span><span style="font-size:10px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:oklch(0.52 0 0);transition:color .3s">07 Contatti</span></div>
+</aside>
+
+<section data-scene="1" data-rail-scene="0" data-screen-label="01 Hero" style="position:relative;height:260vh">
+  <div style="position:sticky;top:0;height:100vh;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,0.92fr);align-items:center;overflow:hidden" data-resp="grid">
+    <div style="position:relative;z-index:2;padding:0 clamp(28px,4vw,64px) 0 clamp(96px,9vw,150px)">
+      <div data-fx="rise" data-hold="in" style="display:flex;flex-direction:column;gap:20px">
+        <span style="font-size:12px;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:oklch(0.6149 0.1057 180.86)">AI Native</span>
+        <h1 style="margin:0;font-size:clamp(38px,5.4vw,86px);line-height:0.98;font-weight:800;letter-spacing:-0.03em;color:oklch(0 0 0);text-wrap:balance">Davide Sambughi<br />Full Stack Developer</h1>
+        <p style="margin:0;max-width:44ch;font-size:clamp(15px,1.15vw,19px);line-height:1.6;color:oklch(0.4892 0.0051 17.33)">Utilizzo una metodologia Specification-Driven che integra il Software Development Life Cycle con l’orchestrazione di agenti AI, adottando un approccio sistematico e preciso all’ingegneria del software.</p>
+        <div style="display:flex;gap:12px;padding-top:8px">
+          <a href="#progetti" style="background:oklch(0.7331 0.1414 253.23);color:oklch(1 0 0);padding:13px 26px;border-radius:9999px;font-size:15px;font-weight:700">Progetti</a>
+          <a href="#contatti" style="border:1.5px solid oklch(0 0 0 / 0.2);color:oklch(0 0 0);padding:13px 26px;border-radius:9999px;font-size:15px;font-weight:700">Contattami</a>
+        </div>
+      </div>
+    </div>
+    <div data-fx="scaleup" style="position:relative;height:100%;display:flex;align-items:center;justify-content:flex-end;overflow:hidden;will-change:transform">
+      <img src="public/images/hero-composite-trimmed.png" alt="Composizione dei progetti e del ciclo di sviluppo software" style="width:100%;max-width:1100px;height:auto;object-fit:contain" />
+    </div>
+    <div data-fx="hint" style="position:absolute;bottom:34px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px">
+      <span style="font-size:10px;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:oklch(0.6 0 0)">Scorri</span>
+      <span style="width:1px;height:46px;background:linear-gradient(to bottom,oklch(0.6149 0.1057 180.86),transparent);display:block"></span>
+    </div>
+  </div>
+</section>
+
+<section data-scene="1" data-rail-scene="1" data-screen-label="02 Metodo" style="position:relative;height:320vh">
+  <div style="position:sticky;top:0;height:100vh;display:flex;flex-direction:column;justify-content:center;gap:clamp(14px,2.6vh,40px);padding:0 clamp(96px,10vw,200px)">
+    <span style="font-size:12px;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:oklch(0.5 0.24 300)">02 — Il metodo</span>
+    <p data-fx="words" style="margin:0;font-size:clamp(22px,2.5vw,42px);line-height:1.2;font-weight:700;letter-spacing:-0.02em;max-width:24ch;text-wrap:pretty">Specification-Driven Development: la specifica viene prima del codice, l’agente AI implementa dentro i confini che gli ho dato.</p>
+    <div data-fx="rise" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1px;background:oklch(0.92 0 0);max-width:960px">
+      <div style="background:oklch(1 0 0);padding:20px 22px"><span style="display:block;font-size:11px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:oklch(0.6149 0.1057 180.86);margin-bottom:8px">01 Context</span><span style="font-size:14px;line-height:1.5">Dieci documenti Markdown come fonte della verità del progetto.</span></div>
+      <div style="background:oklch(1 0 0);padding:20px 22px"><span style="display:block;font-size:11px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:oklch(0.6149 0.1057 180.86);margin-bottom:8px">02 Spec</span><span style="font-size:14px;line-height:1.5">Outcome, vincoli, passi numerati, scope e criteri di verifica.</span></div>
+      <div style="background:oklch(1 0 0);padding:20px 22px"><span style="display:block;font-size:11px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:oklch(0.6149 0.1057 180.86);margin-bottom:8px">03 Code &amp; Test</span><span style="font-size:14px;line-height:1.5">Implementazione fedele alla specifica, poi la suite di test locale.</span></div>
+      <div style="background:oklch(1 0 0);padding:20px 22px"><span style="display:block;font-size:11px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:oklch(0.6149 0.1057 180.86);margin-bottom:8px">04 CI/CD</span><span style="font-size:14px;line-height:1.5">Branch dedicato, test automatici, merge su main, sessione chiusa.</span></div>
+    </div>
+    <img data-par="0.06" src="public/images/remotenif-processo-inglese-soloicone.png" alt="Processo di sviluppo in 7 fasi" style="width:min(62vw,900px);max-height:20vh;object-fit:contain;object-position:left center;opacity:0.9;will-change:transform" />
+  </div>
+</section>
+
+<section id="progetti" data-scene="1" data-rail-scene="2" data-screen-label="03 Progetti" style="position:relative;height:560vh">
+  <div style="position:sticky;top:0;height:100vh;overflow:hidden;display:flex;flex-direction:column;justify-content:center">
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;padding:0 clamp(96px,9vw,150px) clamp(20px,3vh,34px)">
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <span style="font-size:12px;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:oklch(0.7331 0.1414 253.23)">03 — Progetti</span>
+        <h2 style="margin:0;font-size:clamp(28px,3.4vw,54px);font-weight:800;letter-spacing:-0.02em;color:oklch(0 0 0)">Una selezione di cose che ho costruito</h2>
+      </div>
+      <span style="font-size:11px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:oklch(0.6 0 0)">Scorri →</span>
+    </div>
+    <div data-fx="hx" style="display:flex;gap:clamp(24px,3vw,48px);padding:0 clamp(96px,9vw,150px);width:max-content;will-change:transform">
+      <article style="width:min(46vw,660px);max-height:82vh;display:flex;flex-direction:column;gap:clamp(8px,1.4vh,16px);min-height:0" data-resp="card">
+        <div style="flex:0 1 auto;min-height:0;height:min(34vh,300px);overflow:hidden;border-radius:14px;background:oklch(0.97 0 0)"><img src="public/images/hero-pc-image.png" alt="RemoteNIF" style="width:100%;height:100%;object-fit:cover" /></div>
+        <div style="display:flex;align-items:baseline;gap:12px"><h3 style="margin:0;font-size:clamp(20px,1.7vw,28px);font-weight:700;color:oklch(0 0 0)">RemoteNIF</h3><span style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:oklch(0.7331 0.1414 253.23)">Apr 2026</span></div>
+        <p style="margin:0;font-size:15px;line-height:1.6;max-width:52ch">RemoteNIF è un'applicazione web full-stack, ottimizzata SEO/GEO (search e generative engine optimization) disponibile in 4 lingue (Inglese, Spagnolo, Francese e Tedesco).</p>
+        <span style="font-size:12px;letter-spacing:0.04em;color:oklch(0.6 0 0)">Next.js · Supabase · Drizzle ORM · Stripe · Resend · Zod · Groq</span>
+      </article>
+      <article style="width:min(46vw,660px);max-height:82vh;display:flex;flex-direction:column;gap:clamp(8px,1.4vh,16px);min-height:0" data-resp="card">
+        <div style="flex:0 1 auto;min-height:0;height:min(34vh,300px);overflow:hidden;border-radius:14px;background:oklch(0.97 0 0)"><img src="public/images/rag.png" alt="Knowledge Assistant" style="width:100%;height:100%;object-fit:cover" /></div>
+        <div style="display:flex;align-items:baseline;gap:12px"><h3 style="margin:0;font-size:clamp(20px,1.7vw,28px);font-weight:700;color:oklch(0 0 0)">Knowledge Assistant</h3><span style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:oklch(0.6578 0.2483 20.82)">Aug 2026</span></div>
+        <p style="margin:0;font-size:15px;line-height:1.6;max-width:52ch">Chatbot RAG standalone che risponde solo dai documenti caricati, con chunking strutturale, hybrid search su pgvector e generazione in streaming.</p>
+        <span style="font-size:12px;letter-spacing:0.04em;color:oklch(0.6 0 0)">Next.js · Supabase · Google Gemini API · Vercel AI SDK · Upstash Redis</span>
+      </article>
+      <article style="width:min(46vw,660px);max-height:82vh;display:flex;flex-direction:column;gap:clamp(8px,1.4vh,16px);min-height:0" data-resp="card">
+        <div style="flex:0 1 auto;min-height:0;height:min(34vh,300px);overflow:hidden;border-radius:14px;background:oklch(0.97 0 0)"><img src="public/images/raising-pc.png" alt="Raising Kids In Portugal" style="width:100%;height:100%;object-fit:cover" /></div>
+        <div style="display:flex;align-items:baseline;gap:12px"><h3 style="margin:0;font-size:clamp(20px,1.7vw,28px);font-weight:700;color:oklch(0 0 0)">Raising Kids In Portugal</h3><span style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:oklch(0.5 0.16 161)">Jan 2026</span></div>
+        <p style="margin:0;font-size:15px;line-height:1.6;max-width:52ch">Un sito multilingue di contenuti e lead generation che aiuta le famiglie internazionali a trasferirsi in Portogallo, trasformando le ricerche su scuole e quartieri in contatti per un'agenzia di relocation.</p>
+        <span style="font-size:12px;letter-spacing:0.04em;color:oklch(0.6 0 0)">Next.js · TypeScript · Tailwind CSS · Framer Motion · Vercel</span>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section data-scene="1" data-rail-scene="3" data-screen-label="04 Esperienza" style="position:relative;height:380vh">
+  <div style="position:sticky;top:0;height:100vh;display:flex;flex-direction:column;justify-content:center;gap:clamp(30px,6vh,70px);padding:0 clamp(96px,9vw,150px)">
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <span style="font-size:12px;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:oklch(0.5 0.24 300)">04 — Esperienza</span>
+      <h2 style="margin:0;font-size:clamp(28px,3.4vw,54px);font-weight:800;letter-spacing:-0.02em;color:oklch(0 0 0)">Dodici anni in tre mestieri, un'unica traiettoria</h2>
+    </div>
+    <div data-fx="timeline" style="position:relative;display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(16px,2vw,34px);align-items:start">
+      <div style="position:absolute;left:0;right:0;top:11px;height:2px;background:oklch(0.93 0 0)"></div>
+      <div data-line style="position:absolute;left:0;right:0;top:11px;height:2px;background:oklch(0.5 0.24 300);transform-origin:left center;transform:scaleX(0)"></div>
+      <div data-node style="position:relative;display:flex;flex-direction:column;gap:14px;transition:opacity .4s ease,transform .4s ease">
+        <span data-dot style="width:20px;height:20px;border-radius:9999px;background:oklch(0.5 0.24 300);box-shadow:0 0 0 6px oklch(1 0 0);transition:transform .4s ease;display:block"></span>
+        <span style="font-size:11px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:oklch(0.5 0.24 300)">2014 — 2019</span>
+        <h3 style="margin:0;font-size:clamp(17px,1.35vw,22px);font-weight:700;color:oklch(0 0 0)">Sambughi Assicurazioni</h3>
+        <span style="font-size:13px;color:oklch(0.6 0 0)">Impiegato Assicurativo · Fano, Italia</span>
+        <p style="margin:0;font-size:14px;line-height:1.6">Consulenza ai clienti, con specializzazione nel ramo auto, elaborazione di preventivi, rinnovo delle polizze e gestione delle attività di back office.</p>
+      </div>
+      <div data-node style="position:relative;display:flex;flex-direction:column;gap:14px;transition:opacity .4s ease,transform .4s ease">
+        <span data-dot style="width:20px;height:20px;border-radius:9999px;background:oklch(0.5 0.24 300);box-shadow:0 0 0 6px oklch(1 0 0);transition:transform .4s ease;display:block"></span>
+        <span style="font-size:11px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:oklch(0.5 0.24 300)">2019 — 2024</span>
+        <h3 style="margin:0;font-size:clamp(17px,1.35vw,22px);font-weight:700;color:oklch(0 0 0)">Cuoco e Chef</h3>
+        <span style="font-size:13px;color:oklch(0.6 0 0)">Various Employers · Australia</span>
+        <p style="margin:0;font-size:14px;line-height:1.6">Cinque anni nella ristorazione in Australia: capacità di adattamento, approccio proattivo, problem solving e comunicazione interculturale in ambienti ad alto ritmo.</p>
+      </div>
+      <div data-node style="position:relative;display:flex;flex-direction:column;gap:14px;transition:opacity .4s ease,transform .4s ease">
+        <span data-dot style="width:20px;height:20px;border-radius:9999px;background:oklch(0.5 0.24 300);box-shadow:0 0 0 6px oklch(1 0 0);transition:transform .4s ease;display:block"></span>
+        <span style="font-size:11px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:oklch(0.5 0.24 300)">Gen — Giu 2026</span>
+        <h3 style="margin:0;font-size:clamp(17px,1.35vw,22px);font-weight:700;color:oklch(0 0 0)">InspectOs</h3>
+        <span style="font-size:13px;color:oklch(0.6 0 0)">Full Stack Developer Intern · Lisbona, Portogallo</span>
+        <p style="margin:0;font-size:14px;line-height:1.6">Sviluppo end-to-end di prodotti pronti per la produzione su Next.js e Supabase, applicazioni multilingua ottimizzate SEO/GEO, sviluppo assistito da AI con approccio specification-driven.</p>
+      </div>
+      <div data-node style="position:relative;display:flex;flex-direction:column;gap:14px;transition:opacity .4s ease,transform .4s ease">
+        <span data-dot style="width:20px;height:20px;border-radius:9999px;background:oklch(0.8655 0.1595 96);box-shadow:0 0 0 6px oklch(1 0 0);transition:transform .4s ease;display:block"></span>
+        <span style="font-size:11px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:oklch(0.6 0 0)">Presente</span>
+        <h3 style="margin:0;font-size:clamp(17px,1.35vw,22px);font-weight:700;color:oklch(0 0 0)">Futuro</h3>
+        <span style="font-size:13px;color:oklch(0.6 0 0)">Cosa succederà</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section data-scene="1" data-rail-scene="4" data-screen-label="05 Skills" style="position:relative;height:340vh">
+  <div style="position:sticky;top:0;height:100vh;display:flex;flex-direction:column;justify-content:center;gap:clamp(24px,4vh,48px);padding:0 clamp(96px,9vw,150px);overflow:hidden">
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <span style="font-size:12px;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:oklch(0.6149 0.1057 180.86)">05 — Skills</span>
+      <h2 style="margin:0;font-size:clamp(28px,3.4vw,54px);font-weight:800;letter-spacing:-0.02em;color:oklch(0 0 0)">Lo stack si compone</h2>
+    </div>
+    <div data-fx="assemble" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;max-width:1100px">
+      <span style="border:1px solid oklch(0.9 0 0);border-radius:9999px;padding:12px 18px;font-size:14px;font-weight:600;color:oklch(0 0 0);text-align:center">TypeScript</span>
+      <span style="border:1px solid oklch(0.9 0 0);border-radius:9999px;padding:12px 18px;font-size:14px;font-weight:600;color:oklch(0 0 0);text-align:center">JavaScript</span>
+      <span style="border:1px solid oklch(0.9 0 0);border-radius:9999px;padding:12px 18px;font-size:14px;font-weight:600;color:oklch(0 0 0);text-align:center">Python</span>
+      <span style="border:1px solid oklch(0.9 0 0);border-radius:9999px;padding:12px 18px;font-size:14px;font-weight:600;color:oklch(0 0 0);text-align:center">Next.js</span>
+      <span style="border:1px solid oklch(0.9 0 0);border-radius:9999px;padding:12px 18px;font-size:14px;font-weight:600;color:oklch(0 0 0);text-align:center">React</span>
+      <span style="border:1px solid oklch(0.9 0 0);border-radius:9999px;padding:12px 18px;font-size:14px;font-weight:600;color:oklch(0 0 0);text-align:center">Node.js</span>
+      <span style="border:1px solid oklch(0.9 0 0);border-radius:9999px;padding:12px 18px;font-size:14px;font-weight:600;color:oklch(0 0 0);text-align:center">PostgreSQL</span>
+      <span style="border:1px solid oklch(0.9 0 0);border-radius:9999px;padding:12px 18px;font-size:14px;font-weight:600;color:oklch(0 0 0);text-align:center">MySQL</span>
+      <span style="border:1px solid oklch(0.9 0 0);border-radius:9999px;padding:12px 18px;font-size:14px;font-weight:600;color:oklch(0 0 0);text-align:center">MongoDB</span>
+      <span style="border:1px solid oklch(0.9 0 0);border-radius:9999px;padding:12px 18px;font-size:14px;font-weight:600;color:oklch(0 0 0);text-align:center">Supabase</span>
+      <span style="border:1px solid oklch(0.9 0 0);border-radius:9999px;padding:12px 18px;font-size:14px;font-weight:600;color:oklch(0 0 0);text-align:center">Figma</span>
+      <span style="border:1px solid oklch(0.9 0 0);border-radius:9999px;padding:12px 18px;font-size:14px;font-weight:600;color:oklch(0 0 0);text-align:center">Git</span>
+      <span style="border:1px solid oklch(0.9 0 0);border-radius:9999px;padding:12px 18px;font-size:14px;font-weight:600;color:oklch(0 0 0);text-align:center">Docker</span>
+      <span style="border:1px solid oklch(0.9 0 0);border-radius:9999px;padding:12px 18px;font-size:14px;font-weight:600;color:oklch(0 0 0);text-align:center">Vercel</span>
+    </div>
+    <div data-fx="stack" style="display:flex;flex-wrap:wrap;gap:10px;max-width:1100px">
+      <span style="background:oklch(0.8655 0.1595 96);color:oklch(0 0 0);border-radius:9999px;padding:10px 18px;font-size:13px;font-weight:700">Specification-Driven Development</span>
+      <span style="background:oklch(0.8655 0.1595 96);color:oklch(0 0 0);border-radius:9999px;padding:10px 18px;font-size:13px;font-weight:700">Agile / SDLC</span>
+      <span style="background:oklch(0.8655 0.1595 96);color:oklch(0 0 0);border-radius:9999px;padding:10px 18px;font-size:13px;font-weight:700">Ingegneria assistita da IA</span>
+      <span style="background:oklch(0.8655 0.1595 96);color:oklch(0 0 0);border-radius:9999px;padding:10px 18px;font-size:13px;font-weight:700">OOP</span>
+    </div>
+    <div data-fx="stack" style="display:flex;flex-wrap:wrap;gap:12px;align-items:stretch;padding-top:4px">
+      <div style="display:flex;align-items:center;gap:14px;border:1.5px solid oklch(0 0 0);border-radius:12px;padding:12px 18px">
+        <img src="public/images/its-logo.png" alt="" style="height:30px;width:auto" />
+        <span style="display:flex;flex-direction:column;gap:2px">
+          <span style="font-size:12px;color:oklch(0.5 0 0);font-weight:600;letter-spacing:0.04em">ITS Marche · Full-Stack Developer &amp; Cloud Specialist</span>
+          <span style="font-size:clamp(17px,1.5vw,22px);font-weight:800;letter-spacing:-0.02em;color:oklch(0 0 0)">110<span style="color:oklch(0.6 0 0);font-weight:600">/110</span></span>
+        </span>
+      </div>
+      <div style="display:flex;align-items:center;gap:14px;border:1.5px solid oklch(0 0 0);border-radius:12px;padding:12px 18px">
+        <span style="display:flex;flex-direction:column;gap:2px">
+          <span style="font-size:12px;color:oklch(0.5 0 0);font-weight:600;letter-spacing:0.04em">PTE Academic · Inglese</span>
+          <span style="font-size:clamp(17px,1.5vw,22px);font-weight:800;letter-spacing:-0.02em;color:oklch(0 0 0)">C1 <span style="font-size:13px;color:oklch(0.6 0 0);font-weight:600">Advanced</span></span>
+        </span>
+      </div>
+      <span style="display:flex;align-items:center;font-size:13px;color:oklch(0.6 0 0);padding:0 4px">Claude Code in Action · UML (Coursera)</span>
+    </div>
+  </div>
+</section>
+
+<section data-scene="1" data-rail-scene="5" data-screen-label="06 Chi sono" style="position:relative;height:400vh">
+  <div style="position:sticky;top:0;height:100vh;display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:clamp(30px,5vw,80px);padding:0 clamp(96px,9vw,150px);overflow:hidden" data-resp="grid">
+    <div style="display:flex;flex-direction:column;gap:clamp(20px,3vh,34px)">
+      <span style="font-size:12px;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:oklch(0.6578 0.2483 20.82)">06 — Chi sono</span>
+      <h2 style="margin:0;font-size:clamp(24px,2.6vw,40px);font-weight:800;letter-spacing:-0.02em;color:oklch(0 0 0)">L'architettura dietro le mie scelte</h2>
+      <p data-fx="words" style="margin:0;font-size:clamp(15px,1.35vw,21px);line-height:1.62;font-weight:500;text-wrap:pretty">Il mio percorso non è stato lineare, e oggi considero questa la mia risorsa più preziosa. Ho costruito la mia esperienza vivendo in contesti radicalmente diversi — dall'Australia all'Asia a diverse realtà europee — affrontando settori che vanno dall'amministrazione all'ospitalità, fino allo sviluppo software.</p>
+      <p style="margin:0;font-size:15px;line-height:1.6;max-width:52ch">Ho trovato nella programmazione la mia passione più grande, perché incarna perfettamente la mia forma mentis. Amo ricercare, testare nuove tecnologie e approcciare ogni progetto come una sfida che unisce divertimento e rigore professionale.</p>
+    </div>
+    <div style="position:relative;height:78vh;overflow:hidden;border-radius:16px;background:oklch(0.97 0 0)">
+      <img data-par="0.12" src="public/images/collage-about.png" alt="Collage di foto personali: viaggi, surf, il Cammino di Santiago e lavoro" style="position:absolute;left:0;top:-12%;width:100%;height:124%;object-fit:cover;will-change:transform" />
+    </div>
+  </div>
+</section>
+
+<section id="contatti" data-scene="1" data-rail-scene="6" data-screen-label="07 Contatti" style="position:relative;height:150vh">
+  <div style="position:sticky;top:0;height:100vh;display:flex;flex-direction:column;justify-content:center;gap:clamp(26px,4vh,46px);padding:0 clamp(96px,9vw,150px)">
+    <span style="font-size:12px;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:oklch(0.6149 0.1057 180.86)">07 — Contatti</span>
+    <h2 data-fx="words" style="margin:0;font-size:clamp(30px,4.6vw,76px);line-height:1.04;font-weight:800;letter-spacing:-0.03em;max-width:20ch">Costruiamo qualcosa che funziona.</h2>
+    <div data-fx="stack" style="display:flex;flex-wrap:wrap;gap:14px">
+      <a href="mailto:davidesambughi@gmail.com" style="background:oklch(0 0 0);color:oklch(1 0 0);padding:15px 30px;border-radius:9999px;font-size:15px;font-weight:700">davidesambughi@gmail.com</a>
+      <a href="https://www.linkedin.com/in/davide-sambughi-358b903aa/" style="border:1.5px solid oklch(0 0 0 / 0.2);color:oklch(0 0 0);padding:15px 30px;border-radius:9999px;font-size:15px;font-weight:700">LinkedIn</a>
+      <a href="https://github.com/davidesambughi" style="border:1.5px solid oklch(0 0 0 / 0.2);color:oklch(0 0 0);padding:15px 30px;border-radius:9999px;font-size:15px;font-weight:700">GitHub</a>
+    </div>
+    <span style="font-size:12px;color:oklch(0.6 0 0);letter-spacing:0.04em">davidesambughi.dev · Direzione A — Capitoli</span>
+  </div>
+</section>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
+const ease = (t) => t * t * (3 - 2 * t);
+// progresso con una sosta su ogni tappa: il 46% centrale di ogni segmento muove, il resto tiene fermo
+const dwell = (p, n) => {
+  const steps = Math.max(1, n - 1);
+  const raw = clamp(p, 0, 1) * steps;
+  const i = Math.min(steps - 1, Math.floor(raw));
+  const f = raw - i;
+  return i + ease(clamp((f - 0.27) / 0.46, 0, 1));
+};
+
+class Component extends DCLogic {
+  componentDidMount() { this.init(); }
+  componentDidUpdate() { this.prep(); this.tick(); }
+
+  init() {
+    this.onScroll = () => {
+      if (this.raf) return;
+      this.raf = requestAnimationFrame(() => { this.raf = 0; this.tick(); });
+    };
+    window.addEventListener("scroll", this.onScroll, { passive: true });
+    document.addEventListener("scroll", this.onScroll, { passive: true, capture: true });
+    window.addEventListener("resize", this.onScroll);
+    this.loop = () => { this.tick(); this.loopId = requestAnimationFrame(this.loop); };
+    this.loopId = requestAnimationFrame(this.loop);
+    this.prep();
+    this.tick();
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("scroll", this.onScroll);
+    document.removeEventListener("scroll", this.onScroll, true);
+    window.removeEventListener("resize", this.onScroll);
+    if (this.loopId) cancelAnimationFrame(this.loopId);
+  }
+
+  prep() {
+    document.querySelectorAll('[data-fx="words"]').forEach((el) => {
+      if (!el.dataset.src) el.dataset.src = el.textContent.trim();
+      if (el.children.length) return;
+      const frag = document.createDocumentFragment();
+      el.dataset.src.split(/\s+/).forEach((w) => {
+        const s = document.createElement("span");
+        s.textContent = w + " ";
+        s.style.color = "oklch(1 0 0)";
+        s.style.transition = "color .35s ease";
+        frag.appendChild(s);
+      });
+      el.textContent = "";
+      el.appendChild(frag);
+    });
+  }
+
+  sceneProgress(el) {
+    const scene = el.closest("[data-scene]");
+    if (!scene) return 0;
+    const r = scene.getBoundingClientRect();
+    const span = r.height - window.innerHeight;
+    return span <= 0 ? clamp(1 - r.top / window.innerHeight, 0, 1) : clamp(-r.top / span, 0, 1);
+  }
+
+  tick() {
+    const vh = window.innerHeight;
+    const vw = window.innerWidth;
+
+    document.querySelectorAll("[data-fx]").forEach((el) => {
+      const p = this.sceneProgress(el);
+      const fx = el.dataset.fx;
+
+      if (fx === "scaleup") {
+        el.style.transform = `translate3d(0,${-p * vh * 0.16}px,0) scale(${1 + p * 0.22})`;
+        el.style.opacity = String(clamp(1 - p * 1.1, 0, 1));
+      } else if (fx === "rise") {
+        const kids = el.children;
+        const held = el.dataset.hold === "in";
+        for (let i = 0; i < kids.length; i++) {
+          const t = held ? ease(clamp(1 - p * 3, 0, 1)) : ease(clamp(p * 6 - i * 0.5, 0, 1));
+          kids[i].style.opacity = String(t);
+          kids[i].style.transform = `translate3d(0,${(1 - t) * 34}px,0)`;
+        }
+      } else if (fx === "hint") {
+        el.style.opacity = String(clamp(1 - p * 8, 0, 1));
+      } else if (fx === "words") {
+        const kids = el.children;
+        const n = kids.length;
+        const head = (clamp(p, 0, 1) * 1.18) * n;
+        for (let i = 0; i < n; i++) {
+          const lit = head - i;
+          kids[i].style.color = lit > 0.6 ? "oklch(0 0 0)" : lit > 0 ? "oklch(0.6149 0.1057 180.86)" : "oklch(1 0 0)";
+        }
+      } else if (fx === "hx") {
+        const kids = el.children;
+        const n = kids.length;
+        const dist = Math.max(0, el.scrollWidth - vw);
+        const pos = dwell(p, n);
+        const i = Math.min(n - 1, Math.floor(pos));
+        const base = kids[i].offsetLeft - kids[0].offsetLeft;
+        const next = kids[Math.min(n - 1, i + 1)].offsetLeft - kids[0].offsetLeft;
+        const x = Math.min(dist, base + (next - base) * (pos - i));
+        el.style.transform = `translate3d(${-x}px,0,0)`;
+      } else if (fx === "assemble") {
+        const kids = el.children;
+        for (let i = 0; i < kids.length; i++) {
+          const t = ease(clamp(p * 1.9 - i * 0.035, 0, 1));
+          const k = 1 - t;
+          const dx = ((i % 5) - 2) * 190 * k;
+          const dy = (((i * 7) % 3) - 1) * 160 * k;
+          kids[i].style.transform = `translate3d(${dx}px,${dy}px,0) rotate(${((i % 7) - 3) * 5 * k}deg)`;
+          kids[i].style.opacity = String(clamp(0.15 + t, 0, 1));
+        }
+      } else if (fx === "timeline") {
+        const line = el.querySelector("[data-line]");
+        if (line) line.style.transform = `scaleX(${ease(clamp(p * 1.15, 0, 1))})`;
+        const nodes = el.querySelectorAll("[data-node]");
+        nodes.forEach((node, i) => {
+          const on = p > (i + 0.35) / (nodes.length + 0.4);
+          node.style.opacity = on ? "1" : "0.22";
+          node.style.transform = `translate3d(0,${on ? 0 : 16}px,0)`;
+          const dot = node.querySelector("[data-dot]");
+          if (dot) dot.style.transform = `scale(${on ? 1 : 0.3})`;
+        });
+      } else if (fx === "stack") {
+        const kids = el.children;
+        for (let i = 0; i < kids.length; i++) {
+          const t = ease(clamp(p * 2.4 - i * 0.55, 0, 1));
+          kids[i].style.opacity = String(t);
+          kids[i].style.transform = `translate3d(${(1 - t) * 70}px,0,0)`;
+        }
+      }
+    });
+
+    document.querySelectorAll("[data-par]").forEach((el) => {
+      const r = el.getBoundingClientRect();
+      const off = (vh / 2 - (r.top + r.height / 2)) * parseFloat(el.dataset.par);
+      el.style.transform = `translate3d(0,${off}px,0)`;
+    });
+
+    document.querySelectorAll("[data-narrow-hide]").forEach((el) => { el.style.display = vw < 1100 ? "none" : "inline"; });
+
+    const mob = vw < 820;
+    document.querySelectorAll('[data-resp="grid"]').forEach((el) => {
+      if (!el.dataset.cols) el.dataset.cols = el.style.gridTemplateColumns;
+      el.style.gridTemplateColumns = mob ? "minmax(0,1fr)" : el.dataset.cols;
+      el.style.gridAutoRows = mob ? "min-content" : "";
+      el.style.alignContent = mob ? "center" : "";
+    });
+    document.querySelectorAll('[data-resp="card"]').forEach((el) => { el.style.width = mob ? "82vw" : ""; });
+    document.querySelectorAll("[data-rail]").forEach((el) => { el.style.display = mob ? "none" : "flex"; });
+
+    const narrow = vw < 1180;
+    document.querySelectorAll("[data-rail-item]").forEach((item) => {
+      const label = item.children[1];
+      if (label) label.style.display = narrow ? "none" : "inline";
+    });
+
+    let active = 0;
+    document.querySelectorAll("[data-rail-scene]").forEach((s) => {
+      const r = s.getBoundingClientRect();
+      if (r.top <= vh * 0.5 && r.bottom > vh * 0.5) active = parseInt(s.dataset.railScene, 10);
+    });
+    document.querySelectorAll("[data-rail-item]").forEach((item) => {
+      const on = parseInt(item.dataset.railItem, 10) === active;
+      const bar = item.children[0];
+      const label = item.children[1];
+      if (bar) { bar.style.width = on ? "44px" : "22px"; bar.style.background = on ? "oklch(0 0 0)" : "oklch(0.85 0 0)"; }
+      if (label) label.style.color = on ? "oklch(0 0 0)" : "oklch(0.52 0 0)";
+    });
+  }
+}
+</script>
+</body>
+</html>

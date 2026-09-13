@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { usePathname, useRouter } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
+import { cn } from "@/lib/utils";
 
 // Language names shown in their own endonym (English / Italiano), same in both UI locales —
 // not translated, per convention for locale switchers.
@@ -22,7 +23,7 @@ const LOCALE_LABELS: Record<(typeof routing.locales)[number], string> = {
 
 // Base UI's DropdownMenuRadioGroup gives the accessible radio-list semantics (role="menuitemradio",
 // arrow-key navigation, single-selection) for free — reused instead of a custom two-button toggle.
-export function LanguageSwitcher() {
+export function LanguageSwitcher({ dark = false }: { dark?: boolean }) {
   const locale = useLocale() as (typeof routing.locales)[number];
   const t = useTranslations("nav");
   const pathname = usePathname();
@@ -32,7 +33,10 @@ export function LanguageSwitcher() {
     <DropdownMenu>
       <DropdownMenuTrigger
         aria-label={t("languageLabel")}
-        className="flex h-9 items-center gap-1.5 rounded-full px-3 text-sm text-body transition-colors hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50"
+        className={cn(
+          "flex h-9 items-center gap-1.5 rounded-full px-3 text-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50",
+          dark ? "text-white hover:bg-white/15" : "text-body hover:bg-muted"
+        )}
       >
         <Globe className="size-4" aria-hidden="true" />
         <span className="font-medium uppercase">{locale}</span>

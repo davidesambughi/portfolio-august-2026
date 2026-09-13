@@ -10,11 +10,15 @@
     "menuToggle": "Toggle menu",
     "languageLabel": "Change language"
   },
+  "chrome": {
+    "tagline": "Dossier 2026",
+    "scrollHint": "Scroll to read"
+  },
   "hero": {
     "badge": "AI Native",
     "name": "Davide Sambughi",
     "role": "Full Stack Developer",
-    "body": "I use a Specification-Driven methodology to combine the Software Development Life Cycle with Agentic AI orchestration, enabling a systematic and precise approach to software engineering.",
+    "body": "Specification-driven software engineering with AI agents.\nFast. Precise. Repeatable.",
     "ctaProjects": "View projects",
     "ctaContact": "Get in touch"
   },

@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;700;800&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  body { margin: 0; background: oklch(1 0 0); color: oklch(0.4892 0.0051 17.33); font-family: Geist, "Helvetica Neue", Helvetica, sans-serif; }
+  a { color: oklch(0.6149 0.1057 180.86); text-decoration: none; }
+  a:hover { color: oklch(0.7331 0.1414 253.23); }
+  ::selection { background: oklch(0.8655 0.1595 96); color: oklch(0 0 0); }
+</style>
+</helmet>
+<div style="width:100%;max-width:430px;margin:0 auto;background:oklch(1 0 0)">
+
+<div style="position:sticky;top:0;z-index:50;display:flex;justify-content:space-between;align-items:center;padding:14px 20px;background:oklch(0 0 0)">
+  <span style="font-size:12px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:oklch(1 0 0)">Davide Sambughi</span>
+  <span style="font-size:10px;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;color:oklch(0.7 0 0)">Dossier 2026</span>
+</div>
+
+<section data-screen-label="M01 Hero" style="position:relative;background:oklch(0 0 0);padding:56px 20px 44px;overflow:hidden">
+  <img src="public/images/hero-composite-trimmed.png" alt="" style="position:absolute;right:-28%;top:8%;width:110%;height:auto;opacity:0.2" />
+  <div style="position:absolute;inset:0;background:linear-gradient(to top,oklch(0 0 0) 22%,oklch(0 0 0 / 0.7))"></div>
+  <div style="position:relative;z-index:2;display:flex;flex-direction:column;gap:18px">
+    <span style="font-size:10px;font-weight:700;letter-spacing:0.24em;text-transform:uppercase;color:oklch(0.6149 0.1057 180.86)">AI Native · Full Stack Developer</span>
+    <h1 style="margin:0;font-size:52px;line-height:0.88;font-weight:800;letter-spacing:-0.04em;color:oklch(1 0 0)">Davide<br />Sambughi</h1>
+    <p style="margin:0;font-size:16px;line-height:1.5;font-weight:500;color:oklch(0.85 0 0)">Utilizzo una metodologia Specification-Driven che integra il Software Development Life Cycle con l’orchestrazione di agenti AI.</p>
+    <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:6px">
+      <a href="#m-progetti" style="background:oklch(1 0 0);color:oklch(0 0 0);padding:14px 22px;border-radius:9999px;font-size:14px;font-weight:700">Progetti</a>
+      <a href="#m-contatti" style="border:1.5px solid oklch(1 0 0 / 0.35);color:oklch(1 0 0);padding:14px 22px;border-radius:9999px;font-size:14px;font-weight:700">Contatti</a>
+    </div>
+  </div>
+</section>
+
+<section data-screen-label="M02 Metodo" style="padding:44px 20px;display:flex;flex-direction:column;gap:20px">
+  <div style="display:flex;align-items:baseline;gap:12px">
+    <span style="font-size:44px;line-height:0.8;font-weight:800;letter-spacing:-0.04em;color:oklch(0.92 0 0)">02</span>
+    <h2 style="margin:0;font-size:26px;font-weight:800;letter-spacing:-0.02em;color:oklch(0 0 0)">Il metodo</h2>
+  </div>
+  <p style="margin:0;font-size:15px;line-height:1.6">La specifica viene prima del codice. L'agente AI implementa dentro confini scritti, verificabili, versionati.</p>
+  <div style="display:flex;flex-direction:column;border-top:1px solid oklch(0.92 0 0)">
+    <div style="display:grid;grid-template-columns:34px 1fr;gap:14px;padding:14px 0;border-bottom:1px solid oklch(0.92 0 0)"><span style="font-size:11px;font-weight:700;letter-spacing:0.12em;color:oklch(0.6149 0.1057 180.86)">01</span><span style="font-size:15px;line-height:1.5;color:oklch(0 0 0);font-weight:600">L'agente legge i file di contesto nell'ordine definito in AGENTS.md</span></div>
+    <div style="display:grid;grid-template-columns:34px 1fr;gap:14px;padding:14px 0;border-bottom:1px solid oklch(0.92 0 0)"><span style="font-size:11px;font-weight:700;letter-spacing:0.12em;color:oklch(0.6149 0.1057 180.86)">02</span><span style="font-size:15px;line-height:1.5;color:oklch(0 0 0);font-weight:600">Redige la specifica: outcome, vincoli, passi numerati, criteri di verifica</span></div>
+    <div style="display:grid;grid-template-columns:34px 1fr;gap:14px;padding:14px 0;border-bottom:1px solid oklch(0.92 0 0)"><span style="font-size:11px;font-weight:700;letter-spacing:0.12em;color:oklch(0.6149 0.1057 180.86)">03</span><span style="font-size:15px;line-height:1.5;color:oklch(0 0 0);font-weight:600">Scrive il codice attenendosi alla specifica, senza allargare lo scope</span></div>
+    <div style="display:grid;grid-template-columns:34px 1fr;gap:14px;padding:14px 0;border-bottom:1px solid oklch(0.92 0 0)"><span style="font-size:11px;font-weight:700;letter-spacing:0.12em;color:oklch(0.6149 0.1057 180.86)">04</span><span style="font-size:15px;line-height:1.5;color:oklch(0 0 0);font-weight:600">Suite di test, progress tracker, branch dedicato e CI/CD prima del merge</span></div>
+  </div>
+  <img src="public/images/remotenif-processo-inglese-soloicone.png" alt="Il processo di sviluppo in 7 fasi" style="width:100%;height:auto;object-fit:contain" />
+</section>
+
+<section id="m-progetti" data-screen-label="M03 Progetti" style="background:oklch(0 0 0);padding:44px 20px;display:flex;flex-direction:column;gap:34px">
+  <div style="display:flex;align-items:baseline;gap:12px">
+    <span style="font-size:44px;line-height:0.8;font-weight:800;letter-spacing:-0.04em;color:oklch(0.22 0 0)">03</span>
+    <h2 style="margin:0;font-size:26px;font-weight:800;letter-spacing:-0.02em;color:oklch(1 0 0)">Progetti</h2>
+  </div>
+
+  <div style="display:flex;flex-direction:column;gap:12px">
+    <div style="height:190px;border-radius:14px;overflow:hidden;background:oklch(0.16 0 0)"><img src="public/images/hero-pc-image.png" alt="RemoteNIF" style="width:100%;height:100%;object-fit:cover" /></div>
+    <span style="font-size:10px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:oklch(0.7331 0.1414 253.23)">Apr 2026 · Progetto 01</span>
+    <h3 style="margin:0;font-size:30px;line-height:1;font-weight:800;letter-spacing:-0.03em;color:oklch(1 0 0)">RemoteNIF</h3>
+    <p style="margin:0;font-size:15px;line-height:1.6;color:oklch(0.82 0 0)">Applicazione web full-stack, ottimizzata SEO/GEO, disponibile in 4 lingue. Digitalizza l'ottenimento del NIF portoghese per i non residenti: pagamenti Stripe, pre-analisi AI dei documenti, tre ruoli e una macchina a stati end-to-end.</p>
+    <span style="font-size:11px;color:oklch(0.62 0 0);letter-spacing:0.05em">Next.js · Supabase · Drizzle ORM · Stripe · Resend · Zod · Groq</span>
+  </div>
+
+  <div style="display:flex;flex-direction:column;gap:12px">
+    <div style="height:190px;border-radius:14px;overflow:hidden;background:oklch(0.16 0 0)"><img src="public/images/rag.png" alt="Knowledge Assistant" style="width:100%;height:100%;object-fit:cover" /></div>
+    <span style="font-size:10px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:oklch(0.6578 0.2483 20.82)">Ago 2026 · Progetto 02</span>
+    <h3 style="margin:0;font-size:30px;line-height:1;font-weight:800;letter-spacing:-0.03em;color:oklch(1 0 0)">Knowledge Assistant</h3>
+    <p style="margin:0;font-size:15px;line-height:1.6;color:oklch(0.82 0 0)">Chatbot RAG standalone che risponde solo dai documenti caricati, con chunking strutturale, hybrid search su pgvector e generazione in streaming.</p>
+    <span style="font-size:11px;color:oklch(0.62 0 0);letter-spacing:0.05em">Next.js · Supabase · Google Gemini API · Vercel AI SDK · Upstash Redis</span>
+  </div>
+
+  <div style="display:flex;flex-direction:column;gap:12px">
+    <div style="height:190px;border-radius:14px;overflow:hidden;background:oklch(0.16 0 0)"><img src="public/images/raising-pc.png" alt="Raising Kids In Portugal" style="width:100%;height:100%;object-fit:cover" /></div>
+    <span style="font-size:10px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:oklch(0.8637 0.2582 161.65)">Gen 2026 · Progetto 03</span>
+    <h3 style="margin:0;font-size:30px;line-height:1;font-weight:800;letter-spacing:-0.03em;color:oklch(1 0 0)">Raising Kids In Portugal</h3>
+    <p style="margin:0;font-size:15px;line-height:1.6;color:oklch(0.82 0 0)">Un sito multilingue di contenuti e lead generation che aiuta le famiglie internazionali a trasferirsi in Portogallo, trasformando le ricerche su scuole e quartieri in contatti per un'agenzia di relocation.</p>
+    <span style="font-size:11px;color:oklch(0.62 0 0);letter-spacing:0.05em">Next.js · TypeScript · Tailwind CSS · Framer Motion · Vercel</span>
+  </div>
+</section>
+
+<section data-screen-label="M04 Esperienza" style="padding:44px 20px;display:flex;flex-direction:column;gap:22px">
+  <div style="display:flex;align-items:baseline;gap:12px">
+    <span style="font-size:44px;line-height:0.8;font-weight:800;letter-spacing:-0.04em;color:oklch(0.92 0 0)">04</span>
+    <h2 style="margin:0;font-size:26px;font-weight:800;letter-spacing:-0.02em;color:oklch(0 0 0)">Esperienza</h2>
+  </div>
+  <p style="margin:0;font-size:17px;line-height:1.35;font-weight:700;color:oklch(0 0 0)">Dodici anni in tre mestieri, un'unica traiettoria</p>
+  <div style="position:relative;display:flex;flex-direction:column;gap:26px;padding-left:30px">
+    <div style="position:absolute;left:9px;top:6px;bottom:6px;width:2px;background:oklch(0.92 0 0)"></div>
+    <div style="position:relative;display:flex;flex-direction:column;gap:6px">
+      <span style="position:absolute;left:-30px;top:3px;width:20px;height:20px;border-radius:9999px;background:oklch(0.5 0.24 300);box-shadow:0 0 0 5px oklch(1 0 0);display:block"></span>
+      <span style="font-size:10px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:oklch(0.5 0.24 300)">2014 — 2019</span>
+      <h3 style="margin:0;font-size:18px;font-weight:700;color:oklch(0 0 0)">Sambughi Assicurazioni</h3>
+      <span style="font-size:13px;color:oklch(0.6 0 0)">Impiegato Assicurativo · Fano, Italia</span>
+      <p style="margin:0;font-size:14px;line-height:1.55">Consulenza clienti nel ramo auto, preventivi, rinnovi e back office. Senso di responsabilità e attenzione al dettaglio.</p>
+    </div>
+    <div style="position:relative;display:flex;flex-direction:column;gap:6px">
+      <span style="position:absolute;left:-30px;top:3px;width:20px;height:20px;border-radius:9999px;background:oklch(0.5 0.24 300);box-shadow:0 0 0 5px oklch(1 0 0);display:block"></span>
+      <span style="font-size:10px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:oklch(0.5 0.24 300)">2019 — 2024</span>
+      <h3 style="margin:0;font-size:18px;font-weight:700;color:oklch(0 0 0)">Cuoco e Chef</h3>
+      <span style="font-size:13px;color:oklch(0.6 0 0)">Various Employers · Australia</span>
+      <p style="margin:0;font-size:14px;line-height:1.55">Cinque anni nella ristorazione: adattamento, problem solving e comunicazione interculturale ad alto ritmo.</p>
+    </div>
+    <div style="position:relative;display:flex;flex-direction:column;gap:6px">
+      <span style="position:absolute;left:-30px;top:3px;width:20px;height:20px;border-radius:9999px;background:oklch(0.5 0.24 300);box-shadow:0 0 0 5px oklch(1 0 0);display:block"></span>
+      <span style="font-size:10px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:oklch(0.5 0.24 300)">Gen — Giu 2026</span>
+      <h3 style="margin:0;font-size:18px;font-weight:700;color:oklch(0 0 0)">InspectOs</h3>
+      <span style="font-size:13px;color:oklch(0.6 0 0)">Full Stack Intern · Lisbona</span>
+      <p style="margin:0;font-size:14px;line-height:1.55">Prodotti end-to-end pronti per la produzione su Next.js e Supabase, multilingua SEO/GEO, sviluppo assistito da AI.</p>
+    </div>
+    <div style="position:relative;display:flex;flex-direction:column;gap:6px">
+      <span style="position:absolute;left:-30px;top:3px;width:20px;height:20px;border-radius:9999px;background:oklch(0.8655 0.1595 96);box-shadow:0 0 0 5px oklch(1 0 0);display:block"></span>
+      <span style="font-size:10px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:oklch(0.6 0 0)">Presente</span>
+      <h3 style="margin:0;font-size:18px;font-weight:700;color:oklch(0 0 0)">Futuro</h3>
+      <span style="font-size:13px;color:oklch(0.6 0 0)">Cosa succederà</span>
+    </div>
+  </div>
+</section>
+
+<section data-screen-label="M05 Skills" style="padding:44px 20px;display:flex;flex-direction:column;gap:20px;border-top:1px solid oklch(0.94 0 0)">
+  <div style="display:flex;align-items:baseline;gap:12px">
+    <span style="font-size:44px;line-height:0.8;font-weight:800;letter-spacing:-0.04em;color:oklch(0.92 0 0)">05</span>
+    <h2 style="margin:0;font-size:26px;font-weight:800;letter-spacing:-0.02em;color:oklch(0 0 0)">Lo stack</h2>
+  </div>
+  <div style="display:flex;flex-wrap:wrap;gap:8px">
+    <span style="border:1px solid oklch(0.9 0 0);border-radius:9999px;padding:10px 15px;font-size:13px;font-weight:600;color:oklch(0 0 0)">TypeScript</span>
+    <span style="border:1px solid oklch(0.9 0 0);border-radius:9999px;padding:10px 15px;font-size:13px;font-weight:600;color:oklch(0 0 0)">JavaScript</span>
+    <span style="border:1px solid oklch(0.9 0 0);border-radius:9999px;padding:10px 15px;font-size:13px;font-weight:600;color:oklch(0 0 0)">Python</span>
+    <span style="border:1px solid oklch(0.9 0 0);border-radius:9999px;padding:10px 15px;font-size:13px;font-weight:600;color:oklch(0 0 0)">Next.js</span>
+    <span style="border:1px solid oklch(0.9 0 0);border-radius:9999px;padding:10px 15px;font-size:13px;font-weight:600;color:oklch(0 0 0)">React</span>
+    <span style="border:1px solid oklch(0.9 0 0);border-radius:9999px;padding:10px 15px;font-size:13px;font-weight:600;color:oklch(0 0 0)">Node.js</span>
+    <span style="border:1px solid oklch(0.9 0 0);border-radius:9999px;padding:10px 15px;font-size:13px;font-weight:600;color:oklch(0 0 0)">PostgreSQL</span>
+    <span style="border:1px solid oklch(0.9 0 0);border-radius:9999px;padding:10px 15px;font-size:13px;font-weight:600;color:oklch(0 0 0)">MySQL</span>
+    <span style="border:1px solid oklch(0.9 0 0);border-radius:9999px;padding:10px 15px;font-size:13px;font-weight:600;color:oklch(0 0 0)">MongoDB</span>
+    <span style="border:1px solid oklch(0.9 0 0);border-radius:9999px;padding:10px 15px;font-size:13px;font-weight:600;color:oklch(0 0 0)">Supabase</span>
+    <span style="border:1px solid oklch(0.9 0 0);border-radius:9999px;padding:10px 15px;font-size:13px;font-weight:600;color:oklch(0 0 0)">Figma</span>
+    <span style="border:1px solid oklch(0.9 0 0);border-radius:9999px;padding:10px 15px;font-size:13px;font-weight:600;color:oklch(0 0 0)">Git</span>
+    <span style="border:1px solid oklch(0.9 0 0);border-radius:9999px;padding:10px 15px;font-size:13px;font-weight:600;color:oklch(0 0 0)">Docker</span>
+    <span style="border:1px solid oklch(0.9 0 0);border-radius:9999px;padding:10px 15px;font-size:13px;font-weight:600;color:oklch(0 0 0)">Vercel</span>
+  </div>
+  <div style="display:flex;flex-wrap:wrap;gap:8px">
+    <span style="background:oklch(0.8655 0.1595 96);color:oklch(0 0 0);border-radius:9999px;padding:9px 16px;font-size:12px;font-weight:700">Specification-Driven Development</span>
+    <span style="background:oklch(0.8655 0.1595 96);color:oklch(0 0 0);border-radius:9999px;padding:9px 16px;font-size:12px;font-weight:700">Agile / SDLC</span>
+    <span style="background:oklch(0.8655 0.1595 96);color:oklch(0 0 0);border-radius:9999px;padding:9px 16px;font-size:12px;font-weight:700">Ingegneria assistita da IA</span>
+    <span style="background:oklch(0.8655 0.1595 96);color:oklch(0 0 0);border-radius:9999px;padding:9px 16px;font-size:12px;font-weight:700">OOP</span>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:10px">
+    <div style="display:flex;align-items:center;gap:12px;border:1.5px solid oklch(0 0 0);border-radius:12px;padding:12px 16px">
+      <img src="public/images/its-logo.png" alt="" style="height:28px;width:auto" />
+      <span style="display:flex;flex-direction:column;gap:2px">
+        <span style="font-size:11px;color:oklch(0.5 0 0);font-weight:600;letter-spacing:0.04em">ITS Marche · Full-Stack Developer &amp; Cloud Specialist</span>
+        <span style="font-size:19px;font-weight:800;letter-spacing:-0.02em;color:oklch(0 0 0)">110<span style="color:oklch(0.6 0 0);font-weight:600">/110</span></span>
+      </span>
+    </div>
+    <div style="display:flex;align-items:center;gap:12px;border:1.5px solid oklch(0 0 0);border-radius:12px;padding:12px 16px">
+      <span style="display:flex;flex-direction:column;gap:2px">
+        <span style="font-size:11px;color:oklch(0.5 0 0);font-weight:600;letter-spacing:0.04em">PTE Academic · Inglese</span>
+        <span style="font-size:19px;font-weight:800;letter-spacing:-0.02em;color:oklch(0 0 0)">C1 <span style="font-size:12px;color:oklch(0.6 0 0);font-weight:600">Advanced</span></span>
+      </span>
+    </div>
+    <span style="font-size:12px;color:oklch(0.6 0 0)">Claude Code in Action · UML (Coursera)</span>
+  </div>
+</section>
+
+<section data-screen-label="M06 Chi sono" style="position:relative;background:oklch(0 0 0);min-height:520px;display:flex;align-items:flex-end;overflow:hidden">
+  <img src="public/images/collage-about.png" alt="Collage di foto personali: viaggi, surf, il Cammino di Santiago e lavoro" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover" />
+  <div style="position:absolute;inset:0;background:linear-gradient(to top,oklch(0 0 0 / 0.92) 20%,oklch(0 0 0 / 0.4) 60%,oklch(0 0 0 / 0.15))"></div>
+  <div style="position:relative;z-index:2;padding:0 20px 36px;display:flex;flex-direction:column;gap:14px">
+    <span style="font-size:10px;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:oklch(0.8655 0.1595 96)">06 — Chi sono</span>
+    <h2 style="margin:0;font-size:28px;line-height:1.05;font-weight:800;letter-spacing:-0.03em;color:oklch(1 0 0)">L'architettura dietro le mie scelte</h2>
+    <p style="margin:0;font-size:15px;line-height:1.55;font-weight:500;color:oklch(1 0 0)">Il mio percorso non è stato lineare, e oggi considero questa la mia risorsa più preziosa. Ho costruito la mia esperienza vivendo in contesti radicalmente diversi — dall'Australia all'Asia a diverse realtà europee — affrontando settori che vanno dall'amministrazione all'ospitalità, fino allo sviluppo software.</p>
+  </div>
+</section>
+
+<section id="m-contatti" data-screen-label="M07 Contatti" style="background:oklch(0 0 0);padding:48px 20px 56px;display:flex;flex-direction:column;gap:22px">
+  <span style="font-size:10px;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:oklch(0.6149 0.1057 180.86)">07 — Contatti</span>
+  <h2 style="margin:0;font-size:38px;line-height:1;font-weight:800;letter-spacing:-0.035em;color:oklch(1 0 0)">Costruiamo qualcosa che funziona.</h2>
+  <div style="display:flex;flex-direction:column;gap:10px">
+    <a href="mailto:davidesambughi@gmail.com" style="background:oklch(1 0 0);color:oklch(0 0 0);padding:16px 24px;border-radius:9999px;font-size:15px;font-weight:700;text-align:center">davidesambughi@gmail.com</a>
+    <a href="https://www.linkedin.com/in/davide-sambughi-358b903aa/" style="border:1.5px solid oklch(1 0 0 / 0.35);color:oklch(1 0 0);padding:16px 24px;border-radius:9999px;font-size:15px;font-weight:700;text-align:center">LinkedIn</a>
+    <a href="https://github.com/davidesambughi" style="border:1.5px solid oklch(1 0 0 / 0.35);color:oklch(1 0 0);padding:16px 24px;border-radius:9999px;font-size:15px;font-weight:700;text-align:center">GitHub</a>
+  </div>
+  <span style="font-size:11px;color:oklch(0.6 0 0);letter-spacing:0.04em">davidesambughi.dev · Direzione B — Mobile</span>
+</section>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:390,&quot;height&quot;:900}}"></script>
+</body>
+</html>

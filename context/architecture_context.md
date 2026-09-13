@@ -8,6 +8,7 @@
 - Tailwind CSS 4.1.x
 - shadcn/ui (via CLI)
 - next-intl 4.13.5
+- motion 13.2.0 (added unit 16, scoped to the scrollytelling homepage rewrite — see "Deciso" below. Package name is `motion`, imported from `motion/react`; `framer-motion` is the legacy name and is not installed)
 
 **Escluso:** nessuna mutazione dati, nessun backend, sito statico.
 
@@ -48,6 +49,7 @@ Vercel.
 
 ## Deciso
 
+- **Scrollytelling homepage rewrite (2026-09-13, unit 16+) — eccezione esplicita alla regola unit 13b "nessuna libreria esterna per il motion"**: la homepage passa a un design a 7 capitoli pinnati guidati dallo scroll (handoff Claude Design in `claude-design-handoff/`, direzione "B — Dossier" scelta dall'utente; vedi `README.md` di quella cartella per lo spec completo). Libreria scelta: **`motion`** (pacchetto npm `motion`, import da `motion/react` — `framer-motion` è il nome legacy, non più sviluppato attivamente, non installato; `useScroll`+`useTransform` per il progress `p` 0→1 di ogni capitolo, `position: sticky` per il pin) — non GSAP (il branch `feat/gsap-scrollytelling` era l'idea iniziale, mai installato, superato dall'handoff). Motivo: il pattern richiesto (un solo numero di progress guida transform/opacity/color su 7 capitoli, con formule dichiarative già specificate nell'handoff) è il caso d'uso principe di `useScroll`, con meno codice imperativo da mantenere rispetto a un `requestAnimationFrame` scritto a mano. La regola 13b ("no external motion lib", IntersectionObserver + CSS transitions) resta valida per il resto del sito — qui il pattern è strutturalmente diverso (scrub continuo legato allo scroll, non reveal one-shot all'80% viewport) e non copribile con lo stesso meccanismo.
 - shadcn: **Base UI** (confermato, unit 01) — `@base-ui/react` in dipendenze, non Radix.
 - Icone: **Simple Icons** (npm `simple-icons`) per loghi tech stack + GitHub/LinkedIn/Gmail in Contacts — `lucide-react` non ha più icone brand da v1.0 (giugno 2026, rimosse per motivi di trademark). `lucide-react` resta per icone UI generiche.
 - **Tech Stack rinominato "Skills"** in nav — contiene loghi tecnologie + pill testuali di metodologie/approccio (Agile, SDLC, Specification-Driven Development, AI-assisted Engineering, OOP), non solo loghi.

@@ -48,3 +48,6 @@ next-env.d.ts
 bottom2-nav-mobile-open.png
 bottom2-nav-mobile.png
 Screenshot*.png
+
+.vercel
+.env*
