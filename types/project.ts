@@ -19,6 +19,8 @@ export type ProjectMeta = {
   githubUrl?: string;
   /** When set, the homepage card links straight here (external, new tab) instead of to the internal `/project/[slug]` detail page — MVP treatment for projects without a case-study page yet. */
   liveUrl?: string;
+  /** Temporary kill-switch: when true the homepage card renders as a plain, non-clickable card (no link, no hover lift) — e.g. while the live site is broken. Keep `liveUrl` in place and just delete this flag to restore the link. */
+  linkDisabled?: boolean;
   accentColor: AccentColor;
 };
 

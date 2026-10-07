@@ -10,5 +10,6 @@ export const projectFrontmatterSchema = z.object({
   coverImage: z.string(),
   githubUrl: z.string().optional(),
   liveUrl: z.string().optional(),
+  linkDisabled: z.boolean().optional(),
   accentColor: z.enum(["blue", "red", "yellow", "green"]),
 });

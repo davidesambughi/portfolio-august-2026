@@ -123,6 +123,13 @@ function ProjectCard({ project }: { project: ProjectMeta }) {
 
   const className = "group block";
 
+  // `linkDisabled` (temporary, e.g. live site is down): render the card as a static block. No
+  // `group` class on purpose — the card's lift/shadow and the image zoom are all `group-hover:`
+  // variants, so dropping it removes the hover affordance too and the card stops looking clickable.
+  if (project.linkDisabled) {
+    return <div className="block">{cardBody}</div>;
+  }
+
   // `liveUrl` set (MVP case, e.g. a project without a case-study page yet): the whole card
   // opens the live site in a new tab instead of the internal `/project/[slug]` detail page.
   if (project.liveUrl) {
