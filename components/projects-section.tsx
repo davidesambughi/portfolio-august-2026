@@ -55,7 +55,9 @@ export async function ProjectsSection() {
             </p>
           </div>
 
-          <div className="mt-[clamp(2rem,5vh,3.5rem)] grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {/* auto-rows-fr: every row gets the height of the tallest one, so all cards end up the
+              same height at any column count (ProjectCard fills its cell via h-full). */}
+          <div className="mt-[clamp(2rem,5vh,3.5rem)] grid auto-rows-fr grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {projects.map((project, index) => (
               <ScrollReveal key={project.slug} delayMs={staggerDelay(index)}>
                 <ProjectCard project={project} />
@@ -79,7 +81,7 @@ function ProjectCard({ project }: { project: ProjectMeta }) {
     // the image box. Badge, title, description sit in free space below it — no card frame, no
     // card background — and are horizontally centered, not left-aligned. Card's own
     // rounded/ring/bg are cancelled here (twMerge resolves the conflicting utility groups).
-    <Card className="h-full items-center gap-4 rounded-[28px] border border-[rgba(0,0,0,.07)] bg-white p-[14px_14px_26px] text-center shadow-[0_10px_30px_rgba(0,0,0,.08)] ring-0 transition-[transform,box-shadow] duration-200 group-hover:-translate-y-1 group-hover:shadow-[0_18px_44px_rgba(0,0,0,.12)]">
+    <Card className="h-full items-center justify-between gap-4 rounded-[28px] border border-[rgba(0,0,0,.07)] bg-white p-[14px_14px_26px] text-center shadow-[0_10px_30px_rgba(0,0,0,.08)] ring-0 transition-[transform,box-shadow] duration-200 group-hover:-translate-y-1 group-hover:shadow-[0_18px_44px_rgba(0,0,0,.12)]">
       {/* aspectRatio as inline style, not a Tailwind class: `coverAspect` is per-project data, and
           a template-interpolated `aspect-[${...}]` class would get purged by Tailwind's JIT
           scanner (same reasoning as ACCENT_BADGE_CLASSES above). Defaults to 16/10 when a
@@ -108,9 +110,16 @@ function ProjectCard({ project }: { project: ProjectMeta }) {
           {project.title}
         </CardTitle>
       </CardHeader>
-      <CardContent className="flex flex-col items-center gap-3">
-        <p className="text-sm text-body">{project.summary}</p>
-        <div className="flex flex-wrap justify-center gap-1.5">
+      {/* `contents`: CardContent generates no box, so summary and tags become direct flex children
+          of Card. With Card's `justify-between`, a card shorter than the tallest in the grid
+          spreads its spare height equally over the gaps image→header, header→summary and
+          summary→tags, instead of leaving it all as empty space at the bottom. Because the box is
+          gone, the padding it provided (px-(--card-spacing)) moves onto the two children, and
+          the tags' former 12px gap (gap-3, vs Card's gap-4) is restored with -mt-1, so the
+          tallest card looks exactly as before. */}
+      <CardContent className="contents">
+        <p className="px-(--card-spacing) text-sm text-body">{project.summary}</p>
+        <div className="-mt-1 flex flex-wrap justify-center gap-1.5 px-(--card-spacing)">
           {project.techStack.map((tech) => (
             <Badge key={tech} variant="secondary">
               {tech}
@@ -121,13 +130,15 @@ function ProjectCard({ project }: { project: ProjectMeta }) {
     </Card>
   );
 
-  const className = "group block";
+  // h-full: the wrapper must fill its (stretched) grid cell, otherwise Card's own h-full has no
+  // definite height to resolve against and each card shrinks to its content.
+  const className = "group block h-full";
 
   // `linkDisabled` (temporary, e.g. live site is down): render the card as a static block. No
   // `group` class on purpose — the card's lift/shadow and the image zoom are all `group-hover:`
   // variants, so dropping it removes the hover affordance too and the card stops looking clickable.
   if (project.linkDisabled) {
-    return <div className="block">{cardBody}</div>;
+    return <div className="block h-full">{cardBody}</div>;
   }
 
   // `liveUrl` set (MVP case, e.g. a project without a case-study page yet): the whole card
